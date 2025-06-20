@@ -31,3 +31,13 @@ INSTALLED_APPS = [
     'orders',
     'portfolio',
 ]
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',  # required by admin
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # required by admin
+    'django.contrib.messages.middleware.MessageMiddleware',  # required by admin
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
