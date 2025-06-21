@@ -98,3 +98,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ADMIN_SITE_HEADER = "Artea Admin"
+ADMIN_SITE_TITLE = "Artea Administration"
+ADMIN_INDEX_TITLE = "Welcome to Artea Studio"
