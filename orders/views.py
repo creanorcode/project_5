@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def design_order(request):
+    return render(request, 'design_order.html'),
