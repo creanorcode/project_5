@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Order a Design | Artea{% endblock %}
+{% block content %}
+<section class="order-form">
+    <h2>Request a Custom Design</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</section>
+{% endblock %}
