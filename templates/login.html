@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Logga in</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Logga in</button>
+    </form>
+    <p>Har du inget konto? <a href="{% url 'register' %}">Registrera dig här</a>.</p>
+</div>
+{% endblock %}
