@@ -102,27 +102,44 @@ footer {
     color: #777;
 }
 
-/* === Messages (Django Messages) === */
-.messages {
-    list-style: none;
-    padding: 10px;
-    margin-bottom: 20px;
+/* === Messages (Django Messages) - Div-based modern style === */
+.messages-container {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 0 20px;
 }
 
-.messages li {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+.message {
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.messages li.success {
-    background-color: #dff0d8;
-    color: #3c763d;
+.message.success {
+    background-color: #e6f8f1;
+    color: #207f62;
+    border-left: 6px solid #2ecc71;
 }
 
-.messages li.error {
-    background-color: #f2dede;
-    color: #a94442;
+.message.error {
+    background-color: #fdecea;
+    color: #a01b1b;
+    border-left: 6px solid #e74c3c;
+}
+
+.message.info {
+    background-color: #e8f1fa;
+    color: #1c4e80;
+    border-left: 6px solid #3498db;
+}
+
+.message.warning {
+    background-color: #fff8e1;
+    color: #8a6d3b;
+    border-left: 6px solid #f39c12;
 }
 
 /* === Forms === */
