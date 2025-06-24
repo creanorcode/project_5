@@ -161,6 +161,12 @@ form {
     margin-top: 15px;
 }
 
+.form-error {
+    color: #c0392b;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
 label {
     font-weight: bold;
 }

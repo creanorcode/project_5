@@ -1,22 +1,27 @@
 {% extends 'base.html' %}
 {% block title %}Login | Artea{% endblock %}
-{% block content %}
-<div class="container-narrow">
-    <h2>Login</h2>
 
-    <form method="post">
+{% block content %}
+<section class="container-narrow">
+    <h2>Log in</h2>
+    <form method="post" novalidate>
         {% csrf_token %}
+
         {% for field in form %}
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            {{ field }}
-            {% if field.errors %}
-                <div class="error">{{ field.errors }}</div>
-            {% endif %}
+            <div>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="form-error">
+                        {{ field.errors.as_text }}
+                    </div>
+                {% endif %}
+            </div>
         {% endfor %}
 
-        <button type="submit">Log in</button>
+        <button type="submit" class="btn">Log in</button>
     </form>
 
-    <p>Don´t have an account? <a href="{% url 'register' %}">Register here.</a>.</p>
-</div>
+    <p>Don´t have an account yet? <a href="{% url 'register' %}">Register here.</a>.</p>
+</section>
 {% endblock %}
