@@ -82,8 +82,10 @@ a:hover {
 /* === Main content styling === */
 .site-main {
     flex: 1;
-    padding: 2rem 0;
+    padding: 4rem 0 2rem;  /* top right/left bottom */
     background-color: #ffffff;
+    max-width: 1000px;
+    margin: 0 auto;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.04);
 }
