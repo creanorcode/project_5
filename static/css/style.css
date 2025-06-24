@@ -106,6 +106,12 @@ a:hover {
     margin: 0 auto;
 }
 
+.container-narrow {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 /* === Messages (Django Messages) - Div-based modern style === */
 .messages-container {
     margin: 20px auto;
