@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
-
+{% block title %}Login | Artea{% endblock %}
 {% block content %}
 <div class="container-narrow">
     <h2>Login</h2>
+
     <form method="post">
         {% csrf_token %}
         {% for field in form %}
-            <div>
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                {{ field }}
-                {% if field.errors %}
-                    <div style="color: red;">{{ field.errors }}</div>
-                {% endif %}
-            </div>
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="error">{{ field.errors }}</div>
+            {% endif %}
         {% endfor %}
-        <input type="submit" value="Log in">
+
+        <button type="submit">Log in</button>
     </form>
 
     <p>Don´t have an account? <a href="{% url 'register' %}">Register here.</a>.</p>
