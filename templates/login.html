@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
-{% block title %}Login{% endblock %}
 
 {% block content %}
 <div class="container-narrow">
-    <h2>Logga in</h2>
+    <h2>Login</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn">Logga in</button>
+        {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div style="color: red">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <input type="submit" value="Log in">
     </form>
-    <p>Har du inget konto? <a href="{% url 'register' %}">Registrera dig här</a>.</p>
+
+    <p>Don´t have an account? <a href="{% url 'register' %}">Register here.</a>.</p>
 </div>
 {% endblock %}
