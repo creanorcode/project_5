@@ -31,7 +31,7 @@ def login_view(request):
             messages.error(request, 'Invalid username or password.')
     else:
         form = AuthenticationForm()
-        
+       
     return render(request, 'accounts/login.html', {'form': form})
 
 
