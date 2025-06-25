@@ -4,8 +4,14 @@
 {% block content %}
 <section class="container-narrow">
     <h2>Log in</h2>
+    
     <form method="post" novalidate>
         {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="form-error">
+                {{ form.non_field_errors }}
+            </div>
 
         {% for field in form %}
             <div>
