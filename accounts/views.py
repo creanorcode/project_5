@@ -9,12 +9,15 @@ def register_view(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Account created successfully. You can now log in.')
-            return redirect('login')
-
+            user = form.save()
+            login(request, user)
+            messages.success(request, f'Welcome, {user.username}! Your account was created.')
+            return redirect('home')
+        else:
+            messages.error(request, 'There was a problem with your registration.')
     else:
         form = UserRegisterForm()
+
     return render(request, 'accounts/register.html', {'form': form})
 
 
