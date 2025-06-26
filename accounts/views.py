@@ -11,10 +11,10 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, f'Welcome, {user.username}! Your account was created.')
+            messages.success(request, f"Account created successfully. Welcome, {user.username}!")
             return redirect('home')
         else:
-            messages.error(request, 'There was a problem with your registration.')
+            messages.error(request, "There was a problem with your registration. Please check the form below.")
     else:
         form = UserRegisterForm()
 
@@ -22,7 +22,7 @@ def register_view(request):
 
 
 def login_view(request):
-    if request.method =='POST':
+    if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
 
         if form.is_valid():
@@ -34,7 +34,7 @@ def login_view(request):
             messages.error(request, 'Invalid username or password.')
     else:
         form = AuthenticationForm()
-       
+
     return render(request, 'accounts/login.html', {'form': form})
 
 
