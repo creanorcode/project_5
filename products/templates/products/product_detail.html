@@ -3,11 +3,13 @@
 {% block title %}{{ product.title }} | Artea{% endblock %}
 
 {% block content %}
-<section class="container-narrow">
+<section class="container-narrow product-detail">
     <h2>{{ product.title }}</h2>
-    <img src="{{ product.image.url }}" alt="{{ product.title }}" class="product-detail-image">
-    <p>{{ product.description }}</p>
+    <figure>
+        <img src="{{ product.image.url }}" alt="{{ product.title }}" class="product-detail-image">
+        <figcaption>{{ product.description }}</figcaption>
+    </figure>
     <p class="price">€{{ product.price }}</p>
-    <a href="{% url 'product_list' %}">Back to products</a>
+    <a href="{% url 'product_list' %}" class="btn">Back to Products</a>
 </section>
 {% endblock %}
