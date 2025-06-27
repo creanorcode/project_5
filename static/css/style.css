@@ -204,6 +204,61 @@ input[type="submit"]:hover {
     background-color: #1f6394;
 }
 
+/* === Product Grid === */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.product-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.product-card h3 {
+    font-size: 1.2rem;
+    margin: 0.5rem;
+    color: #333;
+}
+
+.product-card p {
+    margin: 0.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* === Product Detail === */
+.product-detail-image {
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem auto;
+    display: block;
+    border-radius: 10px;
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #207f62;
+    margin: 1rem 0;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
     .main-nav {
