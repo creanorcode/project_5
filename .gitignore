@@ -11,3 +11,4 @@ cloudinary_python.txt
 .env
 .env.example
 db.sqlite3
+/media/
