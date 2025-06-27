@@ -4,16 +4,20 @@
 
 {% block content %}
 <section class="container-narrow">
-    <h2>Products</h2>
+    <h2>Our Products</h2>
     <div class="product-grid">
         {% for product in products %}
-            <div class="product-card">
+            <article class="product-card">
                 <a href="{% url 'product_detail' product.pk %}">
-                    <img src="{{ product.image.url }}" alt="{{ product.title }}">
-                    <h3>{{ product.title }}</h3>
-                    <p>€{{ product.price }}</p>
+                    <figure>
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                        <figcaption>
+                            <h3>{{ product.title }}</h3>
+                            <p class="price">€{{ product.price }}</p>
+                        </figcaption>
+                    </figure>
                 </a>
-            </div>
+            </article>
         {% endfor %}
     </div>
 </section>
