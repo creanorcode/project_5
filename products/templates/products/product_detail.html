@@ -10,6 +10,6 @@
         <figcaption>{{ product.description }}</figcaption>
     </figure>
     <p class="price">€{{ product.price }}</p>
-    <a href="{% url 'product_list' %}" class="btn">Back to Products</a>
+    <a href="{% url 'products:product_list' %}" class="btn">Back to Products</a>
 </section>
 {% endblock %}
