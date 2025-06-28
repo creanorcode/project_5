@@ -17,6 +17,10 @@
                         </figcaption>
                     </figure>
                 </a>
+                <form action="{% url 'cart:add_to_cart' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary mt-2">Add to cart</button>
+                </form>
             </article>
         {% endfor %}
     </div>
