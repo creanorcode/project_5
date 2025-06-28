@@ -18,6 +18,7 @@ def cart_detail(request):
                 'product': item.product,
                 'quantity': item.quantity,
                 'subtotal': item.product.price * item.quantity,
+                'id': item.id,
             })
             total_price += item.product.price * item.quantity
     else:
@@ -62,27 +63,26 @@ def add_to_cart(request, product_id):
     return redirect('cart:cart_detail')
 
 
-def remove_from_cart(request, product_id):
+def remove_from_cart(request, item_id):
     """
     Remove a specific CartItem from the cart by ID.
     """
-    product = get_object_or_404(Product, id=product_id)
 
     if request.user.is_authenticated:
-        try:
-            cart_item = CartItem.objects.get(user=request.user, product=product)
+            cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
             cart_item.delete()
-        except CartItem.DoesNotExist:
-            pass
     else:
         cart = request.session.get('cart', {})
-        cart.pop(str(product_id), None)
+        cart.pop(str(item_id), None)
         request.session['cart'] = cart
 
     return redirect('cart:cart_detail')
 
 
 def update_cart(request, product_id):
+    """
+    Update quantity of a product in the cart.
+    """
     product = get_object_or_404(Product, id=product_id)
 
     if request.method == 'POST':
@@ -95,8 +95,11 @@ def update_cart(request, product_id):
                 defaults={'quantity': quantity}
             )
             if not created:
-                cart_item.quantity = quantity
-                cart_item.save()
+                if quantity > 0:
+                    cart_item.quantity = quantity
+                    cart_item.save()
+                else:
+                    cart_item.delete()
         else:
             cart = request.session.get('cart', {})
             if quantity > 0:
@@ -104,5 +107,5 @@ def update_cart(request, product_id):
             else:
                 cart.pop(str(product_id), None)
             request.session['cart'] = cart
-            
+
     return redirect('cart:cart_detail')
