@@ -62,22 +62,47 @@ def add_to_cart(request, product_id):
     return redirect('cart:cart_detail')
 
 
-def remove_from_cart(request, item_id):
+def remove_from_cart(request, product_id):
     """
     Remove a specific CartItem from the cart by ID.
     """
-    cart_item = get_object_or_404(CartItem, id=item_id)
-    cart_item.delete()
+    product = get_object_or_404(Product, id=product_id)
+
+    if request.user.is_authenticated:
+        try:
+            cart_item = CartItem.objects.get(user=request.user, product=product)
+            cart_item.delete()
+        except CartItem.DoesNotExist:
+            pass
+    else:
+        cart = request.session.get('cart', {})
+        cart.pop(str(product_id), None)
+        request.session['cart'] = cart
+
     return redirect('cart:cart_detail')
 
 
-def update_cart(request, item_id):
-    """
-    Update quantity for a CartItem.
-    """
-    item = get_object_or_404(CartItem, id=item_id)
+def update_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+
     if request.method == 'POST':
         quantity = int(request.POST.get('quantity', 1))
-        item.quantity = quantity
-        item.save()
+
+        if request.user.is_authenticated:
+            cart_item, created = CartItem.objects.get_or_create(
+                user=request.user,
+                product=product,
+                defaults={'quantity': quantity}
+            )
+            if not created:
+                cart_item.quantity = quantity
+                cart_item.save()
+        else:
+            cart = request.session.get('cart', {})
+            if quantity > 0:
+                cart[str(product_id)] = quantity
+            else:
+                cart.pop(str(product_id), None)
+            request.session['cart'] = cart
+            
     return redirect('cart:cart_detail')
