@@ -23,7 +23,10 @@ def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     cart_item, created = CartItem.objects.get_or_create(
         product=product,
-        defaults=('quantity': 1, 'created_at': timezone.now())
+        defaults={
+            'quantity': 1,
+            'created_at': timezone.now()
+        }
     )
     if not created:
         cart_item.quantity += 1
