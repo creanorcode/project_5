@@ -42,20 +42,22 @@ def add_to_cart(request, product_id):
     """
     Add a product to the cart, or increase quantity if it already exists.
     """
-    if not request.user.is_authenticated:
-        return redirect('login')
-    
     product = get_object_or_404(Product, id=product_id)
 
-    cart_item, created = CartItem.objects.get_or_create(
-        user=request.user,
-        product=product,
-        defaults={'quantity': 1}
-    )
-
-    if not created:
-        cart_item.quantity += 1
-        cart_item.save()
+    if request.user.is_authenticated:
+        cart_item, created = CartItem.objects.get_or_create(
+            user=request.user,
+            product=product,
+            defaults={'quantity': 1}
+        )
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save()
+    else:
+        # use session cart
+        cart = request.session.get('cart', {})
+        cart[str(product_id)] = cart(str(product_id), 0) + 1
+        request.session['cart'] = cart
 
     return redirect('cart:cart_detail')
 
