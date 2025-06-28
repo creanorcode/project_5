@@ -28,3 +28,8 @@ def add_to_cart(request, product_id):
     cart[str(product_id)] = cart.get(str(product_id), 0) + 1
     request.session['cart'] = cart
     return redirect('cart:cart_detail')
+
+
+def remove_from_cart(request, item_id):
+    # vi fyller i logiken senare
+    pass
