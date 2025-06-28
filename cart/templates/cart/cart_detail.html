@@ -14,27 +14,29 @@
                         <h3>{{ item.product.title }}</h3>
                         <p class="cart-item-price">Price: €{{ item.product.price }}</p>
                         <p class="cart-item-quantity">Quantity: {{ item.quantity }}</p>
+
                         <!-- quantity update -->
-                        <form method="post" action="{% url 'cart:update_cart' item.id %}">
+                        <form method="post" action="{% url 'cart:update_cart' item.id %}" class="cart-update-form">
                             {% csrf_token %}
                             <imput
                                 type="number"
                                 name="quantity"
                                 value="{{ item.quantity }}"
                                 min="1"
-                                class="w-16 border rounded p-1"></imput>
-                            <button type="submit" class="bg-blue-500 text-white rounded px-2 py-1 hover:bg-blue-600">Update</button>
+                                class="cart-quantity-input"></imput>
+                            <button type="submit" class="cart-update-btn">Update</button>
                         </form>
+
                         <!-- Remove -->
-                        <form method="post" action="{% url 'cart:remove_from_cart' item.id %}">
+                        <form method="post" action="{% url 'cart:remove_from_cart' item.id %}" class="cart-remove-form">
                             {% csrf_token %}
-                            <button type="submit" class="bg-red-500 text-white rounded px-2 py-1 hover:bg-red-600">Remove</button>
+                            <button type="submit" class="cart-remove-btn">Remove</button>
                         </form>
                     </div>
                 </li>
             {% endfor %}
         </ul>
-        <p class="cart-total mt-4 font-bold">Total: €{{ total_price }}</p>
+        <p class="cart-total">Total: €{{ total_price }}</p>
     {% else %}
         <p>Your cart is empty.</p>
     {% endif %}

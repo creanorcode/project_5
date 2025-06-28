@@ -243,6 +243,83 @@ input[type="submit"]:hover {
     color: #2c3e50;
 }
 
+/* === Cart styling === */
+.cart-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-list-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+}
+
+.cart-item-img {
+    width: 80px;
+    height: auto;
+    margin-right: 1rem;
+    border-radius: 4px;
+}
+
+.cart-item-info {
+    flex-grow: 1;
+}
+
+.cart-item-price,
+.cart-item-quantity {
+    margin: 0.25rem 0;
+}
+
+.cart-update-form,
+.cart-remove-form {
+    margin-top: 0.5rem;
+}
+
+.cart-quantity-input {
+    width: 60px;
+    padding: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+}
+
+.cart-update-btn {
+    background-color: #07c;
+    color: #fff;
+    border: none;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.cart-update-btn:hover {
+    background-color: #005fa3;
+}
+
+.cart-remove-btn {
+    background-color: #e63946;
+    color: #fff;
+    border: none;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.cart-remove-btn:hover {
+    background-color: #c70030;
+}
+
+.cart-total {
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
 /* === Product Detail === */
 .product-detail-image {
     width: 100%;
