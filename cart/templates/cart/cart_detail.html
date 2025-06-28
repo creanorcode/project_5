@@ -5,49 +5,60 @@
 
 {% block content %}
 <section class="container-narrow">
-    <h2>Shopping Cart</h2>
-    {% if cart_items %}
-        <ul class="cart-list">
-            {% for item in cart_items %}
-                <li class="cart-list-item">
-                    <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}" class="cart-item-img">
-                    <div class="cart-item-info">
-                        <h3>{{ item.product.title }}</h3>
-                        <p class="cart-item-price">Price: €{{ item.product.price }}</p>
-                        <p class="cart-item-quantity">Quantity: {{ item.quantity }}</p>
+  <h2>Shopping Cart</h2>
+  {% if cart_items %}
+    <ul class="cart-list">
+      {% for item in cart_items %}
+        <li class="cart-list-item">
+          <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}" class="cart-item-img">
+          <div class="cart-item-info">
+            <h3>{{ item.product.title }}</h3>
+            <p class="cart-item-price">Price: €{{ item.product.price }}</p>
+            <p class="cart-item-quantity">Quantity: {{ item.quantity }}</p>
 
-                        {% if item.id %}
-                        <!-- inloggad användare -->
-                        <form method="post" action="{% url 'cart:update_cart' item.id %}" class="cart-update-form">
-                            {% csrf_token %}
-                            <input
-                                type="number"
-                                name="quantity"
-                                value="{{ item.quantity }}"
-                                min="0"
-                                class="cart-quantity-input">
-                            <button type="submit" class="cart-update-btn">Update</button>
-                        </form>
+            {% if item.id %}
+              <!-- Inloggad användare -->
+              <form method="post" action="{% url 'cart:update_cart' item.id %}" class="cart-update-form">
+                {% csrf_token %}
+                <input
+                  type="number"
+                  name="quantity"
+                  value="{{ item.quantity }}"
+                  min="1"
+                  class="cart-quantity-input">
+                <button type="submit" class="cart-update-btn">Update</button>
+              </form>
 
-                        <form method="post" action="{% url 'cart:remove_from_cart' item.id %}" class="cart-remove-form" onsubmit="return confirm('Are you sure you want to remove this item?');">
-                            {% csrf_token %}
-                            <button type="submit" class="cart-remove-btn">Remove</button>
-                        </form>
-                        {% else %}
-                        <!-- anonym användare -->
-                        <form method="post" action="{% url 'cart:add_to_cart' item.product.id %}">
-                            {% csrf_token %}
-                            <button type="submit">Add one more</button>
-                        </form>
-                        {% endif %}
+              <form method="post" action="{% url 'cart:remove_from_cart' item.id %}" class="cart-remove-form" onsubmit="return confirm('Are you sure you want to remove this item?');">
+                {% csrf_token %}
+                <button type="submit" class="cart-remove-btn">Remove</button>
+              </form>
+            {% else %}
+              <!-- Anonym användare -->
+              <form method="post" action="{% url 'cart:update_cart_session' item.product.id %}" class="cart-update-form">
+                {% csrf_token %}
+                <input
+                  type="number"
+                  name="quantity"
+                  value="{{ item.quantity }}"
+                  min="1"
+                  class="cart-quantity-input">
+                <button type="submit" class="cart-update-btn">Update</button>
+              </form>
 
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-        <p class="cart-total">Total: €{{ total_price }}</p>
-    {% else %}
-        <p>Your cart is empty.</p>
-    {% endif %}
+              <form method="post" action="{% url 'cart:remove_from_cart_session' item.product.id %}" class="cart-remove-form" onsubmit="return confirm('Are you sure you want to remove this item?');">
+                {% csrf_token %}
+                <button type="submit" class="cart-remove-btn">Remove</button>
+              </form>
+            {% endif %}
+
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+    <p class="cart-total">Total: €{{ total_price }}</p>
+  {% else %}
+    <p>Your cart is empty.</p>
+  {% endif %}
 </section>
 {% endblock %}

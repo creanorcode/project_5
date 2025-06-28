@@ -65,7 +65,8 @@ def add_to_cart(request, product_id):
 
 def remove_from_cart(request, item_id):
     """
-    Remove a specific CartItem from the cart by ID.
+    Remove a product from the cart by product_id for anonymous,
+    or CartItem.id for authenticated.
     """
 
     if request.user.is_authenticated:
@@ -81,16 +82,52 @@ def remove_from_cart(request, item_id):
 
 def update_cart(request, item_id):
     """
-    Update quantity of a cart item (by CartItem.id).
+    Update quantity of a product in the cart.
     """
-    cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
-
     if request.method == 'POST':
         quantity = int(request.POST.get('quantity', 1))
-        if quantity > 0:
-            cart_item.quantity = quantity
-            cart_item.save()
+
+        if request.user.is_authenticated:
+            cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
+            if quantity > 0:
+                cart_item.quantity = quantity
+                cart_item.save()
+            else:
+                cart_item.delete()
         else:
-            cart_item.delete()
+            cart = request.session.get('cart', {})
+            if quantity > 0:
+                cart[str(item_id)] = quantity
+            else:
+                cart.pop(str(item_id), None)
+            request.session['cart'] = cart
+
+    return redirect('cart:cart_detail')
+
+
+def update_cart_session(request, product_id):
+    """
+    Update quantity for a product in the cart using session storage.
+    """
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        cart = request.session.get('cart', {})
+        if quantity > 0:
+            cart[str(product_id)] = quantity
+        else:
+            cart.pop(str(product_id), None)
+        request.session['cart'] = cart
+
+    return redirect('cart:cart_detail')
+
+
+def remove_from_cart_session(request, product_id):
+    """
+    Remove a product completely from the cart in session storage.
+    """
+    if request.method == 'POST':
+        cart = request.session.get('cart', {})
+        cart.pop(str(product_id), None)
+        request.session['cart'] = cart
 
     return redirect('cart:cart_detail')
