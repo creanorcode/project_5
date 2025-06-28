@@ -31,5 +31,9 @@ def add_to_cart(request, product_id):
 
 
 def remove_from_cart(request, item_id):
-    # vi fyller i logiken senare
-    pass
+    """
+    Remove a specific CartItem from the cart by ID.
+    """
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    cart_item.delete()
+    return redirect('cart:cart_detail')
