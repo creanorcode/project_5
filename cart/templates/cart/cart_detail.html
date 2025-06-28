@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Shopping Cart | Artea{% endblock %}
 
@@ -15,23 +16,31 @@
                         <p class="cart-item-price">Price: €{{ item.product.price }}</p>
                         <p class="cart-item-quantity">Quantity: {{ item.quantity }}</p>
 
-                        <!-- quantity update -->
+                        {% if item.id %}
+                        <!-- inloggad användare -->
                         <form method="post" action="{% url 'cart:update_cart' item.id %}" class="cart-update-form">
                             {% csrf_token %}
-                            <imput
+                            <input
                                 type="number"
                                 name="quantity"
                                 value="{{ item.quantity }}"
                                 min="1"
-                                class="cart-quantity-input"></imput>
+                                class="cart-quantity-input">
                             <button type="submit" class="cart-update-btn">Update</button>
                         </form>
 
-                        <!-- Remove -->
                         <form method="post" action="{% url 'cart:remove_from_cart' item.id %}" class="cart-remove-form">
                             {% csrf_token %}
                             <button type="submit" class="cart-remove-btn">Remove</button>
                         </form>
+                        {% else %}
+                        <!-- anonym användare -->
+                        <form method="post" action="{% url 'cart:add_to_cart' item.product.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Add one more</button>
+                        </form>
+                        {% endif %}
+
                     </div>
                 </li>
             {% endfor %}
