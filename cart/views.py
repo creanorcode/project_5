@@ -37,3 +37,12 @@ def remove_from_cart(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)
     cart_item.delete()
     return redirect('cart:cart_detail')
+
+
+def update_cart(request, item_id):
+    item = get_object_or_404(CartItem, id=item_id)
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        item.quantity = quantity
+        item.save()
+    return redirect('cart:cart_detail')
