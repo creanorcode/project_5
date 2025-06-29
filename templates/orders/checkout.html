@@ -4,16 +4,27 @@
 
 {% block content %}
 <section class="container-narrow">
-    <h2>Checkout</h2>
+  <h2>Checkout</h2>
+  
+  {% if cart_items %}
     <form method="post">
-        {% csrf_token %}
-        <ul>
-            {% for item in cart_items %}
-                <li>{{ item.quantity }} x {{ item.product.title }} - €{{ item.product.price }}</li>
-            {% endfor %}
-        </ul>
-        <p><strong>Total:</strong> €{{ total_price }}</p>
-        <button type="submit">Place order</button>
+      {% csrf_token %}
+      <ul class="checkout-list">
+        {% for item in cart_items %}
+          <li class="checkout-item">
+            <div>
+              <strong>{{ item.product.title }}</strong>
+              ({{ item.quantity }} × €{{ item.product.price }}) = 
+              €{{ item.quantity|floatformat:2|add:item.product.price|floatformat:2 }}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+      <p class="checkout-total">Total: €{{ total_price }}</p>
+      <button type="submit" class="btn btn-primary">Confirm Order</button>
     </form>
+  {% else %}
+    <p>Your cart is empty.</p>
+  {% endif %}
 </section>
 {% endblock %}
