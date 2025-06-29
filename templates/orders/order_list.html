@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}My Orders | Artea{% endblock %}
+
+{% block content %}
+<section class="container-narrow">
+    <h2>My Orders</h2>
+    {% if orders %}
+        <ul class="order-list">
+            {% for order in orders %}
+                <li>
+                    <strong>Order #{{ order.id }}</strong> - {{ order.created_at|date:"Y-m-d H:i" }}
+                    <ul>
+                        {% for item in order.items.all %}
+                            <li>{{ item.quantity }} x {{ item.product.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no orders yet.</p>
+    {% endif %}
+</section>
+{% endblock %}
