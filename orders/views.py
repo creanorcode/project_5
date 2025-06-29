@@ -32,46 +32,52 @@ def checkout(request):
     """
     Convert the current cart into an Order and its OrderItems
     """
-    cart_items = CartItem.objects.filter(user=request.user)
+    cart_items = []
+    total_price = 0
 
-    if not cart_items.exists():
+    db_items = CartItem.objects.filter(user=request.user)
+
+    if not db_items.exists():
         messages.warning(request, "Your cart is empty.")
         return redirect('cart:cart_detail')
 
-    if request.method == 'POST':
-        # beräkna totalpriset
-        total_price = sum(item.product.price * item.quantity for item in cart_items)
+    # build cart_items list with subtotal
+    for item in db_items:
+        subtotal = item.product.price * item.quantity
+        cart_items.append({
+            'product': item.product,
+            'quantity': item.quantity,
+            'subtotal': subtotal,
+        })
+        total_price += subtotal
 
-        # skapa order
+    if request.method == 'POST':
         order = Order.objects.create(
             user=request.user,
             total_price=total_price,
             status='pending'
         )
-
-        # skapa orderrader
-        for item in cart_items:
+        for item in db_items:
             OrderItem.objects.create(
                 order=order,
                 product=item.product,
                 quantity=item.quantity,
                 price=item.product.price,
             )
-
-        # Clear cart after checkout
-        cart_items.delete()
+        db_items.delete()
         messages.success(request, f"Order #{order.id} created successfully!")
         return redirect('orders:order_complete', order_id=order.id)
 
-    # för GET - visa sammanställning
-    context = {
+    return render(request, 'orders/checkout.html', {
         'cart_items': cart_items,
-        'total_price': sum(item.product.price * item.quantity for item in cart_items),
-    }
-
-    return render(request, 'orders/checkout.html', context)
+        'total_price': total_price,
+    })
 
 
 @login_required
-def order_complete(request):
-    return render(request, 'orders/order_complete.html')
+def order_complete(request, order_id):
+    """
+    Show the confirmation after a completed order. 
+    """
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    return render(request, 'orders/order_complete.html', {'order': order})
