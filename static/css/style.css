@@ -336,6 +336,74 @@ input[type="submit"]:hover {
     margin: 1rem 0;
 }
 
+/* === Checkout page styling === */
+.checkout-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.checkout-table th,
+.checkout-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.checkout-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.checkout-total {
+  text-align: right;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.checkout-form .checkout-btn {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.checkout-form .checkout-btn:hover {
+  background-color: #0056b3;
+}
+
+/* === Order Complete page styling === */
+.order-complete {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.order-complete h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.order-complete p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.order-complete a {
+  display: inline-block;
+  background-color: #28a745;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.order-complete a:hover {
+  background-color: #218838;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
     .main-nav {
