@@ -81,3 +81,14 @@ def order_complete(request, order_id):
     """
     order = get_object_or_404(Order, id=order_id, user=request.user)
     return render(request, 'orders/order_complete.html', {'order': order})
+
+
+@login_required
+def order_history(request):
+    """
+    Show a list of previous orders for the logged-in user.
+    """
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'orders/order_history.html', {
+        'orders': orders
+    })
