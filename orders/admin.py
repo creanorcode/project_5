@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import DesignType, DesignOrder, CompletedDesign
+from .models import DesignType, DesignOrder, CompletedDesign, Order, OrderItem
 
 """
 Admin configuration for the orders app,
@@ -26,3 +26,17 @@ class DesignOrderAdmin(admin.ModelAdmin):
 class CompletedDesignAdmin(admin.ModelAdmin):
     list_display = ('order', 'uploaded_at',)
     search_fields = ('order_id',)
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'created_at', 'paid')
+    list_filter = ('paid', 'created_at')
+    search_fields = ('user__username', 'id')
+    ordering = ('-created_at',)
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'order', 'product', 'quantity', 'price')
+    search_fields = ('order__id', 'product__title')
