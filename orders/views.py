@@ -54,19 +54,19 @@ def checkout(request):
             OrderItem.objects.create(
                 order=order,
                 product=item.product,
-                quantity=item.quantity
+                quantity=item.quantity,
                 price=item.product.price,
             )
 
         # Clear cart after checkout
         cart_items.delete()
         messages.success(request, f"Order #{order.id} created successfully!")
-        return redirect('orders:order_complete' order_id=order.id)
+        return redirect('orders:order_complete', order_id=order.id)
 
     # för GET - visa sammanställning
-    context = (
+    context = {
         'cart_items': cart_items,
         'total_price': sum(item.product.price * item.quantity for item in cart_items),
-    )
+    }
 
     return render(request, 'orders/checkout.html', context)
