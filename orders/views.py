@@ -33,28 +33,40 @@ def checkout(request):
     Convert the current cart into an Order and its OrderItems
     """
     cart_items = CartItem.objects.filter(user=request.user)
-    if not cart_items:
+
+    if not cart_items.exists():
         messages.warning(request, "Your cart is empty.")
         return redirect('cart:cart_detail')
 
     if request.method == 'POST':
-        order = Order.objects.create(user=request.user)
+        # beräkna totalpriset
+        total_price = sum(item.product.price * item.quantity for item in cart_items)
 
+        # skapa order
+        order = Order.object.create(
+            user=request.user,
+            total_price=total_price,
+            status='pending'
+        )
+
+        # skapa orderrader
         for item in cart_items:
             OrderItem.objects.create(
                 order=order,
                 product=item.product,
                 quantity=item.quantity
+                price=item.product.price,
             )
+
         # Clear cart after checkout
         cart_items.delete()
-
         messages.success(request, f"Order #{order.id} created successfully!")
-        return redirect('orders:order_list')
+        return redirect('orders:order_complete' order_id=order.id)
 
-    total_price = sum(item.product.price * item.quantity for item in cart_items)
-
-    return render(request, 'orders/checkout.html', {
+    # för GET - visa sammanställning
+    context = (
         'cart_items': cart_items,
-        'total_price': total_price
-    })
+        'total_price': sum(item.product.price * item.quantity for item in cart_items),
+    )
+
+    return render(request, 'orders/checkout.html', context)
