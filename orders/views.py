@@ -92,3 +92,15 @@ def order_history(request):
     return render(request, 'orders/order_history.html', {
         'orders': orders
     })
+
+
+@login_required
+def order_detail(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    order_items = order.items.all()
+
+    context = {
+        "order": order,
+        "order_items": order_items,
+    }
+    return render(request, "orders/order_detail.html", context)

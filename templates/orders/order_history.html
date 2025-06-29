@@ -14,6 +14,7 @@
           <th>Date</th>
           <th>Status</th>
           <th>Total</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +24,9 @@
           <td>{{ order.created_at|date:"Y-m-d H:i" }}</td>
           <td>{{ order.status }}</td>
           <td>€{{ order.total_price }}</td>
+          <td>
+            <a href="{% url 'orders:order_detail' order.id %}" class="btn btn-primary btn-sm">View Details</a>
+          </td>
         </tr>
         {% endfor %}
       </tbody>
