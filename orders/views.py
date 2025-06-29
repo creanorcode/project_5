@@ -103,7 +103,7 @@ def order_detail(request, order_id):
 
     # Lägg till subtotal i context
     subtotal_items = []
-    for item in order.orderitem_set.all():
+    for item in order.items.all():
         subtotal_items.append({
             "product": item.product,
             "price": item.price,
