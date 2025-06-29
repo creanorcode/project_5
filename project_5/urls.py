@@ -15,7 +15,8 @@ urlpatterns = [
     # path('register/', TemplateView.as_view(template_name='register.html'), name='register'), register
     path('', include('portfolio.urls')),
     path('products/', include('products.urls')),
-    path('cart/', include('cart.urls')),
+    path('cart/', include('cart.urls', namespace='cart')),
+    path('orders/', include('orders.urls', namespace='orders')),
 ]
 
 if settings.DEBUG:
