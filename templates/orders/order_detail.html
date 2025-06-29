@@ -21,9 +21,9 @@
       {% for item in order_items %}
       <tr>
         <td>{{ item.product.title }}</td>
-        <td>{{ item.quantity }}</td>
         <td>€{{ item.price }}</td>
-        <td>€{{ item.price|floatformat:2|add:item.quantity|floatformat:2 }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>€{{ item.subtotal|floatformat:2 }}</td>
       </tr>
       {% endfor %}
     </tbody>

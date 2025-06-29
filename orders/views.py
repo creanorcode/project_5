@@ -96,11 +96,23 @@ def order_history(request):
 
 @login_required
 def order_detail(request, order_id):
+    """
+    Show details of a specific order
+    """
     order = get_object_or_404(Order, id=order_id, user=request.user)
-    order_items = order.items.all()
+
+    # Lägg till subtotal i context
+    subtotal_items = []
+    for item in order.orderitem_set.all():
+        subtotal_items.append({
+            "product": item.product,
+            "price": item.price,
+            "quantity": item.quantity,
+            "subtotal": item.price * item.quantity,
+        })
 
     context = {
         "order": order,
-        "order_items": order_items,
+        "subtotal_items": subtotal_items,
     }
     return render(request, "orders/order_detail.html", context)
