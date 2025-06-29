@@ -43,7 +43,7 @@ def checkout(request):
         total_price = sum(item.product.price * item.quantity for item in cart_items)
 
         # skapa order
-        order = Order.object.create(
+        order = Order.objects.create(
             user=request.user,
             total_price=total_price,
             status='pending'
