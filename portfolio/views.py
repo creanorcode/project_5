@@ -11,7 +11,7 @@ def contact_view(request):
             form = ContactForm()  # Empty the form
     else:
         form = ContactForm()
-    return render(render, 'contact/contact.html', {'form': form})
+    return render(request, 'contact/contact.html', {'form': form})
 
 
 def home(request):
