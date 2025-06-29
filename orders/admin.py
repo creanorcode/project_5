@@ -30,8 +30,8 @@ class CompletedDesignAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'created_at', 'paid')
-    list_filter = ('paid', 'created_at')
+    list_display = ('id', 'user', 'created_at', 'status')
+    list_filter = ('status', 'created_at')
     search_fields = ('user__username', 'id')
     ordering = ('-created_at',)
 
