@@ -404,6 +404,77 @@ input[type="submit"]:hover {
   background-color: #218838;
 }
 
+/* Order list table */
+.order-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.order-list-table th,
+.order-list-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.order-list-table th {
+  background-color: #f8f8f8;
+  font-weight: 600;
+}
+
+.order-list-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.order-list-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Order detail table */
+.order-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.order-detail-table th,
+.order-detail-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.order-detail-table th {
+  background-color: #f8f8f8;
+  font-weight: 600;
+}
+
+.order-detail-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.order-detail-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Buttons in orders */
+.order-btn {
+  display: inline-block;
+  background-color: #4a90e2;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.order-btn:hover {
+  background-color: #357ab8;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
     .main-nav {
