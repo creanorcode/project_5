@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Order Complete | Artea{% endblock %}
+
+{% block content %}
+<section class="container-narrow">
+    <h2>Thank you for your order!</h2>
+    <p>Your order has been successfully placed. You will receive an email confirmation shortly.</p>
+    <a href="{% url 'products:product_list' %}" class="btn btn-primary">Continue Shopping</a>
+</section>
+{% endblock %}

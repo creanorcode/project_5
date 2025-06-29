@@ -70,3 +70,8 @@ def checkout(request):
     }
 
     return render(request, 'orders/checkout.html', context)
+
+
+@login_required
+def order_complete(request):
+    return render(request, 'orders/order_complete.html')
