@@ -4,6 +4,8 @@ from django.contrib import messages
 from .models import Order, OrderItem
 from cart.models import CartItem
 from .forms import DesignOrderForm
+import stripe
+from django.conf import settings
 
 
 def design_order_view(request):
@@ -27,51 +29,43 @@ def order_list(request):
     return render(request, 'orders/order_list.html', {'orders': orders})
 
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
 @login_required
 def checkout(request):
     """
     Convert the current cart into an Order and its OrderItems
+    Create an Stripe Checkout Session
     """
-    cart_items = []
-    total_price = 0
-
     db_items = CartItem.objects.filter(user=request.user)
-
     if not db_items.exists():
         messages.warning(request, "Your cart is empty.")
         return redirect('cart:cart_detail')
-
-    # build cart_items list with subtotal
+    
+    line_items = []
     for item in db_items:
-        subtotal = item.product.price * item.quantity
-        cart_items.append({
-            'product': item.product,
+        line_items.append({
+            'price_data': {
+                'currency': 'sek',
+                'unit_amount': int(item.product.price * 100),
+                'product_data': {
+                    'name': item.product.name,
+                }
+            }
             'quantity': item.quantity,
-            'subtotal': subtotal,
         })
-        total_price += subtotal
+    
+    checkout_session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=line_items,
+        mode='payment',
+        success_url=request.build_absolute_uri('/orders/complete/success/'),
+        cancel_url=request.build_absolute_uri('/cart/'),
+        customer_email=request.user.email,
+    )
 
-    if request.method == 'POST':
-        order = Order.objects.create(
-            user=request.user,
-            total_price=total_price,
-            status='pending'
-        )
-        for item in db_items:
-            OrderItem.objects.create(
-                order=order,
-                product=item.product,
-                quantity=item.quantity,
-                price=item.product.price,
-            )
-        db_items.delete()
-        messages.success(request, f"Order #{order.id} created successfully!")
-        return redirect('orders:order_complete', order_id=order.id)
-
-    return render(request, 'orders/checkout.html', {
-        'cart_items': cart_items,
-        'total_price': total_price,
-    })
+    return redirect(checkout_session.url, code=303)
 
 
 @login_required
