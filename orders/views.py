@@ -12,7 +12,7 @@ def design_order_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Your design order has been sent successfully!')
-            return redirect('design_order')
+            return redirect('orders:design_order')
     else:
         form = DesignOrderForm()
     return render(request, 'orders/design_order.html', {'form': form})
