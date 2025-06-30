@@ -476,6 +476,27 @@ input[type="submit"]:hover {
   color: #fff;
 }
 
+/* === Hero section === */
+.hero {
+    background: linear-gradient(135deg, #f0f0f0, #ffffff);
+    text-align: center;
+    padding: 4rem 2rem;
+    border-radius: 1rem;
+    margin-top: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
     .main-nav {
