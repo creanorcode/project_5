@@ -50,7 +50,7 @@ def checkout(request):
                 'currency': 'sek',
                 'unit_amount': int(item.product.price * 100),
                 'product_data': {
-                    'name': item.product.name,
+                    'name': item.product.title,
                 },
             },
             'quantity': item.quantity,
