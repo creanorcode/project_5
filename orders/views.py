@@ -69,6 +69,11 @@ def checkout(request):
 
 
 @login_required
+def order_success(request):
+    return render(request, 'orders/order_success.html')
+
+
+@login_required
 def order_complete(request, order_id):
     """
     Show the confirmation after a completed order. 
