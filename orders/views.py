@@ -15,7 +15,7 @@ def design_order_view(request):
             return redirect('design_order')
     else:
         form = DesignOrderForm()
-    return render(request, 'design_order.html', {'form': form})
+    return render(request, 'orders/design_order.html', {'form': form})
 
 
 @login_required
