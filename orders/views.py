@@ -85,11 +85,11 @@ def stripe_webhook(request):
         return HttpResponse(status=400)
     except stripe.error.SignatureVerificationError:
         return HttpResponse(status=400)
-    
+
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         handle_checkout_session(session)
-    
+
     return HttpResponse(status=200)
 
 
@@ -107,22 +107,22 @@ def handle_checkout_session(session):
 
     if not user_id:
         return
-    
+
     User = get_user_model()
     try:
         user = User.objects.get(id=user_id)
     except User.DoesNotExist:
         return
-    
+
     # Check if the user already has an open order.
     if Order.objects.filter(user=user, status='pending').exists():
         return  # Prevent duplication
-    
+
     cart_items = CartItem.objects.filter(user=user)
 
     if not cart_items.exists():
         return
-    
+
     # Create order
     order = Order.objects.create(
         user=user,
@@ -137,7 +137,7 @@ def handle_checkout_session(session):
             quantity=item.quantity,
             price=item.product.price
         )
-    
+
     # Empty the shopping cart
     cart_items.delete()
 
