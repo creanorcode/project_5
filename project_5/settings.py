@@ -6,6 +6,10 @@ Generated manually for development purposes.
 from pathlib import Path
 import os
 
+# Stripe API-keys
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
+
 # BASE_DIR points to the root of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
