@@ -7,6 +7,8 @@ from .forms import DesignOrderForm
 import stripe
 from django.conf import settings
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 def design_order_view(request):
     if request.method == 'POST':
@@ -35,7 +37,6 @@ def checkout(request):
     Convert the current cart into an Order and its OrderItems
     Create an Stripe Checkout Session
     """
-    stripe.api_key = settings.STRIPE_SECRET_KEY
 
     db_items = CartItem.objects.filter(user=request.user)
     if not db_items.exists():
