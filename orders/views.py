@@ -29,15 +29,14 @@ def order_list(request):
     return render(request, 'orders/order_list.html', {'orders': orders})
 
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
-
-
 @login_required
 def checkout(request):
     """
     Convert the current cart into an Order and its OrderItems
     Create an Stripe Checkout Session
     """
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
     db_items = CartItem.objects.filter(user=request.user)
     if not db_items.exists():
         messages.warning(request, "Your cart is empty.")
