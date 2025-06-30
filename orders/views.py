@@ -51,8 +51,8 @@ def checkout(request):
                 'unit_amount': int(item.product.price * 100),
                 'product_data': {
                     'name': item.product.name,
-                }
-            }
+                },
+            },
             'quantity': item.quantity,
         })
     
