@@ -1,8 +1,31 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block title %}Portfolio | Artea{% endblock %}
 {% block content %}
-<section class="portfolio">
-    <h2>Our Portfolio</h2>
-    <p>Browse some of our recent creative works and client projects.</p>
+
+<section class="portfolio container-narrow">
+  <h1>My Portfolio</h1>
+  <p>Explore some of my previous design projects below.</p>
+
+  <div class="portfolio-grid">
+    <div class="portfolio-item">
+      <img src="{% static 'images/portfolio1.jpg' %}" alt="Project 1">
+      <h3>Project 1</h3>
+      <p>Short description of project 1.</p>
+    </div>
+
+    <div class="portfolio-item">
+      <img src="{% static 'images/portfolio2.jpg' %}" alt="Project 2">
+      <h3>Project 2</h3>
+      <p>Short description of project 2.</p>
+    </div>
+    
+    <div class="portfolio-item">
+      <img src="{% static 'images/portfolio3.jpg' %}" alt="Project 3">
+      <h3>Project 3</h3>
+      <p>Short description of project 3.</p>
+    </div>
+  </div>
 </section>
 {% endblock %}
