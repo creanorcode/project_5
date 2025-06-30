@@ -1,21 +1,15 @@
 {% extends 'base.html' %}
-{% block title %}Order a Design | Artea{% endblock %}
+{% load static %}
+
+{% block title %}Design Order | Artea{% endblock %}
 
 {% block content %}
 <section class="container-narrow">
-    <h2>Submit a Design Request</h2>
-    <form method="post">
+    <h2>Request a Custom Design</h2>
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% for field in form %}
-            <div>
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                {{ field }}
-                {% if field.errors %}
-                    <div style="color: red;">{{ field.errors }}</div>
-                {% endif %}
-            </div>
-        {% endfor %}
-        <input type="submit" value="Send Request">
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Order</button>
     </form>
 </section>
 {% endblock %}

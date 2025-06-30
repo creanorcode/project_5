@@ -16,10 +16,9 @@ class DesignTypeAdmin(admin.ModelAdmin):
 
 @admin.register(DesignOrder)
 class DesignOrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'customer', 'design_type', 'size', 'quote',
-                    'paid', 'created_at',)
-    list_filter = ('paid', 'created_at',)
-    search_fields = ('customer_username', 'description',)
+    list_display = ('name', 'email', 'created_at')
+    search_fields = ('name', 'email')
+    ordering = ('-created_at')
 
 
 @admin.register(CompletedDesign)

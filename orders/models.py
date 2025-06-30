@@ -12,24 +12,14 @@ class DesignType(models.Model):
 
 
 class DesignOrder(models.Model):
-    SIZE_CHOICES = [
-        ('S', 'Small'),
-        ('M', 'Medium'),
-        ('L', 'Large'),
-        ('C', 'Custom'),
-    ]
-
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)
-    design_type = models.ForeignKey(DesignType,
-                                    on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
     description = models.TextField()
-    size = models.CharField(max_length=10, choices=SIZE_CHOICES)
-    quote = models.DecimalField(max_digits=8, decimal_places=2)
-    paid = models.BooleanField(default=False)
+    attachment = models.FileField(upload_to='design_uploads/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Order #{self.id} by {self.customer.username}"
+        return f"{self.name} - {self.email}"
 
 
 class CompletedDesign(models.Model):

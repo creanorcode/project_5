@@ -1,12 +1,16 @@
 from django import forms
+from .models import DesignOrder
 
 
-class DesignOrderForm(forms.Form):
-    # Placeholder fields
-    instructions = forms.CharField(
-        required=False,
-        widget=forms.Textarea(attrs={'placeholder': 'Any specific design instructions?'})
-    )
+class DesignOrderForm(forms.ModelForm):
+    class Meta:
+        model = DesignOrder
+        fields = ['name', 'email', 'description', 'attachment']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your name'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your email'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Describe your design needs', 'rows':5}),
+        }
 
 
 class CheckoutForm(forms.Form):

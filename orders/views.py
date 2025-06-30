@@ -6,13 +6,13 @@ from cart.models import CartItem
 from .forms import DesignOrderForm
 
 
-def design_order(request):
+def design_order_view(request):
     if request.method == 'POST':
-        form = DesignOrderForm(request.POST)
+        form = DesignOrderForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Your design order har been submitted. We will get back to you shortly.')
-            return redirect('portfolio')
+            messages.success(request, 'Your design order has been sent successfully!')
+            return redirect('design_order')
     else:
         form = DesignOrderForm()
     return render(request, 'design_order.html', {'form': form})
