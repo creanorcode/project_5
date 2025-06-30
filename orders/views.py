@@ -47,7 +47,7 @@ def checkout(request):
     for item in db_items:
         line_items.append({
             'price_data': {
-                'currency': 'sek',
+                'currency': 'eur',
                 'unit_amount': int(item.product.price * 100),
                 'product_data': {
                     'name': item.product.title,
