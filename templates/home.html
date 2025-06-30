@@ -1,8 +1,34 @@
 {% extends 'base.html' %}
 {% block title %}Home | Artea{% endblock %}
+
 {% block content %}
 <section class="hero">
     <h1>Welcome to Artea Studio</h1>
     <p>Your digital space for creative design solutions.</p>
+    <a href="{% url 'portfolio' %}" class="btn btn-primary">See Our Portfolio</a>
+</section>
+
+<section class="about">
+    <h2>About Artea</h2>
+    <p>We specialize in graphic design, illustration, and web solutions tailored for your needs. Whether you are a brand, an individual, or an educator - we help you bring ideas to life.</p>
+    <a href="{% url 'contact:contact' %}" class="btn btn-secondary">Contact Us</a>
+</section>
+
+<section class="featured">
+    <h2>Featured Works</h2>
+    <div class="featured-items">
+        <div class="featured-item">
+            <img src="{% static 'images/sample1.jpg' %}" alt="Sample work 1">
+            <h3>Abstract Shapes</h3>
+        </div>
+        <div class="featured-item">
+            <img src="{% static 'images/sample2.jpg' %}" alt="Sample work 2">
+            <h3>Modern Illustration</h3>
+        </div>
+        <div class="featured-item">
+            <img src="{% static 'images/sample3.jpg' %}" alt="Sample work 3">
+            <h3>Custom Graphic</h3>
+        </div>
+    </div>
 </section>
 {% endblock %}
