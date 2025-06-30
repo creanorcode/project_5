@@ -18,7 +18,7 @@ class DesignTypeAdmin(admin.ModelAdmin):
 class DesignOrderAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'created_at')
     search_fields = ('name', 'email')
-    ordering = ('-created_at')
+    ordering = ['created_at']
 
 
 @admin.register(CompletedDesign)
