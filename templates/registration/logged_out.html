@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Du har loggats ut</h2>
+    <p><a href="{% url 'login' %}">Logga in igen</a> eller gå till <a href="{% url 'home' %}">Startsidan</a>.</p>
+</div>
+{% endblock %}

@@ -12,6 +12,8 @@ load_dotenv()
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 
+# Stripe webhook API
+
 # BASE_DIR points to the root of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -114,3 +116,5 @@ ADMIN_INDEX_TITLE = "Welcome to Artea Studio"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGOUT_REDIRECT_URL = '/'

@@ -2,8 +2,8 @@
 {% block title %}Logout{% endblock %}
 
 {% block content %}
-<div class="auth-container">
-    <h2>Du har loggats ut</h2>
-    <p><a href="{% url 'login' %}">Logga in igen</a> eller gå till <a href="{% url 'home' %}">Startsidan</a>.</p>
+<div class="container-narrow">
+    <h2>You are logged out!</h2>
+    <p><a href="{% url 'login' %}">Log in again</a> or go to <a href="{% url 'home' %}">Home page</a>.</p>
 </div>
 {% endblock %}
