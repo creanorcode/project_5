@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="not-found-container">
+    <div class="not-found-content">
+        <h1>404</h1>
+        <h2>Page not found</h2>
+        <p>Unfortunately, we cannot find the product or page you are trying to reach.</p>
+        <a href="{% url 'home' %}" class="btn-back">To the Home page</a>
+    </div>
+</div>
+{% endblock %}
