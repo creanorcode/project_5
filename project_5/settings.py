@@ -23,7 +23,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'your-dev-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['artea-studio-571c2301b41f.herokuapp.com', 'www.artea.studio', 'artea.studio', 'localhost']
+ALLOWED_HOSTS = ['artea-studio-571c2301b41f.herokuapp.com', 'www.artea.studio', 'artea.studio', 'localhost', '127.0.0.1:8000']
 
 # Application definition
 INSTALLED_APPS = [
@@ -42,6 +42,20 @@ INSTALLED_APPS = [
     'cart',
     'contact',
 ]
+
+INSTALLED_APPS += ['storages']
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.s3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'artea-studio-media'  # ändra till ditt bucket-namn exakt
+AWS_S3_REGION_NAME = 'eu-north-1'        # Stockholm-region
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_QUERYSTRING_AUTH = False
+
+# valfritt men bra:
+AWS_DEFAULT_ACL = None
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
