@@ -145,7 +145,9 @@ ADMIN_SITE_HEADER = "Artea Admin"
 ADMIN_SITE_TITLE = "Artea Administration"
 ADMIN_INDEX_TITLE = "Welcome to Artea Studio"
 
-MEDIA_URL = '/media/'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGOUT_REDIRECT_URL = '/'
