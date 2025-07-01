@@ -30,5 +30,8 @@
     </form>
 
     <p>Don´t have an account yet? <a href="{% url 'register' %}">Register here.</a>.</p>
+    <p>
+        <a href="{% url 'password_reset' %}" class="reset-link">Forgot password?</a>
+    </p>
 </section>
 {% endblock %}

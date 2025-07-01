@@ -607,6 +607,35 @@ input[type="submit"]:hover {
   background-color: #0056b3;
 }
 
+/* === Password Reset styling === */
+.reset-link {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.reset-link:hover {
+  text-decoration: none;
+}
+
+.container-narrow {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
     .main-nav {
