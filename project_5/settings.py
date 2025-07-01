@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'contact',
 ]
 
-INSTALLED_APPS += ['storages']
+INSTALLED_APPS = ['storages']
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.s3Boto3Storage'
 
