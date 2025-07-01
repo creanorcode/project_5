@@ -56,6 +56,9 @@ AWS_QUERYSTRING_AUTH = False
 
 # valfritt men bra:
 AWS_DEFAULT_ACL = None
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
