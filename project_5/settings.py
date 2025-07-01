@@ -23,7 +23,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'your-dev-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['artea-studio-571c2301b41f.herokuapp.com/', 'www.artea.studio', 'artea.studio', 'localhost']
+ALLOWED_HOSTS = ['artea-studio-571c2301b41f.herokuapp.com', 'www.artea.studio', 'artea.studio', 'localhost']
 
 # Application definition
 INSTALLED_APPS = [
