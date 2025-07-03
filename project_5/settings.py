@@ -3,6 +3,10 @@ Django settings for graphicstudio project.
 Generated manually for development purposes.
 """
 import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
 from dotenv import load_dotenv
 from pathlib import Path
 
