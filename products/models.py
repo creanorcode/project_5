@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class Product(models.Model):
@@ -10,8 +11,8 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
-    
+
     def save(self, *args, **kwargs):
         print(f"SAVE triggered: {self.image.name}")
-        print(f"DEFAULT_FILE_STORAGE: {DEFAULT_FILE_STORAGE}")
+        print(f"DEFAULT_FILE_STORAGE: {settings.DEFAULT_FILE_STORAGE}")
         super().save(*args, **kwargs)
