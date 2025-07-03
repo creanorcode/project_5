@@ -13,4 +13,5 @@ class Product(models.Model):
     
     def save(self, *args, **kwargs):
         print(f"SAVE triggered: {self.image.name}")
+        print(f"DEFAULT_FILE_STORAGE: {DEFAULT_FILE_STORAGE}")
         super().save(*args, **kwargs)
