@@ -57,7 +57,6 @@ AWS_QUERYSTRING_AUTH = False
 AWS_DEFAULT_ACL = 'public-read'
 
 # valfritt men bra:
-AWS_DEFAULT_ACL = None
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
