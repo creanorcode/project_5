@@ -10,3 +10,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+    print(f"SAVE triggered: {self.image}")
+    super().save(*args, **kwargs)
