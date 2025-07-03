@@ -12,5 +12,5 @@ class Product(models.Model):
         return self.title
     
     def save(self, *args, **kwargs):
-        print(f"SAVE triggered: {self.image}")
+        print(f"SAVE triggered: {self.image.name}")
         super().save(*args, **kwargs)
