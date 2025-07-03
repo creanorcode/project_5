@@ -54,6 +54,8 @@ AWS_S3_REGION_NAME = 'eu-north-1'        # Stockholm-region
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_QUERYSTRING_AUTH = False
 
+AWS_DEFAULT_ACL = "public-read"
+
 # valfritt men bra:
 AWS_DEFAULT_ACL = None
 AWS_S3_OBJECT_PARAMETERS = {
