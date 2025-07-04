@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
 
     # Local apps
     'accounts',
@@ -42,8 +43,6 @@ INSTALLED_APPS = [
     'cart',
     'contact',
 ]
-
-INSTALLED_APPS += ['storages']
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
