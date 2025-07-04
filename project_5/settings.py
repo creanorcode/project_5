@@ -177,3 +177,7 @@ if DEBUG:
     print("DEBUG TRUE: using FileSystemStorage")
 else:
     print("DEBUG FALSE: using", DEFAULT_FILE_STORAGE)
+
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
