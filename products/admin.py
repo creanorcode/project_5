@@ -6,3 +6,4 @@ from .models import Product
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'price')
     fields = ('title', 'price', 'description', 'image', 'created_at')
+    readonly_fields = ('created_at')
