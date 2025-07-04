@@ -3,10 +3,10 @@ Django settings for graphicstudio project.
 Generated manually for development purposes.
 """
 import os
-from dotenv import load_dotenv
+#  from dotenv import load_dotenv
 from pathlib import Path
 
-load_dotenv()
+#  load_dotenv()
 
 # Stripe API-keys
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
