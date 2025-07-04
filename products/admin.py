@@ -5,4 +5,4 @@ from .models import Product
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'image')
-    readonly_fields = ('created_at')
+    readonly_fields = ('created_at',)
