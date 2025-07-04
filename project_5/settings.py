@@ -170,3 +170,10 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+if DEBUG:
+    print("DEBUG TRUE: using FileSystemStorage")
+else:
+    print("DEBUG FALSE: using", DEFAULT_FILE_STORAGE)
