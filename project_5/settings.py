@@ -184,4 +184,4 @@ logging.basicConfig(level=logging.DEBUG)
 
 from django.core.files import storage
 
-DEFAULT_FILE_STORAGE != 'django.core.files.storage.FileSystemStorage':
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
