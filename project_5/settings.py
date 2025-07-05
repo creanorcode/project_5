@@ -183,7 +183,5 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 from django.core.files import storage
-from django.utils.module_loading import import_string
 
-if DEFAULT_FILE_STORAGE != 'django.core.files.storage.FileSystemStorage':
-    default_storage._wrapped = import_string(DEFAULT_FILE_STORAGE)()
+DEFAULT_FILE_STORAGE != 'django.core.files.storage.FileSystemStorage':
