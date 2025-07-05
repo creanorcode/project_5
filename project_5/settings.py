@@ -52,8 +52,10 @@ AWS_STORAGE_BUCKET_NAME = 'artea-studio-media'  # ändra till ditt bucket-namn e
 AWS_S3_REGION_NAME = 'eu-north-1'        # Stockholm-region
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_QUERYSTRING_AUTH = False
-
 AWS_DEFAULT_ACL = 'public-read'
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # valfritt men bra:
 AWS_S3_OBJECT_PARAMETERS = {
@@ -148,40 +150,6 @@ ADMIN_SITE_HEADER = "Artea Admin"
 ADMIN_SITE_TITLE = "Artea Administration"
 ADMIN_INDEX_TITLE = "Welcome to Artea Studio"
 
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.eu-north-1.amazonaws.com"
-
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 LOGOUT_REDIRECT_URL = '/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'DEBUG',
-    },
-}
-
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-if DEBUG:
-    print("DEBUG TRUE: using FileSystemStorage")
-else:
-    print("DEBUG FALSE: using", DEFAULT_FILE_STORAGE)
-
-import logging
-
-logging.basicConfig(level=logging.DEBUG)
-
-from django.core.files import storage
-
-DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
