@@ -142,7 +142,7 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", 'no-reply@artea.studio')
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/"
 #  STATICFILES_DIRS = [BASE_DIR / 'static']
-#  STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_STORAGE = 'project_5.custom_storages.StaticStorage'
 DEFAULT_FILE_STORAGE = 'project_5.custom_storages.MediaStorage'
