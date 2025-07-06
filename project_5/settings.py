@@ -44,9 +44,6 @@ INSTALLED_APPS = [
     'contact',
 ]
 
-#  DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'project_5.custom_storages.MediaStorage'
-
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'artea-studio-media'  # ändra till ditt bucket-namn exakt
