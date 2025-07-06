@@ -1,29 +1,31 @@
 """
-Django settings for graphicstudio project.
-Generated manually for development purposes.
+Django settings for artea-studio.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/3.2/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-#  from dotenv import load_dotenv
 from pathlib import Path
-
-#  load_dotenv()
-
-# Stripe API-keys
-STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
-STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
-
-# Stripe webhook API
 
 # BASE_DIR points to the root of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'your-dev-secret-key')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['artea-studio-571c2301b41f.herokuapp.com', 'www.artea.studio', 'artea.studio', 'localhost', '127.0.0.1:8000']
+ALLOWED_HOSTS = [
+    'artea-studio-571c2301b41f.herokuapp.com',
+    'www.artea.studio',
+    'artea.studio',
+    'localhost',
+    '127.0.0.1:8000',
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -44,26 +46,6 @@ INSTALLED_APPS = [
     'contact',
 ]
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = 'artea-studio-media'  # ändra till ditt bucket-namn exakt
-AWS_S3_REGION_NAME = 'eu-north-1'        # Stockholm-region
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
-
-STATICFILES_LOCATION = 'static'
-MEDIAFILES_LOCATION = 'media'
-
-MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/"
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# valfritt men bra:
-AWS_S3_OBJECT_PARAMETERS = {
-    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
-    'CacheControl': 'max-age=86400',
-}
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',  # required by admin
@@ -72,7 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',  # required by admin
     'django.contrib.messages.middleware.MessageMiddleware',  # required by admin
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
 ]
 
 ROOT_URLCONF = 'project_5.urls'
@@ -103,6 +84,7 @@ DATABASES = {
     }
 }
 
+# For live production
 import dj_database_url
 
 if os.getenv('DATABASE_URL'):
@@ -139,13 +121,35 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", 'no-reply@artea.studio')
 
-# Static files (CSS, JavaScript, Images)
+# Static + Media
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'artea-studio-media'  # ändra till ditt bucket-namn exakt
+AWS_S3_REGION_NAME = 'eu-north-1'        # Stockholm-region
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'CacheControl': 'max-age=86400',
+}
+
+# Static and Media Location
+STATICFILES_LOCATION = 'static'
+MEDIAFILES_LOCATION = 'media'
+
 STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/"
-#  STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/"
 
 STATICFILES_STORAGE = 'project_5.custom_storages.StaticStorage'
 DEFAULT_FILE_STORAGE = 'project_5.custom_storages.MediaStorage'
+
+# Stripe API-keys
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
+
+# Stripe webhook API
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
