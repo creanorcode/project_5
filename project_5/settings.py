@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',  # required by admin
     'django.contrib.messages.middleware.MessageMiddleware',  # required by admin
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'project_5.urls'
@@ -136,14 +137,13 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 
 # Static and Media Location
-STATICFILES_LOCATION = 'static'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MEDIAFILES_LOCATION = 'media'
-
-STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/"
 MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/"
-
-STATICFILES_STORAGE = 'project_5.custom_storages.StaticStorage'
 DEFAULT_FILE_STORAGE = 'project_5.custom_storages.MediaStorage'
 
 # Stripe API-keys
