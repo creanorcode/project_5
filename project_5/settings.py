@@ -152,5 +152,3 @@ ADMIN_SITE_TITLE = "Artea Administration"
 ADMIN_INDEX_TITLE = "Welcome to Artea Studio"
 
 LOGOUT_REDIRECT_URL = '/'
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
