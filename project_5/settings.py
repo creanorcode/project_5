@@ -159,3 +159,8 @@ ADMIN_SITE_TITLE = "Artea Administration"
 ADMIN_INDEX_TITLE = "Welcome to Artea Studio"
 
 LOGOUT_REDIRECT_URL = '/'
+
+try:
+    from project_5 import custom_storages
+except ImportError as e:
+    print("CUSTOM_STORAGES IMPORT FAILED:", e)
