@@ -144,8 +144,8 @@ STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/"
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_STORAGE = 'project_5.custom_storage.StaticStorage'
-DEFAULT_FILE_STORAGE = 'project_5.custom_storage.MediaStorage'
+STATICFILES_STORAGE = 'project_5.custom_storages.StaticStorage'
+DEFAULT_FILE_STORAGE = 'project_5.custom_storages.MediaStorage'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
