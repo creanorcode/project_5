@@ -73,7 +73,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',  # required by admin
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'project_5.urls'
