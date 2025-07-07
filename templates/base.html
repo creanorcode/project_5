@@ -41,6 +41,7 @@
 
                     {% if user.is_authenticated %}
                         <a href="{% url 'orders:order_history' %}">My Orders</a>
+                        <a href="{% url 'orders:completed_designs' %}">My Designs</a>
                         <form method="post" action="{% url 'logout' %}" style="display:inline;">
                             {% csrf_token %}
                             <button type="submit" style="

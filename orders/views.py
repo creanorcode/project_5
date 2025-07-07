@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import stripe.error
-from .models import Order, OrderItem
+from .models import Order, OrderItem, CompletedDesign
 from cart.models import CartItem
 from .forms import DesignOrderForm
 import stripe
@@ -23,6 +23,12 @@ def design_order_view(request):
     else:
         form = DesignOrderForm()
     return render(request, 'orders/design_order.html', {'form': form})
+
+
+@login_required
+def my_completed_designs(request):
+    designs = CompletedDesign.objects.filter(order_email=request.user.email)
+    return render(request, 'orders/completed_designs.html', {'designs': designs})
 
 
 @login_required
