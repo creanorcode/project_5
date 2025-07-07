@@ -6,10 +6,35 @@
 {% block content %}
 <section class="container-narrow">
     <h2>Request a Custom Design</h2>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" class="form-section">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Submit Order</button>
+
+        <div class="form-group">
+            <label for="id_name">Name</label>
+            {{ form.name }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_email">Email</label>
+            {{ form.email }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_design_type">Design Level</label>
+            {{ form.design_type }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_description">Description</label>
+            {{ form.description }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_attachment">Upload file (optional)</label>
+            {{ form.attachment }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Design Request</button>
     </form>
 </section>
 {% endblock %}
