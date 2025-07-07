@@ -10,7 +10,11 @@
             <article class="product-card">
                 <a href="{% url 'products:product_detail' product.pk %}">
                     <figure>
-                        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                        {% else %}
+                            <img src="{{ static 'images/default_product.jpg' }}" alt="No image available">
+                        {% endif %}
                         <figcaption>
                             <h3>{{ product.title }}</h3>
                             <p class="price">€{{ product.price }}</p>
