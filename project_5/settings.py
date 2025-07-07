@@ -159,6 +159,20 @@ ADMIN_SITE_HEADER = "Artea Admin"
 ADMIN_SITE_TITLE = "Artea Administration"
 ADMIN_INDEX_TITLE = "Welcome to Artea Studio"
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}
+
 LOGOUT_REDIRECT_URL = '/'
 
 try:
