@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from products.models import Product
+from project_5.custom_storages import MediaStorage
 
 
 class DesignType(models.Model):
@@ -15,7 +16,7 @@ class DesignOrder(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     description = models.TextField()
-    attachment = models.FileField(upload_to='design_uploads/', blank=True, null=True)
+    attachment = models.FileField(upload_to='design_uploads/', storage=MediaStorage(), blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -24,7 +25,7 @@ class DesignOrder(models.Model):
 
 class CompletedDesign(models.Model):
     order = models.OneToOneField(DesignOrder, on_delete=models.CASCADE)
-    file = models.FileField(upload_to='completed_designs/')
+    file = models.FileField(upload_to='completed_designs/', storage=MediaStorage())
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
