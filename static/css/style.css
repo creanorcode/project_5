@@ -689,6 +689,13 @@ input[type="submit"]:hover {
   box-shadow: 0 0 0 2px rgba(99,102,241,0.3);
 }
 
+.form-helptext {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
     .main-nav {

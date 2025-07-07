@@ -14,8 +14,10 @@ class DesignOrderForm(forms.ModelForm):
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
-            self.fields['design_type'].queryset = DesignType.objects.all()
-            self.fields['design_type'].label_from_instance = lambda obj: f"{obj.name} - €{obj.price}"
+            choices = DesignType.objects.all()
+            if choices.exists():
+                description_list = [f"<strong>{dt.name}</strong>: {dt.description}" for dt in choices]
+                self.fields['design_type'].help_text = "<br>".join(description_list)
 
 
 class CheckoutForm(forms.Form):
