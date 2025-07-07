@@ -7,9 +7,19 @@ class DesignOrderForm(forms.ModelForm):
         model = DesignOrder
         fields = ['name', 'email', 'description', 'design_type', 'attachment']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your name'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your email'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Describe your design needs', 'rows':5}),
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Your name'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Your email'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Describe your design needs',
+                'rows': 5
+            }),
         }
 
         def __init__(self, *args, **kwargs):
