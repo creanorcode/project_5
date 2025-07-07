@@ -7,15 +7,17 @@ from project_5.custom_storages import MediaStorage
 class DesignType(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} (€{self.price})"
 
 
 class DesignOrder(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     description = models.TextField()
+    design_type = models.ForeignKey(DesignType, on_delete=models.SET_NULL, null=True, blank=True)
     attachment = models.FileField(upload_to='design_uploads/', storage=MediaStorage(), blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

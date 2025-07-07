@@ -5,7 +5,7 @@ from .models import DesignOrder
 class DesignOrderForm(forms.ModelForm):
     class Meta:
         model = DesignOrder
-        fields = ['name', 'email', 'description', 'attachment']
+        fields = ['name', 'email', 'description', 'design_type', 'attachment']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your name'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your email'}),
