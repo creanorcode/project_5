@@ -1,5 +1,8 @@
 from django.db import models
 
+from django.core.files.storage import default_storage
+print("DEBUG: products.models Product.image will use", default_storage)
+
 
 class Product(models.Model):
     title = models.CharField(max_length=100)
