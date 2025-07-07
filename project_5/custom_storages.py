@@ -6,3 +6,8 @@ class MediaStorage(S3Boto3Storage):
     location = settings.MEDIAFILES_LOCATION
     bucket_name = settings.AWS_STORAGE_BUCKET_NAME
     default_acl = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        print(f"[DEBUG] MediaStorage initialized with bucket: {self.bucket_name}")
+        
