@@ -1,5 +1,5 @@
 from django import forms
-from .models import DesignOrder
+from .models import DesignOrder, DesignType
 
 
 class DesignOrderForm(forms.ModelForm):
@@ -11,6 +11,11 @@ class DesignOrderForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your email'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Describe your design needs', 'rows':5}),
         }
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['design_type'].queryset = DesignType.objects.all()
+            self.fields['design_type'].label_from_instance = lambda obj: f"{obj.name} - €{obj.price}"
 
 
 class CheckoutForm(forms.Form):
