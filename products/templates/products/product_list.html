@@ -13,7 +13,7 @@
                     {% if product.image %}
                         <img src="{{ product.image.url }}" alt="{{ product.title }}">
                     {% else %}
-                        <img src="{{ static 'images/default_product.jpg' }}" alt="No image available">
+                        <img src="{{ static 'images/default.png' }}" alt="No image available">
                     {% endif %}
                         <figcaption>
                             <h3>{{ product.title }}</h3>
