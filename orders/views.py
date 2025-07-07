@@ -27,6 +27,11 @@ def design_order_view(request):
 
 @login_required
 def my_completed_designs(request):
+    user_email = request.user.email
+    if not user_email:
+        messages.error(request, "Your account has no email associated.")
+        return redirect('home')
+    
     designs = CompletedDesign.objects.filter(order_email=request.user.email)
     return render(request, 'orders/completed_designs.html', {'designs': designs})
 
