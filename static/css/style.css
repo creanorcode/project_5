@@ -653,6 +653,41 @@ input[type="submit"]:hover {
   text-decoration: underline;
 }
 
+/* === Design Request Order Styling === */
+.form-section {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #374151;  /* text-gray-700 */
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  border-radius: 0.375rem; /* rounded-md */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* subtle shadow */
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #6366f1; /* indigo-500 */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.3);
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
     .main-nav {
