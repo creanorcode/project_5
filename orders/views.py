@@ -32,7 +32,7 @@ def my_completed_designs(request):
         messages.error(request, "Your account has no email associated.")
         return redirect('home')
     
-    designs = CompletedDesign.objects.filter(order_email=request.user.email)
+    designs = CompletedDesign.objects.filter(order__email=request.user.email)
     return render(request, 'orders/completed_designs.html', {'designs': designs})
 
 
