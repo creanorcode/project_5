@@ -29,7 +29,6 @@ class CompletedDesign(models.Model):
     order = models.OneToOneField(DesignOrder, on_delete=models.CASCADE)
     file = models.FileField(upload_to='completed_designs/', storage=MediaStorage())
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    is_paid = models.BooleanField(default=False)
     paid = models.BooleanField(default=False)
 
     def __str__(self):
