@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Payment Successful | Artea{% endblock %}
+
+{% block content %}
+<section class="container-narrow text-center">
+    <h2 class="text-green-600">Thank you!</h2>
+    <p>Your payment was successful. You can now download your design under <strong>My Designs</strong>.</p>
+    <a href="{% url 'completed_designs' %}" class="btn btn-primary mt-4">Go to My Designs</a>
+</section>
+{% endblock %}
