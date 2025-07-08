@@ -9,6 +9,7 @@ import stripe
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
+from django.views.generic import TemplateView
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -22,7 +23,7 @@ def stripe_checkout(request, design_id):
         line_items=[{
             'price_data': {
                 'currency': 'eur',
-                'unit_amount': design.order.design_type.price_in_cents,
+                'unit_amount': int(design.order.design_type.price * 100),
                 'product_data': {
                     'name': f'Custom Design #{design.id}',
                 },
@@ -86,6 +87,14 @@ def payment_success(request):
 
     messages.success(request, "Thank you for your payment! Your design is now available for download.")
     return redirect('orders:my_completed_designs')
+
+
+class PaymentSuccessView(TemplateView):
+    template_name = 'orders/payment_success.html'
+
+
+class PaymentCancelledView(TemplateView):
+    template_name = 'orders/payment_cancelled.html'
 
 
 def design_order_view(request):
