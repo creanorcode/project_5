@@ -5,41 +5,35 @@
 
 {% block content %}
 <section class="container-narrow">
-    <h2>All Completed Designs (Admin)</h2>
+    <h2>Completed Designs (Admin View)</h2>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>User Email</th>
-                <th>Date</th>
-                <th>Paid</th>
-                <th>Download</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="filter-links mb-4">
+        <a href="{% url 'orders:admin_design_list' %}" class="btn btn-secondary btn-sm {% if not status %}active{% endif %}">All</a>
+        <a href="?status=paid" class="btn btn-success btn-sm {% if status == 'paid' %}active{% endif %}">Paid</a>
+        <a href="?status=unpaid" class="btn btn-danger btn-sm {% if status == 'unpaid' %}active{% endif %}">Unpaid</a>
+    </div>
+
+    {% if designs %}
+        <ul class="design-list">
             {% for design in designs %}
-                <tr>
-                    <td>{{ design.order.id }}</td>
-                    <td>{{ design.order.email }}</td>
-                    <td>{{ design.uploaded_at|date:"Y-m-d H:i" }}</td>
-                    <td>
+                <li class="design-item">
+                    <p><strong>ID:</strong> {{ design.id }}</p>
+                    <p><strong>Order:</strong> {{ design.order.id }}</p>
+                    <p><strong>User Email:</strong> {{ design.order.email }}</p>
+                    <p><strong>Uploaded:</strong> {{ design.uploaded_at|date: "Y-m-d H:i" }}</p>
+                    <p><strong>Status:</strong>
                         {% if design.paid %}
-                            ✅
+                            <span class="text-success">Paid</span>
                         {% else %}
-                            ❌
+                            <span class="text-danger">Unpaid</span>
                         {% endif %}
-                    </td>
-                    <td>
-                        {% if design.paid %}
-                            <a href="{{ design.file.url }}" class="btn btn-primary btn-sm">Download</a>
-                        {% else %}
-                            <span class="text-muted">Not paid</span>
-                        {% endif %}
-                    </td>
-                </tr>
+                    </p>
+                    <a href="{{ design.file.url }}" target="_blank" class="btn btn-primary btn-sm">Download</a>
+                </li>
             {% endfor %}
-        </tbody>
-    </table>
+        </ul>
+    {% else %}
+        <p>No completed designs found.</p>
+    {% endif %}
 </section>
 {% endblock %}

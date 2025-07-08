@@ -310,5 +310,18 @@ def order_detail(request, order_id):
 
 @staff_member_required
 def admin_design_list(request):
-    designs = CompletedDesign.objects.select_related('order').all().order_by('-uploaded_at')
-    return render(request, 'orders/admin_design_list.html', {'designs': designs})
+    """
+    Admin view to list all completed desings
+    """
+    status = request.GET.get('status')
+    if status == 'paid':
+        designs = CompletedDesign.objects.filter(paid=True)
+    elif status == 'unpaid':
+        designs = CompletedDesign.objects.filter(paid=False)
+    else:
+        designs = CompletedDesign.objects.all()
+
+    return render(request, 'orders/admin_design_list.html', {
+        'designs': designs,
+        'status': status,
+    })

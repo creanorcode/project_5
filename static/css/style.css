@@ -807,6 +807,14 @@ input[type="submit"]:hover {
   display: block;
 }
 
+.filter-links a {
+  margin-right: 0.5rem;
+}
+.design-item {
+  border-bottom: 1px solid #ccc;
+  padding: 1rem 0;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
     .main-nav {

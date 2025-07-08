@@ -44,7 +44,7 @@
                             <a href="#" class="dropbtn">My Account</a>
                             <div class="dropdown-content">
                                 <a href="{% url 'orders:order_history' %}">My Orders</a>
-                                <a href="{% url 'orders:completed_designs' %}">Mu Designs</a>
+                                <a href="{% url 'orders:completed_designs' %}">My Designs</a>
                                 <form method="post" action="{% url 'logout' %}">
                                     {% csrf_token %}
                                     <button type="submit" class="dropdown-btn">Logout</button>
