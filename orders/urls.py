@@ -23,7 +23,6 @@ urlpatterns = [
     path('pay/<int:design_id>/', views.pay_for_design, name='pay_for_design'),
     path('payment-success/', views.payment_success, name='payment_success'),
     path('checkout/<int:design_id>/', views.stripe_checkout, name='stripe_checkout'),
-    path('completed-designs/', my_completed_designs, name='completed_designs'),
     path('create-checkout-session/<int:design_id>/', create_checkout_session, name='create_checkout_session'),
     path('payment/success/', PaymentSuccessView.as_view(), name='payment_success'),
     path('payment/cancelled/', PaymentCancelledView.as_view(), name='payment_cancelled'),
