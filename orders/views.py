@@ -8,9 +8,35 @@ from .forms import DesignOrderForm
 import stripe
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
+@login_required
+def pay_for_design(request, design_id):
+    design = get_object_or_404(CompletedDesign, id=design_id)
+
+    amount = int(design.order.design_type.price * 100)
+
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price_data': {
+                'currency': 'eur',
+                'product_data': {
+                    'name': f"Design Order #{design.order.id} - {design.order.design_type.name}",
+                },
+                'unit_amount': amount,
+            },
+            'quantity': 1,
+        }],
+        mode='payment',
+        success_url=request.build_absolute_uri('/orders/payment-success/') + f'?design_id={design_id}',
+        cancel_url=request.build_absolute_uri('/orders/completed_designs/'),
+        metadata={'design_id': str(design.id)},
+    )
+    return redirect(session.url, code=303)
 
 
 def design_order_view(request):
