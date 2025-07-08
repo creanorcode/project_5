@@ -696,6 +696,20 @@ input[type="submit"]:hover {
   line-height: 1.4;
 }
 
+/* === My Designs === */
+.design-list {
+  list-style: none;
+  padding: 0;
+}
+
+.design-item {
+  border: 1px solid #e5e7eb;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  background-color: #f9fafb;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
     .main-nav {

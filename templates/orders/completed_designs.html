@@ -1,18 +1,27 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}My Completed Designs{% endblock %}
+{% block title %}My Designs | Artea{% endblock %}
 
 {% block content %}
 <section class="container-narrow">
     <h2>My Completed Designs</h2>
+
     {% if designs %}
-        <ul class="completed-designs-list">
+        <ul class="design-list">
             {% for design in designs %}
-                <li>
-                    Order #{{ design.order.id }}:
-                    <a href="{{ design.file.url }}">Download your file</a>
-                    (uploaded {{ design.uploaded_at|date:"Y-m-d H:i" }})
+                <li class="design-item">
+                    <p><strong>Order:</strong> {{ design.order.id }}</p>
+                    <p><strong>Date:</strong> {{ design.uploaded_at|date:"Y-m-d H:i" }}</p>
+
+                    {% if design.paid %}
+                        <a href="{{ design.file.url }}" class="btn btn-primary">Download Design</a>
+                    {% else %}
+                        <form action="{% url 'orders:stripe_checkout' design.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-warning">Pay €{{ design.order.design_type.price }}</button>
+                        </form>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
