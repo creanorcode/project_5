@@ -13,6 +13,33 @@ from django.http import HttpResponse, JsonResponse
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
+@require_POST
+def stripe_checkout(request, design_id):
+    design = get_object_or_404(CompletedDesign, id=design_id)
+
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price_data': {
+                'currency': 'eur',
+                'unit_amount': design.order.design_type.price_in_cents,
+                'product_data': {
+                    'name': f'Custom Design #{design.id}',
+                },
+            },
+            'quantity': 1,
+        }],
+        mode='payment',
+        success_url=request.build_absolute_uri('/orders/payment-success/'),
+        cancel_url=request.build_absolute_uri('/orders/payment-cancelled/'),
+        metadata={
+            'design_id': design.id
+        }
+    )
+
+    return redirect(session.url, code=303)
+
+
 @login_required
 def pay_for_design(request, design_id):
     design = get_object_or_404(CompletedDesign, id=design_id)
@@ -45,14 +72,14 @@ def payment_success(request):
     if not design_id:
         messages.error(request, "Missing design ID.")
         return redirect('orders:my_completed_designs')
-    
+
     design = get_object_or_404(CompletedDesign, id=design_id)
 
     # Only allow download if the user owns the design.
     if design.order.email != request.user.email:
         messages.error(request, "Access denied.")
         return redirect('orders:my_completed_designs')
-    
+
     # Marking an paid (add the field below first!)
     design.paid = True
     design.save()
@@ -79,7 +106,7 @@ def my_completed_designs(request):
     if not user_email:
         messages.error(request, "Your account has no email associated.")
         return redirect('home')
-    
+
     designs = CompletedDesign.objects.filter(order__email=request.user.email)
     return render(request, 'orders/completed_designs.html', {'designs': designs})
 
@@ -104,7 +131,7 @@ def checkout(request):
     if not db_items.exists():
         messages.warning(request, "Your cart is empty.")
         return redirect('cart:cart_detail')
-    
+
     line_items = []
     for item in db_items:
         line_items.append({

@@ -16,4 +16,5 @@ urlpatterns = [
     path('completed-designs/', views.my_completed_designs, name='completed_designs'),
     path('pay/<int:design_id>/', views.pay_for_design, name='pay_for_design'),
     path('payment-success/', views.payment_success, name='payment_success'),
+    path('checkout/<int:design_id>/', views.stripe_checkout, name='stripe_checkout'),
 ]
