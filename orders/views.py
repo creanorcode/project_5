@@ -10,6 +10,7 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import TemplateView
+from django.views.decorators.http import require_POST
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
