@@ -40,46 +40,28 @@
                     <a href="{% url 'cart:cart_detail' %}">Cart</a>
 
                     {% if user.is_authenticated %}
-                        <li>
-                            <a class="nav-item dropdown" href="#" role="button" data-bs-toggle="dropdown">
-                                My Account
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'orders:order_history' %}">My Orders</a></li>
-                                <li><a class="dropdown-item" href="{% url 'orders:completed_designs' %}">My Designs</a></li>
-                                <li><a class="dropdown-item" href="{% url 'logout.html' %}">Logout</a></li>
-                                {% if request.user.is_staff %}
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="{% url 'orders:admin_design_list' %}">Admin Panel</a></li>
+                        <div class="dropdown">
+                            <a href="#" class="dropbtn">My Account</a>
+                            <div class="dropdown-content">
+                                <a href="{% url 'orders:order_history' %}">My Orders</a>
+                                <a href="{% url 'orders:completed_designs' %}">Mu Designs</a>
+                                <form method="post" action="{% url 'logout' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-btn">Logout</button>
+                                </form>
+                                {% if user.is_staff %}
+                                    <hr>
+                                    <a href="{% url 'orders:admin_design_list' %}">Admin Panel</a>
                                 {% endif %}
-                            </ul>
-                        </li>
-                        <a href="{% url 'orders:order_history' %}">My Orders</a>
-                        <a href="{% url 'orders:completed_designs' %}">My Designs</a>
-                        <form method="post" action="{% url 'logout' %}" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" style="
-                                background:none; 
-                                border:none;
-                                color: inherit; 
-                                padding:0; 
-                                margin:0; 
-                                cursor:pointer;
-                                font: inherit;
-                                text-decoration: underline;
-                            ">
-                            Logout
-                            </button>
-                        </form>
+                            </div>
+                        </div>
                         {% if user.is_superuser %}
                             <a href="/admin/">Admin</a>
-                            <a href="{% url 'orders:admin_design_list' %}">Design List</a>
                         {% endif %}
                     {% else %}
                         <a href="{% url 'login' %}">Login</a>
                         <a href="{% url 'register' %}">Register</a>
                     {% endif %}
-                    </ul>
                 </nav>
             </div>
         </header>
