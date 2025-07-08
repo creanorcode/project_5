@@ -59,6 +59,7 @@
                         </form>
                         {% if user.is_superuser %}
                             <a href="/admin/">Admin</a>
+                            <a href="{% url 'orders:admin_design_list' %}">Design List (A)</a>
                         {% endif %}
                     {% else %}
                         <a href="{% url 'login' %}">Login</a>
