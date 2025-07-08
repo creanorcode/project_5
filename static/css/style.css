@@ -100,6 +100,17 @@ a:hover {
   color: #666;
 }
 
+.footer-admin-link a {
+  font-weight: 600;
+  color: #6b7280;  /* gray-600 */
+  text-decoration: none;
+}
+
+.footer-admin-link a:hover {
+  color: #4f46e5; /* indigo-600 */
+  text-decoration: underline;
+}
+
 /* === Container utility === */
 .container {
   width: 95%;

@@ -40,6 +40,19 @@
                     <a href="{% url 'cart:cart_detail' %}">Cart</a>
 
                     {% if user.is_authenticated %}
+                    <li>
+                        <a class="nav-item dropdown" href="#" role="button" data-bs-toggle="dropdown">
+                            My Account
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'orders:order_history' %}">My Orders</a></li>
+                            <li><a class="dropdown-item" href="{% url 'orders:completed_designs' %}">My Designs</a></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></li>
+                            {% if request.user.is_staff %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'orders:admin_design_list' %}">Admin Panel</a></li>
+                        </ul>
+                    </li>
                         <a href="{% url 'orders:order_history' %}">My Orders</a>
                         <a href="{% url 'orders:completed_designs' %}">My Designs</a>
                         <form method="post" action="{% url 'logout' %}" style="display:inline;">
@@ -82,6 +95,12 @@
             <div class="container">
                 <p>&copy; 2025 Artea Studio. All rights reserved.</p>
             </div>
+
+            {% if request.user.is_authenticated and request.user.is_staff %}
+                <div>
+                    <a href="{% url 'orders:admin_design_list' %}">Admin Panel</a>
+                </div>
+            {% endif %}
         </footer>
     </div>
 
