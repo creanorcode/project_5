@@ -23,8 +23,9 @@ class DesignOrderAdmin(admin.ModelAdmin):
 
 @admin.register(CompletedDesign)
 class CompletedDesignAdmin(admin.ModelAdmin):
-    list_display = ('order', 'uploaded_at',)
-    search_fields = ('order_id',)
+    list_display = ('order', 'uploaded_at', 'paid')
+    list_filter = ('paid',)
+    search_fields = ('order_email',)
 
 
 @admin.register(Order)
