@@ -184,7 +184,20 @@ def stripe_webhook(request):
 
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        handle_checkout_session(session)
+        metadata = session.get('metadata', {})
+        design_id = metadata.get('design_id')
+
+        if design_id:
+            from .models import CompletedDesign
+            try:
+                design = CompletedDesign.objects.get(id=design_id)
+                design.paid = True
+                design.save()
+            except CompletedDesign.DoesNotExist:
+                pass
+        else:
+            # Continue as before with any order from shopping cart.
+            handle_checkout_session(session)
 
     return HttpResponse(status=200)
 
