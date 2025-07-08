@@ -24,4 +24,5 @@ urlpatterns = [
     path('checkout/<int:design_id>/', views.stripe_checkout, name='stripe_checkout'),
     path('payment/success/', PaymentSuccessView.as_view(), name='payment_success'),
     path('payment/cancelled/', PaymentCancelledView.as_view(), name='payment_cancelled'),
+    path('admin/designs/', views.admin_design_list, name='admin_design_list'),
 ]

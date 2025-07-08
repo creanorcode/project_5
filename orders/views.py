@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import TemplateView
 from django.views.decorators.http import require_POST
+from django.contrib.admin.views.decorators import staff_member_required
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -305,3 +306,9 @@ def order_detail(request, order_id):
         "subtotal_items": subtotal_items,
     }
     return render(request, "orders/order_detail.html", context)
+
+
+@staff_member_required
+def admin_design_list(request):
+    designs = CompletedDesign.objects.select_related('order').all().order_by('-uploaded_at')
+    return render(request, 'orders/admin_design_list.html', {'designs': designs})

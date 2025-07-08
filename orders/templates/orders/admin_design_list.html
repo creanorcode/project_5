@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Admin – All Completed Designs{% endblock %}
+
+{% block content %}
+<section class="container-narrow">
+    <h2>All Completed Designs (Admin)</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>User Email</th>
+                <th>Date</th>
+                <th>Paid</th>
+                <th>Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for design in designs %}
+                <tr>
+                    <td>{{ design.order.id }}</td>
+                    <td>{{ design.order.email }}</td>
+                    <td>{{ design.uploaded_at|date:"Y-m-d H:i" }}</td>
+                    <td>
+                        {% if design.paid %}
+                            ✅
+                        {% else %}
+                            ❌
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if design.paid %}
+                            <a href="{{ design.file.url }}" class="btn btn-primary btn-sm">Download</a>
+                        {% else %}
+                            <span class="text-muted">Not paid</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
