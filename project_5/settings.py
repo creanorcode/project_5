@@ -151,8 +151,8 @@ STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 
 # Stripe webhook secrets
-raw_webhook_secrets = os.getenv("STRIPE_WEBHOOK_SECRET", "")
-STRIPE_WEBHOOK_SECRET = [s.strip() for s in raw_webhook_secrets.split(",") if s.strip()]
+STRIPE_WEBHOOK_SECRET_HEROKU = os.getenv('STRIPE_WEBHOOK_SECRET_HEROKU')
+STRIPE_WEBHOOK_SECRET_DOMAIN = os.getenv('STRIPE_WEBHOOK_SECRET_DOMAIN')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

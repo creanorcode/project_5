@@ -173,21 +173,22 @@ def stripe_webhook(request):
     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
     event = None
 
-    webhook_secrets = getattr(settings, 'STRIPE_WEBHOOK_SECRETS', [])
+    # Choose the correct secret depending on the host address.
+    if 'herokuapp.com' in request.get_host():
+        webhook_secret = settings.STRIPE_WEBHOOK_SECRET_HEROKU
+    else:
+        webhook_secret = settings.STRIPE_WEBHOOK_SECRET_DOMAIN
 
-    for secret in webhook_secrets:
         try:
             event = stripe.Webhook.construct_event(
-            payload, sig_header, secret
+                payload, sig_header, webhook_secret
             )
-            break
+        except ValueError:
+            return HttpResponse(status=400)
         except stripe.error.SignatureVerificationError:
-            continue
+            return HttpResponse(status=400)
 
-    if event is None:
-        logger.warning("Stripe webhook verification failed - no valid secret.")
-        return HttpResponse(status=400)
-
+    # If Stripe checkout completed.
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         metadata = session.get('metadata', {})
