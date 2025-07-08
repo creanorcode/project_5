@@ -173,13 +173,19 @@ def stripe_webhook(request):
     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
     event = None
 
-    try:
-        event = stripe.Webhook.construct_event(
-            payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
-        )
-    except ValueError:
-        return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError:
+    webhook_secrets = getattr(settings, 'STRIPE_WEBHOOK_SECRETS', [])
+
+    for secret in webhook_secrets:
+        try:
+            event = stripe.Webhook.construct_event(
+            payload, sig_header, secret
+            )
+            break
+        except stripe.error.SignatureVerificationError:
+            continue
+
+    if event is None:
+        logger.warning("Stripe webhook verification failed - no valid secret.")
         return HttpResponse(status=400)
 
     if event['type'] == 'checkout.session.completed':
