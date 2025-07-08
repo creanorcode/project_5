@@ -30,6 +30,7 @@ class CompletedDesign(models.Model):
     file = models.FileField(upload_to='completed_designs/', storage=MediaStorage())
     uploaded_at = models.DateTimeField(auto_now_add=True)
     is_paid = models.BooleanField(default=False)
+    paid = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Completed Design for Order #{self.order.id}"

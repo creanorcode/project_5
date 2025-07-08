@@ -39,6 +39,28 @@ def pay_for_design(request, design_id):
     return redirect(session.url, code=303)
 
 
+@login_required
+def payment_success(request):
+    design_id = request.GET.get('design_id')
+    if not design_id:
+        messages.error(request, "Missing design ID.")
+        return redirect('orders:my_completed_designs')
+    
+    design = get_object_or_404(CompletedDesign, id=design_id)
+
+    # Only allow download if the user owns the design.
+    if design.order.email != request.user.email:
+        messages.error(request, "Access denied.")
+        return redirect('orders:my_completed_designs')
+    
+    # Marking an paid (add the field below first!)
+    design.paid = True
+    design.save()
+
+    messages.success(request, "Thank you for your payment! Your design is now available for download.")
+    return redirect('orders:my_completed_designs')
+
+
 def design_order_view(request):
     if request.method == 'POST':
         form = DesignOrderForm(request.POST, request.FILES)
