@@ -10,14 +10,15 @@
     {% if messages %}
         <ul class="message-list">
             {% for msg in messages %}
-                <li class="message-item">
-                    <p><strong>Sent:</strong> {{ message.created_at|date:"Y-m-d H:i" }}</p>
-                    <p><strong>Your message:</strong><br> {{ message.message }}</p>
+                <li class="message-box">
+                    <p><strong>Sent:</strong> {{ msg.created_at|date:"Y-m-d H:i" }}</p>
+                    <p><strong>Your message:</strong><br></p> 
+                    <div class="user-message">{{ msg.message }}</div>
 
-                    {% if msg.is_answered %}
+                    {% if msg.is_answered and msg.answer %}
                         <div class="admin-reply">
-                            <p><strong>Reply from staff:</strong></p>
-                            <p>{{ msg.answer }}</p>
+                            <p><strong>Reply from Artea Studio:</strong></p>
+                            <div class="reply-content">{{ msg.answer }}</div>
                         </div>
                     {% else %}
                         <p><em>No reply yet</em></p>

@@ -841,6 +841,35 @@ input[type="submit"]:hover {
   padding: 1rem 0;
 }
 
+/* === Messages Intern system on page (for auth) === */
+.message-list {
+  list-style: none;
+  padding: 0;
+}
+
+.message-box {
+  border: 1px solid #ccc;
+  padding: 1em;
+  margin-bottom: 1.5em;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.user-message {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  white-space: pre-wrap;
+}
+
+.admin-reply {
+  border-top: 1px solid #ddd;
+  padding-top: 0.5em;
+  margin-top: 0.5em;
+  background-color: #eef5ff;
+  padding: 0.5em;
+  border-radius: 4px;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
     .main-nav {
