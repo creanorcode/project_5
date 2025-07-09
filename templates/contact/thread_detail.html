@@ -1,29 +1,34 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Message Thread | Artea{% endblock %}
+{% block title %}Conversation | Artea{% endblock %}
 
 {% block content %}
 <section class="container-narrow">
-    <h2>Message Thread</h2>
+    <h2>Conversation with Artea Studio</h2>
 
-    <div class="message-box">
-        <p><strong>Sent:</strong> {{ message.created_at|date:"Y-m-d H:i" }}</p>
-        <p><strong>Your message:</strong></p>
-        <div class="user-message">{{ message.message }}</div>
+    <div class="thread-messages">
+        {% for msg in messages %}
+            <div class="message-box {% if message.is_admin %}admin{% else %}user{% endif %}">
+                <p><strong>{{ message.created_at|date:"Y-m-d H:i" }}</strong></p>
+                <p>{{ message.body }}</p>
+            </div>
+        {% endfor %}
     </div>
 
-    {% if replies %}
-        <ul class="reply-list">
-            {% for reply in replies %}
-                <li class="reply-box {% if reply.from_admin %}admin-reply{% else %}user-reply{% endif %}">
-                    <p><strong>{{ reply.from_admin|yesno:"Admin,You" }}:</strong> {{ reply.replied_at|date:"Y-m-d H:i" }}</p>
-                    <div class="reply-content">{{ reply.reply_text }}</div>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No replies yet.</p>
-    {% endif %}
+    <hr>
+
+    <h3>Send a new message</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.body.label_tag }}<br>
+        {{ form.body }}
+        {% if form.body.errors %}
+            <div class="form-errors">
+                {{ form.body.errors }}
+            </div>
+        {% endif %}
+        <button type="submit">Send</button>
+    </form>
 </section>
 {% endblock %}
