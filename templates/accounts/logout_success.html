@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Logged Out | Artea{% endblock %}
+
+{% block content %}
+<section class="container-narrow">
+    <h2>You have been logged out.</h2>
+    <p>You´ve been logged out successfully.</p>
+    <p><a href="{% url 'login' %}">Log in again</a> or go back to the <a href="{% url 'home' %}">homepage</a>.</p>
+</section>
+{% endblock %}

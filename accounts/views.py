@@ -39,6 +39,13 @@ def login_view(request):
 
 
 def logout_view(request):
+    """
+    Ska denna bort innan inlämning 
+    """
     logout(request)
     messages.info(request, 'You have been logged out.')
     return redirect('login')
+
+
+def logout_success(request):
+    return render(request, 'accounts/logout_success.html')
