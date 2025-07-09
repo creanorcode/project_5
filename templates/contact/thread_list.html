@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Conversations | Artea{% endblock %}
+
+{% block content %}
+<section class="container-narrow">
+    <h2>My Conversations</h2>
+
+    {% if threads %}
+        <ul class="thread-list">
+            {% for thread in threads %}
+                <li class="thread-box">
+                    <p><strong>Subject:</strong> {{ thread.subject }}</p>
+                    <p><strong>Started:</strong> {{ thread.created_at|date:"Y-m-d H:i" }}</p>
+                    <a href="{% url 'contact:thread_detail' thread.id %}">View Conversation</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no conversation threads yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

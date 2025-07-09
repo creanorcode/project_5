@@ -144,3 +144,9 @@ def create_thread_view(request):
         'form': thread_form,
         'message_form': message_form,
     })
+
+
+@login_required
+def thread_list_view(request):
+    threads = MessageThread.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'contact/thread_list.html', {'threads': threads})
