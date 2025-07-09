@@ -17,4 +17,5 @@ class ContactMessageAdmin(admin.ModelAdmin):
     )
     ordering = ('-created_at',)
 
+
 admin.site.register(ContactMessage, ContactMessageAdmin)
