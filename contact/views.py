@@ -53,5 +53,6 @@ Artea Studio
             messages.success(request, 'Thank you for your message!')
             return redirect('contact:contact')
         else:
-            form = ContactForm()
+            form = ContactMessageForm()
+
         return render(request, 'contact/contact.html', {'form': form})
