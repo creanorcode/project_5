@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Messages | Artea{% endblock %}
+
+{% block content %}
+<section class="container-narrow">
+    <h2>My Contact Messages</h2>
+
+    {% if messages %}
+        <ul class="message-list">
+            {% for message in messages %}
+                <li class="message-item">
+                    <p><strong>Date:</strong> {{ message.created_at|date:"Y-m-d H:i" }}</p>
+                    <p><strong>Message:</strong> {{ message.message }}</p>
+                    <p><strong>Answered:</strong> {{ message.is_answered|yesno:"Yes,No" }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have not submitted any messages yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

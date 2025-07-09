@@ -7,4 +7,5 @@ app_name = 'contact'
 
 urlpatterns = [
     path('', views.contact_view, name='contact'),
+    path('my-messages/', views.user_messages_view, name='user_messages'),
 ]

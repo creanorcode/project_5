@@ -3,6 +3,8 @@ from django.contrib import messages
 from .forms import ContactMessageForm
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from .models import ContactMessage
 
 
 def contact_view(request):
@@ -56,3 +58,10 @@ Artea Studio
         form = ContactMessageForm()
 
     return render(request, 'contact/contact.html', {'form': form})
+
+
+@login_required
+def user_messages_view(request):
+    user_email = request.user.email
+    messages = ContactMessage.objects.filter(email=user_email).order_by('-created_at')
+    return render(request, 'contact/user_messages.html' {'messages': messages})
