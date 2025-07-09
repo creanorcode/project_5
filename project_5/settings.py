@@ -175,7 +175,7 @@ LOGGING = {
     },
 }
 
-LOGOUT_REDIRECT_URL = '/accounts/logout-success/'
+LOGOUT_REDIRECT_URL = '/accounts/logout_success/'
 
 try:
     from project_5 import custom_storages
