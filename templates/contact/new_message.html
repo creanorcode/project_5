@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}New Message | Artea{% endblock %}
+{% block title %}Start New Conversation | Artea{% endblock %}
 
 {% block content %}
 <section class="container-narrow">
@@ -9,7 +9,15 @@
 
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ for field in form }}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="text-danger">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
         <button type="submit" class="btn btn-primary">Send Message</button>
     </form>
 </section>

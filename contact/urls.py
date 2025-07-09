@@ -12,4 +12,5 @@ urlpatterns = [
     path('messages/<int:message_id>/', views.contact_detail_view, name='message_detail'),
     path('messages/new/', new_message_view, name='new_message'),
     path('thread/<int:message_id>/', contact_thread_view, name='contact_thread'),
+    path('messages/new/', views.create_thread_view, name='create_thread'),
 ]

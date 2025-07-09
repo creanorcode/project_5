@@ -1,6 +1,6 @@
 # contact/forms.py
 from django import forms
-from .models import ContactMessage, Message
+from .models import ContactMessage, Message, MessageThread, ThreadMessage
 
 
 class ContactMessageForm(forms.ModelForm):
@@ -45,4 +45,19 @@ class NewMessageForm(forms.ModelForm):
         }
         labels = {
             'content': ''
+        }
+
+
+class NewThreadForm(forms.ModelForm):
+    class Meta:
+        model = MessageThread
+        fields = ['subject']
+
+
+class FirstMessageForm(forms.ModelForm):
+    class Meta:
+        model = ThreadMessage
+        fields = ['body']
+        widgets = {
+            'body': forms.Textarea(attrs={'rows': 5}),
         }

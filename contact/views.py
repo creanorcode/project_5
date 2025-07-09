@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import ContactMessageForm, UserReplyForm, NewMessageForm
+from .forms import ContactMessageForm, UserReplyForm, NewMessageForm, NewThreadForm, FirstMessageForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from .models import ContactMessage, MessageThread, Message
+from .models import ContactMessage, MessageThread, Message, ThreadMessage
 from django.utils.timezone import now
 
 
@@ -116,4 +116,31 @@ def contact_thread_view(request, message_id):
         'message': message,
         'replies': replies,
         'form': UserReplyForm(),
+    })
+
+
+@login_required
+def create_thread_view(request):
+    if request.method == 'POST':
+        thread_form = NewThreadForm(request.POST)
+        message_form = FirstMessageForm(request.POST)
+        if thread_form.is_valid() and message_form.is_valid():
+            thread = thread_form.save(commit=False)
+            thread.user = request.user
+            thread.save()
+
+            message = message_form.save(commit=False)
+            message.thread = thread
+            message.sender = request.user
+            message.save()
+
+            messages.success(request, "Your conversation has been started.")
+            return redirect('contact:thread_detail', thread_id=thread.id)
+    else:
+        thread_form = NewThreadForm()
+        message_form = FirstMessageForm()
+
+    return render(request, 'contact/new_message.html', {
+        'form': thread_form,
+        'message_form': message_form,
     })
