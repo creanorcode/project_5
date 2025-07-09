@@ -13,7 +13,11 @@
                 <li class="message-box">
                     <p><strong>Sent:</strong> {{ message.created_at|date:"Y-m-d H:i" }}</p>
                     <p><strong>Your message:</strong><br></p> 
-                    <div class="user-message">{{ message.message }}</div>
+                    <div class="user-message">
+                        {{ message.message }}
+                        <br>
+                        <a href="{% url 'contact:message_detail' message.id %}">View & reply</a>
+                    </div>
 
                     {% if message.is_answered and message.admin_reply %}
                         <div class="admin-reply">
