@@ -1,6 +1,6 @@
 # contact/forms.py
 from django import forms
-from .models import ContactMessage
+from .models import ContactMessage, Message
 
 
 class ContactMessageForm(forms.ModelForm):
@@ -29,4 +29,20 @@ class UserReplyForm(forms.ModelForm):
                 'rows': 3,
                 'placeholder': 'Write your message here...',
             })
+        }
+
+
+class NewMessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={
+                'rows': 4,
+                'placeholder': 'Write your message here...',
+                'class': 'form-control'
+            }),
+        }
+        labels = {
+            'content': ''
         }
