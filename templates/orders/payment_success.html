@@ -4,9 +4,11 @@
 {% block title %}Payment Successful | Artea{% endblock %}
 
 {% block content %}
-<section class="container-narrow text-center">
-    <h2 class="text-green-600">Thank you!</h2>
-    <p>Your payment was successful. You can now download your design under <strong>My Designs</strong>.</p>
-    <a href="{% url 'completed_designs' %}" class="btn btn-primary mt-4">Go to My Designs</a>
+<section class="container-narrow success-section">
+    <h2>🎉 Thank you for your payment!</h2>
+    <p>Your design is now available under <strong><a href="{% url 'orders:completed_designs' %}">My Designs</a></strong>.</p>
+    <p>You can download it anytime from your account.</p>
+
+    <a href="{% url 'completed_designs' %}" class="btn btn-primary">Go to My Designs</a>
 </section>
 {% endblock %}

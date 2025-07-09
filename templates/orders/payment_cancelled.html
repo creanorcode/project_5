@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Payment Cancelled | Artea{% endblock %}
 
 {% block content %}
-<section class="container-narrow text-center">
-    <h2 class="text-red-600">Payment Cancelled</h2>
-    <p>Your payment was cancelled. You can try again from <strong>My Designs</strong>.</p>
-    <a href="{% url 'completed_designs' %}" class="btn btn-secondary mt-4">Back to My Designs</a>
+<section class="container-narrow cancelled-section">
+    <h2>⚠️ Payment Cancelled</h2>
+    <p>Your payment was not completed.</p>
+    <p>If this was a mistake, you ca return to <strong><a href="{% url 'orders:completed_designs' %}">My Designs</a></strong> to try again.</p>
+
+    <a href="{% url 'orders:completed_designs' %}" class="btn btn-warning">Return to My Designs</a>
 </section>
 {% endblock %}

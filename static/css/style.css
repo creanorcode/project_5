@@ -721,7 +721,7 @@ input[type="submit"]:hover {
   background-color: #f9fafb;
 }
 
-/* === Payment status pages === */
+/* === Payment status pages === */ /* Dessa ska bort innan inlämning */
 .text-center {
   text-align: center;
 }
@@ -736,6 +736,26 @@ input[type="submit"]:hover {
 
 .mt-4 {
   margin-top: 1rem;
+}
+
+/* === Payment Pages Styling === */
+.success-section, .cancelled-section {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.success-section h2 {
+  color: #10b981; /* green-500 */
+}
+
+.cancelled-section h2 {
+  color: #ef4444; /* red-500 */
+}
+
+.success-section p,
+.cancelled-section p {
+  font-size: 1.1rem;
+  margin: 1rem 0;
 }
 
 /* === Admin only frontend view === */
