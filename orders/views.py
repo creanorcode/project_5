@@ -325,3 +325,20 @@ def admin_design_list(request):
         'designs': designs,
         'status': status,
     })
+
+
+@staff_member_required
+def mark_design_as_paid(request, design_id):
+    """
+    Allows an admin/staff user to manually mark a design as paid.
+    """
+    design = get_object_or_404(CompletedDesign, id=design_id)
+
+    if design.paid:
+        messages.info(request, "This design is already marked as paid.")
+    else:
+        design.paid = True
+        design.save()
+        messages.success(request, f"Design #{design.id} marked as paid.")
+
+    return redirect('orders:admin_design_list')

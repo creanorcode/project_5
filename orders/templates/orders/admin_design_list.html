@@ -21,6 +21,14 @@
                     <p><strong>Order:</strong> {{ design.order.id }}</p>
                     <p><strong>User Email:</strong> {{ design.order.email }}</p>
                     <p><strong>Uploaded:</strong> {{ design.uploaded_at|date:"Y-m-d H:i" }}</p>
+                    {% if not design.paid %}
+                        <form method="post" action="{% url 'orders:mark_design_as_paid' design.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-success">Mark as Paid</button>
+                        </form>
+                    {% else %}
+                        <span class="status-paid">Paid</span>
+                    {% endif %}
                     <p><strong>Status:</strong>
                         {% if design.paid %}
                             <span class="text-success">Paid</span>

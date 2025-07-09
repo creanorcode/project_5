@@ -25,4 +25,5 @@ urlpatterns = [
     path('payment/success/', PaymentSuccessView.as_view(), name='payment_success'),
     path('payment/cancelled/', PaymentCancelledView.as_view(), name='payment_cancelled'),
     path('admin/designs/', views.admin_design_list, name='admin_design_list'),
+    path('admin/mark-paid/<int:design_id>/', views.mark_design_as_paid, name='mark_design_as_paid'),
 ]
