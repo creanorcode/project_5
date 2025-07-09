@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
+from django.contrib import messages as django_messages
 from .forms import ContactMessageForm, UserReplyForm, NewMessageForm, NewThreadForm, FirstMessageForm
 from django.core.mail import send_mail
 from django.conf import settings
@@ -150,3 +150,28 @@ def create_thread_view(request):
 def thread_list_view(request):
     threads = MessageThread.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'contact/thread_list.html', {'threads': threads})
+
+
+@login_required
+def thread_detail_view(request, thread_id):
+    thread = get_object_or_404(MessageThread, id=thread_id, user=request.user)
+    messages_qs = thread.messages.order_by('created_at')
+
+    if request.method == 'POST':
+        form = NewMessageForm(request.POST)
+        if form.is_valid():
+            new_msg = form.save(commit=False)
+            new_msg.thread = thread
+            new_msg.is_admin = False
+            new_msg.save()
+            django_messages.success(request, "Message sent.")
+            return redirect('contact:thread_detail', thread_id=thread.id)
+    else:
+        form = NewMessageForm()
+
+    context = {
+        'thread': thread,
+        'messages': messages_qs,
+        'form': form,
+    }
+    return render(request, 'contact/thread_detail.html', context)
