@@ -1,5 +1,15 @@
 from django.contrib import admin
-from .models import ContactMessage
+from .models import ContactMessage, MessageThread, Message
+
+
+@admin.register(MessageThread)
+class MessageThreadsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'created_at')
+
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'thread', 'sender','sent_at')
 
 
 @admin.register(ContactMessage)
