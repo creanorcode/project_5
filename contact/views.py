@@ -62,6 +62,5 @@ Artea Studio
 
 @login_required
 def user_messages_view(request):
-    user_email = request.user.email
-    messages = ContactMessage.objects.filter(email=user_email).order_by('-created_at')
-    return render(request, 'contact/user_messages.html', {'messages': messages})
+    user_messages = ContactMessage.objects.filter(email=request.user.email).order_by('-created_at')
+    return render(request, 'contact/user_messages.html', {'messages': user_messages})
