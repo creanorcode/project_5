@@ -105,3 +105,15 @@ def new_message_view(request):
         form = NewMessageForm()
 
     return render(request, 'contact/new_message.html', {'form': form})
+
+
+@login_required
+def contact_thread_view(request, message_id):
+    message = get_object_or_404(ContactMessage, id=message_id, email=request.user.email)
+    replies = message.replies.order_by('replied_at')
+
+    return render(request, 'contact/thread_detail.html', {
+        'message': message,
+        'replies': replies,
+        'form': UserReplyForm(),
+    })

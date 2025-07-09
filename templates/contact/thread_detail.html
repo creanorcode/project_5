@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Message Thread | Artea{% endblock %}
+
+{% block content %}
+<section class="container-narrow">
+    <h2>Message Thread</h2>
+
+    <div class="message-box">
+        <p><strong>Sent:</strong> {{ message.created_at|date:"Y-m-d H:i" }}</p>
+        <p><strong>Your message:</strong></p>
+        <div class="user-message">{{ message.message }}</div>
+    </div>
+
+    {% if replies %}
+        <ul class="reply-list">
+            {% for reply in replies %}
+                <li class="reply-box {% if reply.from_admin %}admin-reply{% else %}user-reply{% endif %}">
+                    <p><strong>{{ reply.from_admin|yesno:"Admin,You" }}:</strong> {{ reply.replied_at|date:"Y-m-d H:i" }}</p>
+                    <div class="reply-content">{{ reply.reply_text }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No replies yet.</p>
+    {% endif %}
+</section>
+{% endblock %}
