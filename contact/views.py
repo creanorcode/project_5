@@ -79,10 +79,10 @@ def contact_detail_view(request, message_id):
             reply.save()
             messages.success(request, "Your reply was sent successfully.")
             return redirect('contact:message_detail', message_id=message_id)
-        else:
-            form = UserReplyForm(instance=message)
+    else:
+        form = UserReplyForm(instance=message)
 
-        return render(request, 'contact/message_detail.html', {
-            'message': message,
-            'form': form
-        })
+    return render(request, 'contact/message_detail.html', {
+        'message': message,
+        'form': form
+    })
