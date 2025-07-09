@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Message Thread | Artea{% endblock %}
+
+{% block content %}
+<h2>Message thread</h2>
+<p><strong>You:</strong> {{ message.message }}</p>
+
+{% if message.admin_reply %}
+  <p><strong>Admin:</strong> {{ message.admin_reply }}</p>
+{% endif %}
+
+{% if message.user_reply %}
+  <p><strong>You replied:</strong> {{ message.user_reply }}</p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Send Reply</button>
+</form>
+{% endblock %}

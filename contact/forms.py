@@ -18,3 +18,15 @@ class ContactMessageForm(forms.ModelForm):
                 'class': 'form-control', 'placeholder': 'Your message', 'rows': 5
             }),
         }
+
+
+class UserReplyForm(forms.ModelForm):
+    class Meta:
+        model = ContactMessage
+        fields = ['user_reply']
+        widgets = {
+            'user_reply': forms.Textarea(attrs={
+                'rows': 3,
+                'placeholder': 'Write your message here...',
+            })
+        }

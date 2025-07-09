@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth. models import User
 
 
 class ContactMessage(models.Model):
@@ -7,7 +8,12 @@ class ContactMessage(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     is_answered = models.BooleanField(default=False)
-    answer = models.TextField(blank=True, null=True)
+    admin_reply = models.TextField(blank=True, null=True)
+    admin_replied_at = models.DateTimeField(blank=True, null=True)
+
+    # New fields for user reply
+    user_reply = models.TextField(blank=True, null=True)
+    replied_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return f"Message from {self.name} ({'answered' if self.is_answered else 'unanswered'})"

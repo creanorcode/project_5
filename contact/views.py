@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import ContactMessageForm
+from .forms import ContactMessageForm, UserReplyForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from .models import ContactMessage
+from django.utils.timezone import now
 
 
 def contact_view(request):
@@ -64,3 +65,24 @@ Artea Studio
 def user_messages_view(request):
     user_messages = ContactMessage.objects.filter(email=request.user.email).order_by('-created_at')
     return render(request, 'contact/user_messages.html', {'messages': user_messages})
+
+
+@login_required
+def contact_detail_view(request, message_id):
+    message = get_object_or_404(ContactMessage, id=message_id)
+
+    if request.method == 'POST':
+        form = UserReplyForm(request.POST, instance=message)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.replied_at = now()
+            reply.save()
+            messages.success(request, "Your reply was sent successfully.")
+            return redirect('contact:message_detail', message_id=message_id)
+        else:
+            form = UserReplyForm(instance=message)
+
+        return render(request, 'contact/message_detail.html', {
+            'message': message,
+            'form': form
+        })
