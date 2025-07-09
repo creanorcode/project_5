@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}New Message | Artea{% endblock %}
+
+{% block content %}
+<section class="container-narrow">
+    <h2>Start a New Conversation</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+</section>
+{% endblock %}
