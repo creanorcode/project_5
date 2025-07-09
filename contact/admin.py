@@ -16,6 +16,3 @@ class ContactMessageAdmin(admin.ModelAdmin):
         'user_reply', 'admin_reply', 'is_answered'
     )
     ordering = ('-created_at',)
-
-
-admin.site.register(ContactMessage, ContactMessageAdmin)
