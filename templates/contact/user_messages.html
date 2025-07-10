@@ -16,11 +16,7 @@
                     <div class="user-message">
                         {{ message.message }}
                         <br>
-                        {% if message.thread %}
-                            <a href="{% url 'contact:thread_detail' message.thread.id %}">View full conversation</a>
-                        {% else %}
-                            <em>No thread linked</em>
-                        {% endif %}
+                        <a href="{% url 'contact:thread_detail' message.thread.id %}">View conversation</a>
                     </div>
 
                     {% if message.is_answered and message.admin_reply %}
