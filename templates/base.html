@@ -30,7 +30,13 @@
         <!-- Header -->
         <header class="site-header">
             <div class="container header-container">
-                <h1 class="logo"><a href="{% url 'home' %}">Artea Studio</a></h1>
+                <div class="nav-container">
+                    <h1 class="logo"><a href="{% url 'home' %}">Artea Studio</a></h1>
+                    <button class="menu-toggle" aria-label="Toggle menu">
+                        ☰
+                    </button>
+                </div>
+                
                 <nav class="main-nav">
                     <a href="{% url 'home' %}">Home</a>
                     <a href="{% url 'portfolio' %}">Portfolio</a>
@@ -88,7 +94,7 @@
             {% endif %}
         </footer>
     </div>
-
+<script src="{% static 'js/nav-toggle.js' %}"></script>
 </body>
 
 </html>
