@@ -1,6 +1,7 @@
 from django.contrib import admin, messages
 from .models import ContactMessage, MessageThread, Message, ThreadMessage
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 User = get_user_model()
 
@@ -49,6 +50,16 @@ class ContactMessageAdmin(admin.ModelAdmin):
             contact.is_answered = True
             contact.save()
             self.message_user(request, f"Thread created for {contact.name}", level=messages.SUCCESS)
+
+    def view_thread_link(self, obj):
+        try:
+            user = User.objects.get(email=obj.email)
+            thread = MessageThread.objects.filter(user=user).latest('created_at')
+            url = reverse('admin:contact_messagethread_change', args=[thread.id])
+            return format_html('<a href="{}">View thread</a>', url)
+        except (User.DoesNotExist, MessageThread.DoesNotExist):
+            return "-"
+    view_thread_link.short_description = "Thread"
 
 
 admin.site.register(ThreadMessage)
