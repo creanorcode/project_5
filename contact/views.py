@@ -4,7 +4,7 @@ from .forms import ContactMessageForm, UserReplyForm, NewMessageForm, NewThreadF
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from .models import ContactMessage, MessageThread, Message, ThreadMessage
+from .models import ContactMessage, MessageThread, Message
 from django.utils.timezone import now
 
 
