@@ -2,6 +2,7 @@ from django.contrib import admin, messages
 from .models import ContactMessage, MessageThread, Message, ThreadMessage
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from django.utils.html import format_html
 
 User = get_user_model()
 
