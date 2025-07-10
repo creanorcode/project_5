@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages as django_messages
+from django.contrib import messages
 from .forms import ContactMessageForm, UserReplyForm, NewMessageForm, NewThreadForm, FirstMessageForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from .models import ContactMessage, MessageThread, Message
+from .models import ContactMessage, MessageThread, Message, ThreadMessage
 from django.utils.timezone import now
 
 
@@ -154,24 +154,27 @@ def thread_list_view(request):
 
 @login_required
 def thread_detail_view(request, thread_id):
-    thread = get_object_or_404(MessageThread, id=thread_id, user=request.user)
-    messages_qs = thread.messages.order_by('created_at')
+    thread = get_object_or_404(MessageThread, id=thread_id)
+
+    if thread.user != request.user:
+        return redirect('contact:user_messages')
+    
+    messages_in_thread = ThreadMessage.objects.filter(thread=thread).order_by('created_at')
 
     if request.method == 'POST':
-        form = NewMessageForm(request.POST)
+        form = FirstMessageForm(request.POST)
         if form.is_valid():
-            new_msg = form.save(commit=False)
-            new_msg.thread = thread
-            new_msg.is_admin = False
-            new_msg.save()
-            django_messages.success(request, "Message sent.")
+            new_message = form.save(commit=False)
+            new_message.thread = thread
+            new_message.sender = request.user
+            new_message.save()
+            messages.success(request, "Your reply has been sent.")
             return redirect('contact:thread_detail', thread_id=thread.id)
     else:
-        form = NewMessageForm()
+        form = FirstMessageForm()
 
-    context = {
+    return render(request, 'contact/thread_detail.html', {
         'thread': thread,
-        'messages': messages_qs,
+        'message': messages_in_thread,
         'form': form,
-    }
-    return render(request, 'contact/thread_detail.html', context)
+    })
