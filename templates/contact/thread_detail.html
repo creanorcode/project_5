@@ -8,11 +8,11 @@
     <h2>Conversation: {{ thread.subject }}</h2>
 
     <div class="thread-messages">
-        {% if message %}
+        {% if messages %}
             <ul class="message-list">
                 {% for message in messages %}
                     <li class="message-box {% if message.sender == request.user %}user-message{% else %}admin-message{% endif %}">
-                        <p><strong>{{ message.sender }}:</strong></p>
+                        <p><strong>{{ message.sender.username }}:</strong></p>
                         <div class="message-content">{{ message.body }}</div>
                         <div class="message-time">{{ message.sent_at|date:"Y-m-d H:i" }}</div>
                     </li>
