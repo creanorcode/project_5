@@ -883,6 +883,33 @@ input[type="submit"]:hover {
   margin-top: 5px;
 }
 
+/* === Conversation styling (ThreadMessage) === */
+.conversation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.conversation-box {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+}
+
+.conversation-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.conversation-link .btn {
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
     .main-nav {

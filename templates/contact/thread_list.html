@@ -5,15 +5,19 @@
 
 {% block content %}
 <section class="container-narrow">
-    <h2>My Conversations</h2>
+    <h2 class="mb-4">My Conversations</h2>
 
     {% if threads %}
-        <ul class="thread-list">
+        <ul class="conversation-list">
             {% for thread in threads %}
-                <li class="thread-box">
-                    <p><strong>Subject:</strong> {{ thread.subject }}</p>
-                    <p><strong>Started:</strong> {{ thread.created_at|date:"Y-m-d H:i" }}</p>
-                    <a href="{% url 'contact:thread_detail' thread.id %}">View Conversation</a>
+                <li class="conversation-box">
+                    <div class="conversation-header">
+                        <strong>Subject: {{ thread.subject }}</strong>
+                        <span class="conversation-date"><strong>Started: {{ thread.created_at|date:"Y-m-d H:i" }}</strong></span>
+                    </div>
+                    <div class="conversation-link">
+                        <a href="{% url 'contact:thread_detail' thread.id %}" class="btn btn-sm btn-outline-primary">View Conversation</a>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
