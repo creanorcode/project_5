@@ -19,7 +19,7 @@ class MessageAdmin(admin.ModelAdmin):
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'created_at', 'is_answered')
+    list_display = ('name', 'email', 'created_at', 'is_answered', 'view_thread_link')
     actions = ['create_thread_from_message']
     list_filter = ('is_answered',)
     search_fields = ('name', 'email' 'message')
