@@ -159,7 +159,7 @@ def thread_detail_view(request, thread_id):
     if thread.user != request.user:
         return redirect('contact:user_messages')
 
-    messages_in_thread = ThreadMessage.objects.filter(thread=thread).order_by('created_at')
+    messages_in_thread = ThreadMessage.objects.filter(thread=thread).order_by('sent_at')
 
     if request.method == 'POST':
         form = FirstMessageForm(request.POST)
