@@ -42,7 +42,7 @@ class ContactMessageAdmin(admin.ModelAdmin):
                 self.message_user(request, f"No user with email {contact.email} found.", level=messages.WARNING)
                 continue
 
-            thread =MessageThread.objects.create(user=user, subject=f"Re: {contact.name}´s message")
+            thread = MessageThread.objects.create(user=user, subject=f"Re: {contact.name}´s message")
             ThreadMessage.objects.create(
                 thread=thread,
                 sender=user,
