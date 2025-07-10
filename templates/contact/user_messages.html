@@ -11,12 +11,10 @@
         <ul class="message-list">
             {% for message in messages %}
                 <li class="message-box">
-                    <p><strong>Sent:</strong> {{ message.created_at|date:"Y-m-d H:i" }}</p>
-                    <p><strong>Your message:</strong><br></p> 
+                    <p><strong>Sent:</strong> {{ message.created_at|date:"Y-m-d H:i" }}</p> 
                     <div class="user-message">
-                        {{ message.message }}
-                        <br>
-                        <a href="{% url 'contact:thread_detail' message.thread.id %}">View conversation</a>
+                        <p><strong>Your message:</strong><br>{{ message.message }}</p>
+                        <a href="{% url 'contact:message_detail' message.id %}">View message</a>
                     </div>
 
                     {% if message.is_answered and message.admin_reply %}

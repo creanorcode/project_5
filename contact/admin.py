@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ContactMessage, MessageThread, Message
+from .models import ContactMessage, MessageThread, Message, ThreadMessage
 
 
 @admin.register(MessageThread)
@@ -26,3 +26,6 @@ class ContactMessageAdmin(admin.ModelAdmin):
         'user_reply', 'admin_reply', 'is_answered'
     )
     ordering = ('-created_at',)
+
+
+admin.site.register(ThreadMessage)
