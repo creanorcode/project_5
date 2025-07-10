@@ -129,10 +129,10 @@ def create_thread_view(request):
             thread.user = request.user
             thread.save()
 
-            message = message_form.save(commit=False)
-            message.thread = thread
-            message.sender = request.user
-            message.save()
+            new_message = message_form.save(commit=False)
+            new_message.thread = thread
+            new_message.sender = request.user
+            new_message.save()
 
             messages.success(request, "Your conversation has been started.")
             return redirect('contact:thread_detail', thread_id=thread.id)
@@ -158,7 +158,7 @@ def thread_detail_view(request, thread_id):
 
     if thread.user != request.user:
         return redirect('contact:user_messages')
-    
+
     messages_in_thread = ThreadMessage.objects.filter(thread=thread).order_by('created_at')
 
     if request.method == 'POST':
