@@ -175,6 +175,6 @@ def thread_detail_view(request, thread_id):
 
     return render(request, 'contact/thread_detail.html', {
         'thread': thread,
-        'message': messages_in_thread,
+        'messages': messages_in_thread,
         'form': form,
     })

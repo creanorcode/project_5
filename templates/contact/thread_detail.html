@@ -4,16 +4,23 @@
 {% block title %}Conversation | Artea{% endblock %}
 
 {% block content %}
-<section class="container-narrow">
-    <h2>Conversation with Artea Studio</h2>
+<div class="container-narrow">
+    <h2>Conversation: {{ thread.subject }}</h2>
 
     <div class="thread-messages">
-        {% for msg in messages %}
-            <div class="message-box {% if message.is_admin %}admin{% else %}user{% endif %}">
-                <p><strong>{{ message.created_at|date:"Y-m-d H:i" }}</strong></p>
-                <p>{{ message.body }}</p>
-            </div>
-        {% endfor %}
+        {% if message %}
+            <ul class="message-list">
+                {% for message in messages %}
+                    <li class="message-box {% if message.sender == request.user %}user-message{% else %}admin-message{% endif %}">
+                        <p><strong>{{ message.sender }}:</strong></p>
+                        <div class="message-content">{{ message.body }}</div>
+                        <div class="message-time">{{ message.sent_at|date:"Y-m-d H:i" }}</div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No messages yet in this thread.</p>
+        {% endif %}
     </div>
 
     <hr>
@@ -21,14 +28,8 @@
     <h3>Send a new message</h3>
     <form method="post">
         {% csrf_token %}
-        {{ form.body.label_tag }}<br>
-        {{ form.body }}
-        {% if form.body.errors %}
-            <div class="form-errors">
-                {{ form.body.errors }}
-            </div>
-        {% endif %}
-        <button type="submit">Send</button>
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Send</button>
     </form>
-</section>
+</div>
 {% endblock %}

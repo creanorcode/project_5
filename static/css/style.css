@@ -848,17 +848,19 @@ input[type="submit"]:hover {
 }
 
 .message-box {
-  border: 1px solid #ccc;
-  padding: 1em;
-  margin-bottom: 1.5em;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  border-left: 4px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1em;
+  border-radius: 6px;
+  background: #f9f9f9;
 }
 
 .user-message {
   margin-top: 0.5em;
   margin-bottom: 1em;
   white-space: pre-wrap;
+  border-color: #007bff;
+  background: #eef5ff;
 }
 
 .admin-reply {
@@ -868,6 +870,17 @@ input[type="submit"]:hover {
   background-color: #eef5ff;
   padding: 0.5em;
   border-radius: 4px;
+}
+
+.admin-message {
+  border-color: #28a745;
+  background: #e9fbe9;
+}
+
+.message-time {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 5px;
 }
 
 /* === Responsive === */
