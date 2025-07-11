@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById("menuToggle");
     const nav = document.getElementById("mainNav");
+    const dropdownBtn = document.querySelector(".dropbtn");
+    const dropdownContainer = document.querySelector(".dropdown");
 
     if (toggle && nav) {
         toggle.addEventListener("click", () => {
@@ -11,7 +13,18 @@ document.addEventListener("DOMContentLoaded", function () {
         nav.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", () => {
                 nav.classList.remove("show");
+                if (dropdownContainer) {
+                    dropdownContainer.classList("show");
+                }
             });
+        });
+    }
+
+    // Toggle dropdown " My Account"
+    if (dropdownBtn && dropdownContainer) {
+        dropdownBtn.addEventListener("click", (e) => {
+            e.preventDefault(); // förhindra att länken navigerar
+            dropdownContainer.classList.toggle("show"); 
         });
     }
 });

@@ -46,7 +46,7 @@
 
                         {% if user.is_authenticated %}
                             <li class="dropdown">
-                                <a href="#" class="dropbtn">My Account</a>
+                                <button class="dropbtn" aria-haspopup="true" aria-expanded="false">My Account</button>
                                 <ul class="dropdown-content">
                                     <li><a href="{% url 'orders:order_history' %}">My Orders</a></li>
                                     <li><a href="{% url 'orders:completed_designs' %}">My Designs</a></li>
