@@ -31,7 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Stäng dropdown när man klickar utanför
     document.addEventListener("click", function (e) {
         document.querySelectorAll(".dropdown").forEach(dropdown => {
-            if (!dropdown.contains(e.target)) {
+            const btn = dropdown.querySelector(".dropbtn");
+            if (!dropdown.contains(e.target) && !btn.contains(e.target)) {
                 dropdown.classList.remove("show");
             }
         });
