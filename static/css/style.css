@@ -70,11 +70,13 @@ a:hover {
 }
 
 .menu-toggle {
-  display: none;
+  display: block;
   background: none;
   border: none;
   font-size: 2rem;
   cursor: pointer;
+  color: #333;
+  z-index: 1001;
 }
 
 .main-nav {
@@ -120,6 +122,10 @@ a:hover {
   z-index: 1000;
   padding: 0.5rem 0;
   border-radius: 5px;
+}
+
+.dropdown .dropdown-content {
+  display: none;
 }
 
 .dropdown:hover .dropdown-content,
@@ -985,7 +991,9 @@ input[type="submit"]:hover {
     background-color: #fff;
     border-top: 1px solid #ccc;
     padding: 1rem 0;
-    z-index: 1000;
+    z-index: 999;
+    max-height: 90vh;
+    overflow-y: auto;
   }
 
   .main-nav a,
@@ -995,8 +1003,7 @@ input[type="submit"]:hover {
   }
 
   .main-nav.show {
-    max-height: 90vh;
-    overflow-y: auto;
+    display: flex;
   }
 
   .main-nav li {
@@ -1017,13 +1024,24 @@ input[type="submit"]:hover {
 
   .dropdown-content {
     position: static;
-    display: none;
     background: #f9f9f9;
     padding-left: 1rem;
   }
 
   .dropdown:hover .dropdown-content,
   .dropdown:focus-within .dropdown-content {
+    display: block;
+  }
+
+  .dropbtn {
+    width: 100%;
+    text-align: left;
+  }
+
+  .dropdown-content a,
+  .dropdown-content .dropdown-btn {
+    padding: 10px;
+    width: 100%;
     display: block;
   }
 
