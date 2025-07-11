@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     dropdownBtns.forEach((btn) => {
         btn.addEventListener("click", function (e) {
             e.preventDefault();
+            e.stopPropagation();
             const dropdown = this.closest(".dropdown");
             dropdown.classList.toggle("show");
         });

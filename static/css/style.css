@@ -147,15 +147,18 @@ a:hover {
 
 /* Trigger-button */
 .dropbtn {
-  background: none;
-  border: none;
-  font: inherit;
-  padding: 10px 15px;
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
+  background-color: #e7edf1;
   color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
   font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.dropbtn:hover {
+  background-color: #cfdbe1;
 }
 
 /* Dropdown content */
