@@ -1025,10 +1025,18 @@ input[type="submit"]:hover {
   }
 
   .dropdown-content {
-    position: static;
+    flex-direction: column !important;
     display: none;
-    background: #f9f9f9;
-    padding-left: 1rem;
+    width: 100%;
+    background-color: #fff;
+    padding: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  .dropdown-content li {
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    text-align: left;
   }
 
   .dropdown:hover .dropdown-content,
@@ -1043,9 +1051,8 @@ input[type="submit"]:hover {
 
   .dropdown-content a,
   .dropdown-content .dropdown-btn {
-    padding: 10px;
     width: 100%;
-    display: block;
+    padding: 0.8rem 1rem;
   }
 
   .dropdown.show ,.dropdown-content {
