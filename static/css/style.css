@@ -70,13 +70,7 @@ a:hover {
 }
 
 .menu-toggle {
-  display: block;
-  background: none;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  color: #333;
-  z-index: 1001;
+  display: none;
 }
 
 .main-nav {
@@ -991,9 +985,7 @@ input[type="submit"]:hover {
     background-color: #fff;
     border-top: 1px solid #ccc;
     padding: 1rem 0;
-    z-index: 999;
-    max-height: 90vh;
-    overflow-y: auto;
+    z-index: 1000;
   }
 
   .main-nav a,
@@ -1004,6 +996,8 @@ input[type="submit"]:hover {
 
   .main-nav.show {
     display: flex;
+    max-height: 90vh;
+    overflow-y: auto;
   }
 
   .main-nav li {
@@ -1012,10 +1006,8 @@ input[type="submit"]:hover {
   }
 
   .main-nav a {
-    padding: 0.8rem 0;
     width: 100%;
     text-align: center;
-    border-top: 1px solid #eee;
   }
 
   .main-nav.active {
@@ -1024,6 +1016,7 @@ input[type="submit"]:hover {
 
   .dropdown-content {
     position: static;
+    display: none;
     background: #f9f9f9;
     padding-left: 1rem;
   }
@@ -1042,6 +1035,10 @@ input[type="submit"]:hover {
   .dropdown-content .dropdown-btn {
     padding: 10px;
     width: 100%;
+    display: block;
+  }
+
+  .dropdown.show ,.dropdown-content {
     display: block;
   }
 
@@ -1085,5 +1082,13 @@ input[type="submit"]:hover {
     margin-top: 0.5rem;
     width: 100%;
     text-align: center;
+  }
+}
+
+/* === Desktop hover === */
+@media (min-width: 769px) {
+  .dropdown:hover .dropdown-content,
+  .dropdown:focus-within .dropdown-content {
+    display: block;
   }
 }
