@@ -59,7 +59,7 @@ a:hover {
   align-items: center;
 }
 
-/* === Navigation styling === */
+/* === Navigation (Toggle Manu) styling === */
 .nav-container {
   display: flex;
   justify-content: space-between;
@@ -73,16 +73,21 @@ a:hover {
   display: none;
   background: none;
   border: none;
-  font-size: 1.8rem;
+  font-size: 2rem;
   cursor: pointer;
 }
 
 .main-nav {
   display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  padding: 0.5rem 0;
-  background-color: #fff;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav li {
+  position: relative;
 }
 
 .main-nav a {
@@ -97,6 +102,71 @@ a:hover {
 
 .main-nav a:hover {
   background-color: #cfdbe1;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f9f9f9;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
+  display: block;
+}
+
+.dropdown-content li {
+  padding: 10px;
+}
+
+.dropdown-content li a {
+  display: block;
+}
+
+/* Dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Trigger-button */
+.dropbtn {
+  color: inherit;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+}
+
+/* Dropdown content */
+.dropdown-content a,
+.dropdown-content .dropdown-btn {
+  display: block;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+  background: white;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+}
+
+.dropdown-content a:hover,
+.dropdown-content .dropdown-btn:hover {
+  background-color: #f0f0f0;
+}
+
+/* Show dropdown on hover */
+.filter-links a {
+  margin-right: 0.5rem;
+}
+.design-item {
+  border-bottom: 1px solid #ccc;
+  padding: 1rem 0;
 }
 
 /* === Main content styling === */
@@ -807,60 +877,6 @@ input[type="submit"]:hover {
   padding-left: 0.5rem;
 }
 
-/* Dropdown container */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Trigger-button */
-.dropbtn {
-  color: inherit;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-}
-
-/* Dropdown content */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  min-width: 160px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  z-index: 1000;
-}
-
-.dropdown-content a,
-.dropdown-content .dropdown-btn {
-  display: block;
-  padding: 10px;
-  color: black;
-  text-decoration: none;
-  background: white;
-  border: none;
-  width: 100%;
-  text-align: left;
-  font: inherit;
-}
-
-.dropdown-content a:hover,
-.dropdown-content .dropdown-btn:hover {
-  background-color: #f0f0f0;
-}
-
-/* Show dropdown on hover */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.filter-links a {
-  margin-right: 0.5rem;
-}
-.design-item {
-  border-bottom: 1px solid #ccc;
-  padding: 1rem 0;
-}
-
 /* === Messages Intern system on page (for auth) === */
 .message-list {
   list-style: none;
@@ -939,10 +955,18 @@ input[type="submit"]:hover {
     .main-nav {
       display: none;
       flex-direction: column;
-      align-items: center;
       width: 100%;
-      padding: 0;
       background-color: #fff;
+      border-top: 1px solid #ccc;
+    }
+
+    .main-nav.show {
+      display: flex;
+    }
+
+    .main-nav li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
     }
 
     .main-nav a {
@@ -954,6 +978,12 @@ input[type="submit"]:hover {
 
     .main-nav.active {
       display: flex;
+    }
+
+    .dropdown-content {
+      position: static;
+      box-shadow: none;
+      border: none;
     }
 
     header h1 {
