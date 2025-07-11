@@ -948,83 +948,109 @@ input[type="submit"]:hover {
 
 /* === Responsive === */
 @media (max-width: 768px) {
-    .menu-toggle{
-      display: block;
-    }
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    .main-nav {
-      display: none;
-      flex-direction: column;
-      width: 100%;
-      background-color: #fff;
-      border-top: 1px solid #ccc;
-    }
+  .menu-toggle{
+    display: block;
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    margin-left: auto;
+  }
 
-    .main-nav.show {
-      display: flex;
-    }
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    padding: 1rem 0;
+    z-index: 1000;
+  }
 
-    .main-nav li {
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
-    }
+  .main-nav a,
+  .main-nav .dropdown {
+    padding: 10px 1.5rem;
+    display: block;
+  }
 
-    .main-nav a {
-      padding: 0.8rem 0;
-      width: 100%;
-      text-align: center;
-      border-top: 1px solid #eee;
-    }
+  .main-nav.show {
+    display: flex;
+  }
 
-    .main-nav.active {
-      display: flex;
-    }
+  .main-nav li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
 
-    .dropdown-content {
-      position: static;
-      box-shadow: none;
-      border: none;
-    }
+  .main-nav a {
+    padding: 0.8rem 0;
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #eee;
+  }
 
-    header h1 {
-      font-size: 1.4rem;
-      margin: 0;
-    }
+  .main-nav.active {
+    display: flex;
+  }
 
-    .site-main {
-        padding: 1rem;
-    }
+  .dropdown-content {
+    position: static;
+    display: none;
+    background: #f9f9f9;
+    padding-left: 1rem;
+  }
 
-    .messages-container {
-        padding: 0 10px;
-    }
+  .dropdown:hover .dropdown-content,
+  .dropdown:focus-within .dropdown-content {
+    display: block;
+  }
 
-    /* === My Conversations - mobile styling - === */
-    .conversation-box {
-      padding: 0.8rem;
-      font-size: 0.95rem;
-    }
+  header h1 {
+    font-size: 1.4rem;
+    margin: 0;
+  }
 
-    .conversation-header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+  .site-main {
+    padding: 1rem;
+  }
 
-    .conversation-header strong {
-      margin-bottom: 0.4rem;
-      font-size: 1rem;
-    }
+  .messages-container {
+    padding: 0 10px;
+  }
 
-    .conversation-date {
-      font-size: 0.85rem;
-      color: #666;
-    }
+  /* === My Conversations - mobile styling - === */
+  .conversation-box {
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
 
-    .conversation-link .btn {
-      font-size: 0.85rem;
-      padding: 0.3rem 0.6rem;
-      margin-top: 0.5rem;
-      width: 100%;
-      text-align: center;
-    }
+  .conversation-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .conversation-header strong {
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+  }
+
+  .conversation-date {
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  .conversation-link .btn {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+    margin-top: 0.5rem;
+    width: 100%;
+    text-align: center;
+  }
 }
