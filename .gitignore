@@ -9,6 +9,5 @@ node_modules/
 cloudinary_python.txt
 .venv
 .env
-.env.example
 db.sqlite3
 /media/
