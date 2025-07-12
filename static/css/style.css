@@ -158,16 +158,22 @@ a:hover {
 
 .main-nav a {
   text-decoration: none;
-  color: #333;
+  color: #023047;
   background-color: #e7edf1;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   font-weight: 600;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .main-nav a:hover {
-  background-color: #cfdbe1;
+  background-color: #b5d1e2;
+  color: #001f2d;
+}
+
+.main-nav a.active {
+  background-color: #0077b6;
+  color: #fff;
 }
 
 .dropdown-content {
