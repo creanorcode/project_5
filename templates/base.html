@@ -31,7 +31,9 @@
         <header class="site-header">
             <div class="container header-container">
                 <div class="nav-container">
-                    <h1 class="logo"><a href="{% url 'home' %}">Artea Studio</a></h1>
+                    <a href="{% url 'home' %}" class="logo">
+                        <img src="{% static 'images/artea-logo.png' %}" alt="Artea Studio Logo" height="40">
+                    </a>
                     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
                 </div>
                 
