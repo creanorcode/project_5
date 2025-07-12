@@ -266,21 +266,22 @@ a:hover {
 
 /* === Footer content styling === */
 .site-footer {
-  background-color: #f0f0f0;
+  background-color: #f2f5f8;
   padding: 1rem 0;
   text-align: center;
   font-size: 0.9rem;
-  color: #666;
+  color: #6b7280; /* Tailwind gray-600 */
+  border-top: 1px solid #d1d5db;
 }
 
 .footer-admin-link a {
   font-weight: 600;
-  color: #6b7280;  /* gray-600 */
+  color: #0077b6;  /* Artea blue accent*/
   text-decoration: none;
 }
 
 .footer-admin-link a:hover {
-  color: #4f46e5; /* indigo-600 */
+  color: #023e8a;
   text-decoration: underline;
 }
 
@@ -376,7 +377,7 @@ input[type='submit']:hover {
   border-left: 6px solid #f39c12;
 }
 
-/* === Forms === */
+/* === Forms (Artea Style) === */
 form {
   display: flex;
   flex-direction: column;

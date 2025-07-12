@@ -92,7 +92,7 @@
             </div>
 
             {% if request.user.is_authenticated and request.user.is_staff %}
-                <div>
+                <div class="footer-admin-link">
                     <a href="{% url 'orders:admin_design_list' %}">Admin Panel</a>
                 </div>
             {% endif %}
