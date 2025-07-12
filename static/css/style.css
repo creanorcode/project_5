@@ -61,7 +61,7 @@ a:hover {
 
 /* === Hero section === */
 .hero {
-  background: url('static/images/hero-bg.png') center center / cover no-repeat;
+  background: url('/static/images/hero-bg.png') center center / cover no-repeat;
   padding: 5rem 2rem;
   text-align: center;
   border-radius: 1rem;
