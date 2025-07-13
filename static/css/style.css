@@ -1040,14 +1040,12 @@ textarea {
   /* === Mobile-menu - Hamburgermenu === */
   .menu-toggle{
     display: block;
-    font-size: 1.8rem;
+    font-size: 2rem;
     background: none;
     border: none;
     cursor: pointer;
-    color: #023047;
     margin-top: 0.5rem;
     margin-left: auto;
-    padding: 0.2rem 0.5rem;
   }
 
   /* === Mobilemenu: main-nav - .show is active === */
@@ -1059,7 +1057,6 @@ textarea {
     background-color: #fff;
     border-top: 1px solid #ccc;
     padding: 1rem 0;
-    z-index: 1000;
   }
 
   .main-nav.show {
@@ -1077,8 +1074,8 @@ textarea {
   }
 
   .main-nav li {
-    padding: 10px;
     border-bottom: 1px solid #ddd;
+    padding: 10px;
   }
 
   .main-nav a {
@@ -1095,7 +1092,6 @@ textarea {
     position: static;
     display: none;
     background: #f9f9f9;
-    padding-left: 1rem;
   }
 
   .dropdown-content li {
@@ -1124,7 +1120,7 @@ textarea {
     background-color: #d9f1f7;
   }
 
-  .dropdown.show ,.dropdown-content {
+  .dropdown.show .dropdown-content {
     display: block;
   }
 

@@ -1,40 +1,37 @@
 document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById("menuToggle");
     const nav = document.getElementById("mainNav");
-    const dropdownBtns = document.querySelectorAll(".dropbtn");
+    const dropbtn = document.querySelectorAll(".accountDropdownBtn");
+    const dropdown = dropbtn?.closest(".dropdown");
 
     // Toggle hamburger meny på mobil
     if (toggle && nav) {
         toggle.addEventListener("click", () => {
             nav.classList.toggle("show");
         });
+
+        // Stäng meny vid klick på länkar (mobil)
+        nav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                nav.classList.remove("show");
+                dropdown?.classList.remove("show");
+            });
+        });
     }
 
     // Dropdown för "My Account"
-    dropdownBtns.forEach((btn) => {
-        btn.addEventListener("click", function (e) {
+    if (dropbtn && dropdown) {
+        dropbtn.addEventListener("click", (e) => {
             e.preventDefault();
-            e.stopPropagation();
-            const dropdown = this.closest(".dropdown");
+            e.stopPropagation(); // hindrar att menyn stängs direkt
             dropdown.classList.toggle("show");
         });
-    });
 
-    // Stäng meny och dropdown vid klick på länk (mobil)
-    document.querySelectorAll(".main-nav a").forEach(link => {
-        link.addEventListener("click", () => {
-            nav.classList.remove("show");
-            document.querySelectorAll(".dropdown").forEach(drop => drop.classList.remove("show"));
-        });
-    });
-
-    // Stäng dropdown när man klickar utanför
-    document.addEventListener("click", function (e) {
-        document.querySelectorAll(".dropdown").forEach(dropdown => {
-            const btn = dropdown.querySelector(".dropbtn");
-            if (!dropdown.contains(e.target) && !btn.contains(e.target)) {
+        // Stäng dropdown om man klickar utanför
+        document.addEventListener("click", function (e) {
+            if (!dropdown.contains(e.target) && !dropbtn.contains(e.target)) {
                 dropdown.classList.remove("show");
             }
         });
-    });
+    }
 });
