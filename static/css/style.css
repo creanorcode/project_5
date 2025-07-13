@@ -1096,6 +1096,10 @@ textarea {
     display: flex;
   }
 
+  .dropdown {
+    width: 100%;
+  }
+
   .dropbtn {
     width: 100%;
     text-align: center;
@@ -1105,10 +1109,7 @@ textarea {
     border-radius: 6px;
     font-weight: 600;
     font-size: 1rem;
-    display: block;
     border: none;
-    font: inherit;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   }
 
   .dropbtn:hover {
@@ -1124,6 +1125,8 @@ textarea {
     border: none;
     padding: 0;
     box-shadow: none;
+    width: 100%;
+    margin-top: 0.5rem;
   }
 
   .dropdown.show .dropdown-content {
