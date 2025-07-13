@@ -1102,14 +1102,13 @@ textarea {
 
   .dropbtn {
     width: 100%;
-    text-align: center;
     background-color: #e7edf1;
     color: #023047;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
     font-weight: 600;
-    font-size: 1rem;
     border: none;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    text-align: center;
   }
 
   .dropbtn:hover {
@@ -1119,14 +1118,12 @@ textarea {
 
   /* === Dropdown mobileresponsive === */
   .dropdown-content {
-    position: static;
+    flex-direction: column !important;
     display: none;
-    background: #f9f9f9;
-    border: none;
-    padding: 0;
-    box-shadow: none;
     width: 100%;
-    margin-top: 0.5rem;
+    background-color: #fff;
+    padding: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   }
 
   .dropdown.show .dropdown-content {
@@ -1134,7 +1131,9 @@ textarea {
   }
 
   .dropdown-content li {
-    border-bottom: 1px solid #ddd;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    text-align: left;
   }
 
   .dropdown:hover .dropdown-content,
@@ -1144,12 +1143,8 @@ textarea {
 
   .dropdown-content a,
   .dropdown-content .dropdown-btn {
-    display: block;
-    padding: 10px 1rem;
-    color: #023047;
-    background: white;
     width: 100%;
-    text-align: left;
+    padding: 0.8rem 1rem;
   }
 
   .dropdown-content a:hover,

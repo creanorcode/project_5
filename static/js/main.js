@@ -1,37 +1,40 @@
 document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById("menuToggle");
     const nav = document.getElementById("mainNav");
-    const dropbtn = document.getElementById("accountDropdownBtn");
-    const dropdown = dropbtn?.closest(".dropdown");
+    const dropdownBtns = document.querySelectorAll(".dropbtn");
 
-    // Toggle hamburger meny på mobil
+    // 1. Toggle hamburger-menyn
     if (toggle && nav) {
         toggle.addEventListener("click", () => {
             nav.classList.toggle("show");
         });
     }
 
-    // Toggle dropdown för "My Account" på mobil
-    if (dropbtn && dropdown) {
-        dropbtn.addEventListener("click", (e) => {
+    // 2. Dropdown-knapp för "My Account"
+    dropdownBtns.forEach((btn) => {
+        btn.addEventListener("click", function (e) {
             e.preventDefault();
-            e.stopPropagation(); // hindrar att menyn stängs direkt
+            e.stopPropagation();  // 🛑 Hindrar dropdown från att stängas direkt
+            const dropdown = this.closest(".dropdown");
             dropdown.classList.toggle("show");
         });
+    });
 
-        // Stäng dropdown om man klickar utanför
-        document.addEventListener("click", (e) => {
-            if (!dropdown.contains(e.target) && !dropbtn.contains(e.target)) {
-                dropdown.classList.remove("show");
-            }
-        });
-    }
-
-    // Stäng nav + dropdown vid klick på länk (mobil)
-    nav?.querySelectorAll("a").forEach(link => {
+    // 3. Stäng meny och dropdown vid klick på länk
+    document.querySelectorAll(".main-nav a").forEach(link => {
         link.addEventListener("click", () => {
             nav.classList.remove("show");
-            dropdown?.classList.remove("show");
+            document.querySelectorAll(".dropdown").forEach(drop => drop.classList.remove("show"));
+        });
+    });
+
+    // 4. Stäng dropdown om man klickar utanför
+    document.addEventListener("click", function (e) {
+        document.querySelectorAll(".dropdown").forEach(dropdown => {
+            const button = dropdown.querySelector(".dropbtn");
+            if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+                dropdown.classList.remove("show");
+            }
         });
     });
 });
