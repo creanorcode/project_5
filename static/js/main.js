@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById("menuToggle");
     const nav = document.getElementById("mainNav");
-    const dropbtn = document.querySelectorAll(".accountDropdownBtn");
+    const dropbtn = document.getElementById("accountDropdownBtn");
     const dropdown = dropbtn?.closest(".dropdown");
 
     // Toggle hamburger meny på mobil

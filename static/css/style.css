@@ -212,20 +212,23 @@ a:hover {
 
 /* Trigger-button */
 .dropbtn {
-  background: none;
+  text-decoration: none;
+  color: #023047;
+  background-color: #e7edf1;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  font-size: 1rem;
+  display: block;
   border: none;
   font: inherit;
-  padding: 10px 15px;
   cursor: pointer;
-  width: 100%;
-  text-align: left;
-  color: #333;
-  font-weight: 600;
-  display: block; /* Viktigt: ser till att den syns! */
 }
 
 .dropbtn:hover {
-  background-color: #cfdbe1;
+  background-color: #b5d1e2;
+  color: #001f2d;
 }
 
 /* Dropdown content */
@@ -1109,7 +1112,22 @@ textarea {
 
   .dropbtn {
     width: 100%;
-    text-align: left;
+    text-align: center;
+    background-color: #e7edf1;
+    color: #023047;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    display: block;
+    border: none;
+    font: inherit;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  }
+
+  .dropbtn:hover {
+    background-color: #b5d1e2;
+    color: #001f2d;
   }
 
   .dropdown-content a,
