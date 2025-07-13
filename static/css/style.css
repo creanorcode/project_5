@@ -166,6 +166,29 @@ a:hover {
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
+/* Trigger-button */
+.dropbtn {
+  text-decoration: none;
+  color: #023047;
+  background-color: #e7edf1;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  display: block;
+  border: none;
+  font-family: inherit;
+  font-style: normal;
+  font-variant: normal;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.dropbtn:hover {
+  background-color: #b5d1e2;
+  color: #001f2d;
+}
+
 .main-nav a:hover {
   background-color: #b5d1e2;
   color: #001f2d;
@@ -208,27 +231,6 @@ a:hover {
 /* Dropdown container */
 .dropdown {
   position: relative;
-}
-
-/* Trigger-button */
-.dropbtn {
-  text-decoration: none;
-  color: #023047;
-  background-color: #e7edf1;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-weight: 600;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  font-size: 1rem;
-  display: block;
-  border: none;
-  font: inherit;
-  cursor: pointer;
-}
-
-.dropbtn:hover {
-  background-color: #b5d1e2;
-  color: #001f2d;
 }
 
 /* Dropdown content */
@@ -1094,22 +1096,6 @@ textarea {
     display: flex;
   }
 
-  /* === Dropdown mobileresponsive === */
-  .dropdown-content {
-    position: static;
-    display: none;
-    background: #f9f9f9;
-  }
-
-  .dropdown-content li {
-    border-bottom: 1px solid #ddd;
-  }
-
-  .dropdown:hover .dropdown-content,
-  .dropdown:focus-within .dropdown-content {
-    display: block;
-  }
-
   .dropbtn {
     width: 100%;
     text-align: center;
@@ -1130,20 +1116,42 @@ textarea {
     color: #001f2d;
   }
 
+  /* === Dropdown mobileresponsive === */
+  .dropdown-content {
+    position: static;
+    display: none;
+    background: #f9f9f9;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .dropdown.show .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content li {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .dropdown:hover .dropdown-content,
+  .dropdown:focus-within .dropdown-content {
+    display: block;
+  }
+
   .dropdown-content a,
   .dropdown-content .dropdown-btn {
     display: block;
     padding: 10px 1rem;
     color: #023047;
+    background: white;
+    width: 100%;
+    text-align: left;
   }
 
   .dropdown-content a:hover,
   .dropdown-content .dropdown-btn:hover {
     background-color: #d9f1f7;
-  }
-
-  .dropdown.show .dropdown-content {
-    display: block;
   }
 
   header h1 {
