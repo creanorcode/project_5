@@ -27,6 +27,7 @@
                 {% endfor %}
             </div>
         {% endif %}
+
         <!-- Header -->
         <header class="site-header">
             <div class="container header-container">
@@ -50,7 +51,7 @@
 
                         {% if user.is_authenticated %}
                             <li class="dropdown">
-                                <button class="dropbtn" id="accountDropdownBtn">My Account</button>
+                                <button class="dropbtn" id="accountDropdownBtn" aria-haspopup="true" aria-expanded="false">My Account</button>
                                 <ul class="dropdown-content">
                                     <li><a href="{% url 'orders:order_history' %}">My Orders</a></li>
                                     <li><a href="{% url 'orders:completed_designs' %}">My Designs</a></li>

@@ -9,17 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
         toggle.addEventListener("click", () => {
             nav.classList.toggle("show");
         });
-
-        // Stäng meny vid klick på länkar (mobil)
-        nav.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", () => {
-                nav.classList.remove("show");
-                dropdown?.classList.remove("show");
-            });
-        });
     }
 
-    // Dropdown för "My Account"
+    // Toggle dropdown för "My Account" på mobil
     if (dropbtn && dropdown) {
         dropbtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -28,10 +20,18 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Stäng dropdown om man klickar utanför
-        document.addEventListener("click", function (e) {
+        document.addEventListener("click", (e) => {
             if (!dropdown.contains(e.target) && !dropbtn.contains(e.target)) {
                 dropdown.classList.remove("show");
             }
         });
     }
+
+    // Stäng nav + dropdown vid klick på länk (mobil)
+    nav?.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+            nav.classList.remove("show");
+            dropdown?.classList.remove("show");
+        });
+    });
 });

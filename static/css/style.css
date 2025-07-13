@@ -219,6 +219,9 @@ a:hover {
   cursor: pointer;
   width: 100%;
   text-align: left;
+  color: #333;
+  font-weight: 600;
+  display: block; /* Viktigt: ser till att den syns! */
 }
 
 .dropbtn:hover {
@@ -1040,7 +1043,7 @@ textarea {
   /* === Mobile-menu - Hamburgermenu === */
   .menu-toggle{
     display: block;
-    font-size: 2rem;
+    font-size: 1.8rem;
     background: none;
     border: none;
     cursor: pointer;
@@ -1057,6 +1060,7 @@ textarea {
     background-color: #fff;
     border-top: 1px solid #ccc;
     padding: 1rem 0;
+    z-index: 1000;
   }
 
   .main-nav.show {
