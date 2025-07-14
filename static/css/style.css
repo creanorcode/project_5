@@ -42,8 +42,9 @@ a:hover {
 }
 
 .site-header .logo img {
-  height: 50px;
-  max-width: 180px;
+  height: 70px;
+  max-width: 200px;
+  width: auto;
 }
 
 .site-header .logo a {
@@ -1174,6 +1175,11 @@ textarea {
   .header-container {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  /* === Logo img styling === */
+  .site-header .logo img {
+    height: 55px;
   }
 
   /* === Mobile-menu - Hamburgermenu === */
