@@ -11,8 +11,12 @@
         <div class="hero-content">
             <h1>Welcome to Artea Studio</h1>
             <p>Custom-made designs that bring your ideas to life. Simple. Beautiful. Effective.</p>
-            <a href="{% url 'orders:design_order' %}" class="btn">Start a Design</a>
-            <a href="{% url 'portfolio' %}" class="btn btn-primary">See Our Portfolio</a>
+            
+            <div class="hero-buttons">
+                <a href="{% url 'orders:design_order' %}" class="btn">Start a Design</a>
+                <a href="{% url 'portfolio' %}" class="btn btn-primary">See Our Portfolio</a>
+            </div>
+            
         </div>
     </section>
 
