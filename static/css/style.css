@@ -114,29 +114,6 @@ a:hover {
   margin-top: 1rem;
 }
 
-.hero .btn {
-  background-color: #dd4c4f;
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 0.5rem;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.hero .btn:hover {
-  background-color: #bd393b;
-}
-
-.hero .btn-primary {
-  background-color: #2d89ef;
-}
-
-.hero .btn-primary:hover {
-  background-color: #1c6ed6;
-}
-
 /* === Navigation (Toggle Manu) styling === */
 .nav-container {
   display: flex;
