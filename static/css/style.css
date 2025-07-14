@@ -401,6 +401,57 @@ input[type='submit']:focus {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+/* === Featured Works Section Styling === */
+.featured-works {
+  background-color: #f9fafb;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.featured-works h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+}
+
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.work-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: left;
+}
+
+.work-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.work-card img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.work-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #023047;
+}
+
+.work-card p {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
 /* === Footer content styling === */
 .site-footer {
   background-color: #f2f5f8;
