@@ -314,27 +314,11 @@ a:hover {
 /* === Buttons Styling (Site) === */
 .btn,
 .checkout-form .checkout-btn,
-.order-btn {
-  background-color: #2d89ef;
-  color: #fff;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.btn:hover,
-.checkout-form .checkout-btn:hover,
-.order-btn:hover {
-  background-color: #f9d342;
-  color: #333;
-}
-
+.order-btn,
+.btn-primary,
 button,
 input[type='submit'] {
-  background-color: #f49a4c;
+  background-color: #2d89ef;
   color: #fff;
   padding: 0.6rem 1.2rem;
   border: none;
@@ -342,12 +326,18 @@ input[type='submit'] {
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
-  transition: background-color 0.2s ease;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+.btn:hover,
+.checkout-form .checkout-btn:hover,
+.order-btn:hover,
+.btn-primary:hover,
 button:hover,
 input[type='submit']:hover {
-  background-color: #d67d2f;
+  background-color: #f9d342;
+  color: #333;
 }
 
 /* === Messages (Django Messages) - Div-based modern style === */
@@ -813,20 +803,6 @@ textarea {
 .container-narrow {
   max-width: 600px;
   margin: 0 auto;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
 }
 
 /* === Design pages === */
