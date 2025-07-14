@@ -211,15 +211,6 @@ a:hover {
   border-radius: 5px;
 }
 
-.dropdown .dropdown-content {
-  display: none;
-}
-
-.dropdown:hover .dropdown-content,
-.dropdown:focus-within .dropdown-content {
-  display: block;
-}
-
 .dropdown-content li {
   padding: 10px;
 }
@@ -1094,6 +1085,7 @@ textarea {
 
   /* === Dropdown mobileresponsive === */
   .dropdown-content {
+    position: static;
     flex-direction: column !important;
     display: none;
     width: 100%;
@@ -1110,11 +1102,6 @@ textarea {
     width: 100%;
     border-bottom: 1px solid #eee;
     text-align: left;
-  }
-
-  .dropdown:hover .dropdown-content,
-  .dropdown:focus-within .dropdown-content {
-    display: block;
   }
 
   .dropdown-content a,
