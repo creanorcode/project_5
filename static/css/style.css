@@ -473,11 +473,14 @@ textarea {
 }
 
 .product-card {
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
 }
 
 .product-card:hover {
@@ -488,6 +491,8 @@ textarea {
 .product-card img {
   width: 100%;
   height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
   display: block;
 }
 
