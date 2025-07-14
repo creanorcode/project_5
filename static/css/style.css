@@ -159,7 +159,7 @@ a:hover {
 .main-nav a {
   text-decoration: none;
   color: #023047;
-  background-color: #e7edf1;
+  background-color: #dbe7ef;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   font-weight: 600;
@@ -170,7 +170,7 @@ a:hover {
 .dropbtn {
   text-decoration: none;
   color: #023047;
-  background-color: #e7edf1;
+  background-color: #dbe7ef;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   font-weight: 600;
@@ -184,19 +184,21 @@ a:hover {
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
+.main-nav a:hover,
 .dropbtn:hover {
-  background-color: #b5d1e2;
-  color: #001f2d;
-}
-
-.main-nav a:hover {
-  background-color: #b5d1e2;
+  background-color: #a4c3d7;
   color: #001f2d;
 }
 
 .main-nav a.active {
   background-color: #0077b6;
   color: #fff;
+}
+
+.main-nav a:focus,
+.dropbtn:focus {
+  outline: 3px solid #f49a4c;
+  outline-offset: 2px;
 }
 
 .dropdown-content {
@@ -240,7 +242,8 @@ a:hover {
 
 .dropdown-content a:hover,
 .dropdown-content .dropdown-btn:hover {
-  background-color: #f0f0f0;
+  background-color: #e0eff5;
+  color: #023047;
 }
 
 .dropdown.show .dropdown-content {
@@ -329,6 +332,13 @@ button:hover,
 input[type='submit']:hover {
   background-color: #f9d342;
   color: #333;
+}
+
+button:focus,
+.btn:focus,
+input[type='submit']:focus {
+  outline: 3px solid #f49a4c;
+  outline-offset: 2px;
 }
 
 /* === Messages (Django Messages) - Div-based modern style === */
