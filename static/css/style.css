@@ -64,6 +64,65 @@ a:hover {
   align-items: center;
 }
 
+/* === Buttons Styling (Site) === */
+.btn,
+.checkout-form .checkout-btn,
+.order-btn,
+button,
+input[type='submit'] {
+  background-color: #2d89ef;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.btn:hover,
+.checkout-form .checkout-btn:hover,
+.order-btn:hover,
+button:hover,
+input[type='submit']:hover {
+  background-color: #f9d342;
+  color: #333;
+}
+
+button:focus,
+.btn:focus,
+input[type='submit']:focus {
+  outline: 3px solid #f49a4c;
+  outline-offset: 2px;
+}
+
+/* === Primary btn style === */
+.btn-primary {
+  background-color: #2d89ef;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #1b6cd8;
+  color: #fff;
+}
+
+/* === Secondary btn style === */
+.btn-secondary {
+  background-color: #e0e0e0;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.btn-secondary:hover {
+  background-color: #d4d4d4;
+  color: #000;
+  border-color: #bbb;
+}
+
 /* === Hero section === */
 .hero {
   background: url('/static/images/hero-bg2.png');
@@ -112,6 +171,36 @@ a:hover {
   gap: 1rem;
   justify-content: center;
   margin-top: 1rem;
+}
+
+.hero .btn {
+  background-color: #dd4c4f;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0.5rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.hero .btn:hover {
+  background-color: #bd393b;
+}
+
+.hero .btn-primary {
+  background-color: #2563eb;
+}
+
+.hero .btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+.hero .btn-secondary {
+  background-color: #f59e0b;
+}
+.hero .btn-secondary:hover {
+  background-color: #d97706;
 }
 
 /* === Navigation (Toggle Manu) styling === */
@@ -300,65 +389,6 @@ a:hover {
   width: 90%;
   max-width: 800px;
   margin: 0 auto;
-}
-
-/* === Buttons Styling (Site) === */
-.btn,
-.checkout-form .checkout-btn,
-.order-btn,
-button,
-input[type='submit'] {
-  background-color: #2d89ef;
-  color: #fff;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  text-align: center;
-  display: inline-block;
-  text-decoration: none;
-}
-
-.btn:hover,
-.checkout-form .checkout-btn:hover,
-.order-btn:hover,
-button:hover,
-input[type='submit']:hover {
-  background-color: #f9d342;
-  color: #333;
-}
-
-button:focus,
-.btn:focus,
-input[type='submit']:focus {
-  outline: 3px solid #f49a4c;
-  outline-offset: 2px;
-}
-
-/* === Primary btn style === */
-.btn-primary {
-  background-color: #2d89ef;
-  color: #fff;
-}
-
-.btn-primary:hover {
-  background-color: #1b6cd8;
-  color: #fff;
-}
-
-/* === Secondary btn style === */
-.btn-secondary {
-  background-color: #e0e0e0;
-  color: #333;
-  border: 1px solid #ccc;
-}
-
-.btn-secondary:hover {
-  background-color: #d4d4d4;
-  color: #000;
-  border-color: #bbb;
 }
 
 /* === Messages (Django Messages) - Div-based modern style === */
