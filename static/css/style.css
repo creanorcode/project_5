@@ -353,6 +353,54 @@ input[type='submit']:focus {
   box-shadow: 0 0 10px rgba(0,0,0,0.04);
 }
 
+/* === About section styling === */
+.about-section {
+  padding: 4rem 2rem;
+  background-color: #ffffff;
+}
+
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-text {
+  flex: 1 1 350px;
+  max-width: 600px;
+}
+
+.about-text h2 {
+  font-size: 2rem;
+  color: #2d89ef;
+  margin-bottom: 1rem;
+}
+
+.about-text p {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.about-text .btn {
+  margin-top: 0.5rem;
+}
+
+.about-image {
+  flex: 1 1 300px;
+  max-width: 500px;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
 /* === Footer content styling === */
 .site-footer {
   background-color: #f2f5f8;
