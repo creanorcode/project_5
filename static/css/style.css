@@ -1085,7 +1085,6 @@ textarea {
 
   /* === Dropdown mobileresponsive === */
   .dropdown-content {
-    position: static;
     flex-direction: column !important;
     display: none;
     width: 100%;
