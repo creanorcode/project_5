@@ -92,13 +92,18 @@
         <footer class="site-footer">
             <div class="container">
                 <p>&copy; 2025 Artea Studio. All rights reserved.</p>
-            </div>
 
-            {% if request.user.is_authenticated and request.user.is_staff %}
                 <div class="footer-admin-link">
-                    <a href="{% url 'orders:admin_design_list' %}">Admin Panel</a>
+                    <a href="{% url 'contact:contact' %}">Contact</a>
+                    {% if request.user.is_authenticated and request.user.is_staff %}
+                      |  <a href="{% url 'orders:admin_design_list' %}">Admin Panel</a>
+                    {% endif %}
+
+                    {% if user.is_superuser %}
+                      |  <a href="/admin/">Admin</a>
+                    {% endif %}
                 </div>
-            {% endif %}
+            </div>
         </footer>
     </div>
 <script src="{% static 'js/main.js' %}"></script>

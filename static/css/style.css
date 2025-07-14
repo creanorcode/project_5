@@ -281,6 +281,10 @@ a:hover {
   border-top: 1px solid #d1d5db;
 }
 
+.footer-admin-link {
+  margin-top: 0.5rem;
+}
+
 .footer-admin-link a {
   font-weight: 600;
   color: #0077b6;  /* Artea blue accent*/
