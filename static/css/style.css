@@ -344,7 +344,6 @@ a:hover {
 .btn,
 .checkout-form .checkout-btn,
 .order-btn,
-.btn-primary,
 button,
 input[type='submit'] {
   background-color: #2d89ef;
@@ -353,16 +352,16 @@ input[type='submit'] {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 1rem;
-  text-decoration: none;
+  font-weight: bold;
   transition: background-color 0.2s ease, color 0.2s ease;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
 }
 
 .btn:hover,
 .checkout-form .checkout-btn:hover,
 .order-btn:hover,
-.btn-primary:hover,
 button:hover,
 input[type='submit']:hover {
   background-color: #f9d342;
@@ -374,6 +373,30 @@ button:focus,
 input[type='submit']:focus {
   outline: 3px solid #f49a4c;
   outline-offset: 2px;
+}
+
+/* === Primary btn style === */
+.btn-primary {
+  background-color: #2d89ef;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #1b6cd8;
+  color: #fff;
+}
+
+/* === Secondary btn style === */
+.btn-secondary {
+  background-color: #e0e0e0;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.btn-secondary:hover {
+  background-color: #d4d4d4;
+  color: #000;
+  border-color: #bbb;
 }
 
 /* === Messages (Django Messages) - Div-based modern style === */
