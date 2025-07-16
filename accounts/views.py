@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import UserRegisterForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.http import HttpResponse
 
 
 def register_view(request):
@@ -50,5 +51,16 @@ def logout_view(request):
 def logout_success(request):
     return render(request, 'accounts/logout_success.html')
 
+
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
+
+
+def robots_txt(request);
+    lines = [
+        "User-agent: *",
+        "Allow: /",
+        "Sitemap: https://www.artea.studio/sitemap.xml"
+    ]
+
+    return HttpResponse("\n".join(lines), content_type="text/plain")

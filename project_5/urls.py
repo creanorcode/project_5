@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import handler404
+from django.views import robots_txt
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,6 +20,7 @@ urlpatterns = [
     path('cart/', include('cart.urls', namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),
     path('contact/', include('contact.urls', namespace='contact')),
+    path('robots.txt', robots_txt, name='robots_txt')
 ]
 
 handler404 = 'accounts.views.custom_404'
