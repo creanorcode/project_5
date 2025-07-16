@@ -49,3 +49,6 @@ def logout_view(request):
 
 def logout_success(request):
     return render(request, 'accounts/logout_success.html')
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)

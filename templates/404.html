@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}404 - Page | Artea Studio{% endblock %}
 
 {% block content %}
-<div class="not-found-container">
-    <div class="not-found-content">
-        <h1>404</h1>
-        <h2>Page not found</h2>
-        <p>Unfortunately, we cannot find the product or page you are trying to reach.</p>
-        <a href="{% url 'home' %}" class="btn-back">To the Home page</a>
-    </div>
+<div class="error-404-container">
+    <h1>404 - Page not found</h1>
+    <p>Unfortunately, we cannot find the product or page you are trying to reach.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary">To the Home page</a>
 </div>
 {% endblock %}

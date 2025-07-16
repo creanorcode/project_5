@@ -3,6 +3,7 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import handler404
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,6 +20,8 @@ urlpatterns = [
     path('orders/', include('orders.urls', namespace='orders')),
     path('contact/', include('contact.urls', namespace='contact')),
 ]
+
+handler404 = 'artea.views.custom_404'
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
