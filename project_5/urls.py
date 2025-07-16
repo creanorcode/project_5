@@ -20,7 +20,7 @@ urlpatterns = [
     path('cart/', include('cart.urls', namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),
     path('contact/', include('contact.urls', namespace='contact')),
-    path('robots.txt', robots_txt, name='robots_txt')
+    path('robots.txt', robots_txt, name='robots_txt'),
 ]
 
 handler404 = 'accounts.views.custom_404'

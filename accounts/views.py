@@ -56,7 +56,7 @@ def custom_404(request, exception):
     return render(request, '404.html', status=404)
 
 
-def robots_txt(request);
+def robots_txt(request):
     lines = [
         "User-agent: *",
         "Allow: /",
