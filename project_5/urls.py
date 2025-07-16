@@ -21,7 +21,7 @@ urlpatterns = [
     path('contact/', include('contact.urls', namespace='contact')),
 ]
 
-handler404 = 'artea.views.custom_404'
+handler404 = 'accounts.views.custom_404'
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
