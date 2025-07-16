@@ -1042,6 +1042,37 @@ textarea {
   margin: 1rem 0;
 }
 
+/* === Newsletter styling === */
+.newsletter-container {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.newsletter-container h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.newsletter-container p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.newsletter-form input[type="email"] {
+  padding: 10px;
+  width: 100%;
+  max-width: 400px;
+  margin: 10px auto;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.newsletter-form button {
+  margin-top: 15px;
+}
+
 /* === Admin only frontend view === */
 .table {
   width: 100%;

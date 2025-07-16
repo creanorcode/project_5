@@ -86,3 +86,11 @@ def sitemap_xml(request):
     </url>
 </urlset>'''
     return HttpResponse(content, content_type='application/xml')
+
+
+def newsletter_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        messages.success(request, f"Thank you for subscribing to our newsletter: {email}")
+        return redirect('newsletter')
+    return render(request, 'newsletter.html')

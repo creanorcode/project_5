@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Newsletter | Artea Studio{% endblock %}
+
+{% block content %}
+<div class="container-narrow newsletter-container">
+    <h1>Subscribe to our newsletter</h1>
+    <p>Get inspiration, offers and updates directly in you inbox.</p>
+    <form method="post" action="{% url 'newsletter' %}" class="newsletter-form">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Your email address" required />
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+</div>
+{% endblock %}
