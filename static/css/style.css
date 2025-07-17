@@ -1368,10 +1368,30 @@ textarea {
 @media screen and (max-width: 1024px) {
   .main-nav {
     display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    padding: 1rem 0;
+    z-index: 1000;
   }
 
   .menu-toggle {
     display: block;
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    margin-left: auto;
+  }
+
+  .main-nav.show {
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    overflow-y: auto;
   }
 }
 
