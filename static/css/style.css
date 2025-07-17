@@ -1153,7 +1153,7 @@ textarea {
 
   /* === Hamburgerknapp === */
   .menu-toggle {
-    display: block;
+    display: block !important;
     font-size: 1.8rem;
     background: none;
     border: none;
@@ -1164,7 +1164,7 @@ textarea {
 
   /* === Navigation === */
   .main-nav {
-    display: none;
+    display: none !important;
     flex-direction: column;
     width: 100%;
     margin-top: 1rem;
@@ -1176,12 +1176,13 @@ textarea {
   }
 
   .main-nav.show {
-    display: flex;
+    display: flex !important;
     max-height: 90vh;
     overflow-y: auto;
   }
 
   .main-nav li {
+    text-align: center;
     border-bottom: 1px solid #ddd;
     padding: 10px;
   }
@@ -1190,10 +1191,12 @@ textarea {
   .main-nav .dropdown {
     padding: 12px 1.5rem;
     display: block;
+    background-color: #ffffff;
     color: #023047;
     width: 100%;
     text-align: center;
     margin: 0 auto;
+    font-weight: 600;
   }
 
   /* === Dropdownmeny (klickaktiverad) === */
@@ -1234,7 +1237,7 @@ textarea {
   .dropdown-content a,
   .dropdown-content .dropdown-btn {
     display: block;
-    padding-left: 2rem;
+    padding-left: 0.8em 1.5rem;
     background-color: transparent;
     color: #023047;
     text-decoration: none;
@@ -1242,7 +1245,7 @@ textarea {
     border: none;
     width: 100%;
     text-align: left;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font: inherit;
   }
 
