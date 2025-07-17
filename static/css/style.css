@@ -1206,27 +1206,25 @@ textarea {
   }
 
   .dropbtn {
-    width: 100%;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
     background-color: #dbe7ef;
     color: #023047;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
+    font-weight: 600;
+    border: none;
     border-radius: 6px;
-    text-align: center;
+    width: 100%;
   }
 
   /* === MOBILE & IPAD DROPDOWN === */
   .dropdown-content {
-    display: none;
-    flex-direction: column;
-    position: static !important;
-    width: 100%;
     background-color: #ffffff;
     border: 1px solid #ccc;
-    padding: 0.5rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    border-radius: 8px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     margin-top: 0.5rem;
+    padding: 0.5rem 0;
+    position: static !important;
   }
 
   .dropdown.show .dropdown-content {
@@ -1235,17 +1233,17 @@ textarea {
 
   .dropdown-content a,
   .dropdown-content .dropdown-btn {
-    display: block;
-    padding-left: 0.5em 1rem;
-    font-size: 0.95rem;
+    background-color: #f0f4f8;
+    padding: 0.6em 1rem;
+    border-radius: 4px;
+    margin: 0.2rem 0;
     color: #023047;
     text-align: left;
-    background-color: #f0f4f8;
-    border-radius: 4px;
-    font-weight: normal;
+    font-weight: 500;
+    /*display: block;
+    font-size: 0.95rem;
     width: 100%;
-    text-decoration: none;
-    margin: 0.2rem 0;
+    text-decoration: none;*/
   }
 
   .dropdown-content a:hover,
@@ -1323,6 +1321,12 @@ textarea {
     margin-top: 0.5rem;
     width: 100%;
     text-align: center;
+  }
+
+  .dropdown-content {
+    position: static !important;
+    right: auto !important;
+    left: auto !important;
   }
 }
 
