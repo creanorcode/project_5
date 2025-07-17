@@ -1,131 +1,194 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Welcome to Artea Studio - Graghic Design Shop
 
-Welcome USER_NAME,
+[![mockup-arteastudio.png](https://i.postimg.cc/d13ZHVMg/mockup-arteastudio.png)](https://postimg.cc/8J8CsDzb)
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+## Overview
+**Artea Studio** is a modern fullstack e-commerce platform for ordering custom graphic design. It offers a smooth way for customers to order, pay for, and receive custom graphic design services online.
 
-You can safely delete this README.md file or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **June 18, 2024**
+**The platform is built with django and allows customers to:**
+- Explore previous work (portfolio)
+- Place custom orders via a form
+- Pay securely through Stripe
+- Access final design files via a logged-in dashboard
 
-## Gitpod Reminders
+---
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+## Features
 
-`python3 -m http.server`
+### Existing Features
 
-A blue button should appear to click: _Make Public_,
+- Fully responsive layout (mobile, tablet, desktop).
+- Portfolio page with design examples.
+- Order form with upload and notes.
+- Stripe payment integration (test mode)
+- User registration / login / logout.
+- User dashboard with downloadable files.
+- Admin panel for order and file management.
+- Contact form (with email function).
+- Newsletter signup (dummy).
+- Custom 404 page, robots.txt and sitemap.xml.
+- Role-based navigation (user, staff, superuser).
 
-Another blue button should appear to click: _Open Browser_.
+### Future Features
 
-To run a backend Python file, type `python3 app.py` if your Python file is named `app.py`, of course.
+- 
+- 
+- 
+- 
+- 
 
-A blue button should appear to click: _Make Public_,
+---
 
-Another blue button should appear to click: _Open Browser_.
+## Full Features Walkthrough
 
-By Default, Gitpod gives you superuser security privileges. Therefore, you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+Below is a step-by-step guide to every user flow and UI component in Artea Studio with screenshots from live site.
 
-To log into the Heroku toolbelt CLI:
+---
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+### 1. Landing page (Home)
+---
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you, so do not share it. If you accidentally make it public, you can create a new one with _Regenerate API Key_.
+## Design and UX
 
-### Connecting your Mongo database
+- **Artea Color Scheme**
+  - Primary: '#2d89ef'
+  - Secondary: '#f59e0b'
+  - Accents: '#f9d342', '#dd4c4f', '#207f62'
+- Heo section with CTA buttons
+- Footer links rendered based on user role
+- All form manually rendered based on user role
+- Feedback via Django messages
 
-- **Connect to Mongo CLI on a IDE**
-- navigate to your MongoDB Clusters Sandbox
-- click **"Connect"** button
-- select **"Connect with the MongoDB shell"**
-- select **"I have the mongo shell installed"**
-- choose **mongosh (2.0 or later)** for : **"Select your mongo shell version"**
-- choose option: **"Run your connection string in your command line"**
-- in the terminal, paste the copied code `mongo "mongodb+srv://<CLUSTER-NAME>.mongodb.net/<DBname>" --apiVersion 1 --username <USERNAME>`
-  - replace all `<angle-bracket>` keys with your own data
-- enter password _(will not echo **\*\*\*\*** on screen)_
+---
 
-------
+## Technologies Used
 
-## Release History
+| Components | Description |
+|------------|-------------|
+| Django     | Backend framework |
+| SQLite     | Local database |
+| Stripe     | Payment integration |
+| Git/GitHub | Version control |
+| HTML/CSS   | Frontend structure and styling |
+| Heroku     | Deployment platform |
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+---
 
-**June 18, 2024,** Add Mongo back into template
+## Testing
 
-**June 14, 2024,** Temporarily remove Mongo until the key issue is resolved
+- Manually tested:
+  - Registration -> Order -> Stripe -> File delivery
+  - Role-based access to admin panel and dashboard
+  - Custom 404 page and error handling
+  - Success messages and redirects
+- Responsive across screen sizes
+- Favicon visible in browser tab
 
-**May 28 2024:** Fix Mongo and Links installs
+---
 
-**April 26 2024:** Update node version to 16
+## SEO & Extra Files
 
-**September 20 2023:** Update Python version to 3.9.17.
+- **'robots.txt'** allows indexing of the entire site
+- **'sitemap.xml'** includes home, protfolio, and contact pages
+- **'404.html'** provides a user-friendly not found page
+- **'/newsletter/'** includes a dummy subscription form (email only)
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+---
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+## Marketing Features
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+- Newsletter signup form available via '/newsletter/'
+- Facebook page mockup provided (or see screenshot below)
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+---
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+## Project Structure (Overview)
+```
+project_5/
+├── manage.py
+├── requirements.txt
+├── runtime.txt
+├── Procfile
+├── README.md
+├── check_default_storage.py
+├── check_storage.py
+├── static/
+│ ├── css/
+│ ├── js/
+│ └── images/
+├── templates/
+│ ├── 404.html
+│ ├── base.html
+│ ├── home.html
+│ ├── logout.html
+│ ├── newsletter.html
+│ ├── portfolio.html
+│ ├── accounts/
+│ ├── contact/
+│ ├── orders/
+│ └── registration/
+├── accounts/
+│ ├── forms.py
+│ ├── urls.py
+│ ├── views.py
+│ └── ...
+├── cart/
+│ ├── urls.py
+│ ├── views.py
+│ └── ...
+├── contact/
+│ ├── forms.py
+│ ├── urls.py
+│ ├── views.py
+│ └── ...
+├── orders/
+│ ├── forms.py
+│ ├── urls.py
+│ ├── views.py
+│ └── ...
+├── portfolio/
+│ ├── forms.py
+│ ├── urls.py
+│ ├── views.py
+│ └── ...
+├── products/
+│ ├── models.py
+│ ├── urls.py
+│ ├── views.py
+│ └── ...
+├── project_5/
+│ ├── settings.py
+│ ├── urls.py
+│ ├── wsgi.py
+│ ├── asgi.py
+│ ├── custom_storages.py
+│ └── init.py
+```
+---
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+## Getting Started Locally
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+```
+bash
+git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT-NAME.git
+cd YOUR-PROJECT-NAME
+python -m venv env
+source env/bin/activate
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+pip install -r requirements.txt
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+cp .env.example .env
+python manage.py migrate
+python manage.py runserver
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+```
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+---
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
 
 ```
 pkill uptime.sh
 rm .vscode/uptime.sh
 ```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
