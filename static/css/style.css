@@ -1393,6 +1393,28 @@ textarea {
     max-height: 90vh;
     overflow-y: auto;
   }
+
+  .dropdown-content {
+    position: relative;
+    right: auto;
+    width: 100%;
+    min-width: unset;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .dropdown-content li {
+    text-align: left;
+    padding: 0;
+  }
+
+  .dropdown-content a,
+  .dropdown-content .dropdown-btn {
+    display: block;
+    width: 100%;
+    padding: 0.8rem 1rem;
+  }
 }
 
 @media screen and (min-width: 1025px) {
