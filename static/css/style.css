@@ -1257,8 +1257,8 @@ textarea {
 
   /* === Dropdown mobileresponsive === */
   .dropdown-content {
-    flex-direction: column !important;
     display: none;
+    flex-direction: column !important;
     width: 100%;
     background-color: #fff;
     padding: 0;
@@ -1266,7 +1266,7 @@ textarea {
   }
 
   .dropdown.show .dropdown-content {
-    display: block;
+    display: flex;
   }
 
   .dropdown-content li {
@@ -1277,8 +1277,12 @@ textarea {
 
   .dropdown-content a,
   .dropdown-content .dropdown-btn {
+    display: block;
     width: 100%;
     padding: 0.8rem 1rem;
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: break-word;
   }
 
   .dropdown-content a:hover,
@@ -1386,6 +1390,25 @@ textarea {
   }
 }
 
+.dropdown.show .dropdown-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  padding: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.dropdown-content a,
+.dropdown-content .dropdown-btn {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  text-align: left;
+}
+
 @media screen and (min-width: 1025px) {
   .main-nav {
     display: flex;
@@ -1393,5 +1416,9 @@ textarea {
 
   .menu-toggle {
     display: none;
+  }
+
+  .dropbtn:hover .dropdown-content {
+    display: block;
   }
 }
