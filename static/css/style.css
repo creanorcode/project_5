@@ -1397,11 +1397,18 @@ textarea {
   .dropdown-content {
     position: relative;
     right: auto;
+    left: auto;
+    min-height: 100%;
     width: 100%;
-    min-width: unset;
-    border-radius: 0;
     box-shadow: none;
+    border-radius: 0;
     padding: 0;
+    display: none;
+    flex-direction: column;
+  }
+
+  .dropdown.show .dropdown-content {
+    display: flex;
   }
 
   .dropdown-content li {
