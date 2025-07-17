@@ -1225,18 +1225,17 @@ textarea {
   /* === MOBILE & IPAD DROPDOWN === */
   .dropdown-content {
     display: none;
-    position: relative;
     flex-direction: column;
     width: 100%;
     background-color: #fff;
     padding: 0;
     box-shadow: none;
     border-radius: 0;
+    position: relative;
   }
 
   .dropdown.show .dropdown-content {
     display: flex;
-    flex-direction: column;
   }
 
   .dropdown-content a,
