@@ -1364,3 +1364,23 @@ textarea {
     display: block;
   }
 }
+
+@media screen and (max-width: 1024px) {
+  .main-nav {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .main-nav {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+}
