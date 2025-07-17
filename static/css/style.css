@@ -1246,15 +1246,20 @@ textarea {
     text-align: center;
   }
 
-  .dropdown.show .dropdown-content {
-    display: flex;
-    flex-direction: column;
+  /* === MOBILE & IPAD DROPDOWN === */
+  .dropdown-content {
+    display: none;
     position: relative;
+    flex-direction: column;
     width: 100%;
     background-color: #fff;
     padding: 0;
     box-shadow: none;
     border-radius: 0;
+  }
+
+  .dropdown.show .dropdown-content {
+    display: flex;
   }
 
   .dropdown-content a,
@@ -1343,7 +1348,28 @@ textarea {
    DESKTOP HOVER-MENU (mouse pointer)
    ================================== */
    @media (hover: hover) and (pointer: fine) {
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 220px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1000;
+      padding: 0.5rem 0;
+      border-radius: 5px;
+    }
+
     .dropdown:hover .dropdown-content {
       display: block;
     }
+
+    .dropdown-content li {
+      padding: 10px;
+    }
+
+    .dropdown-content li a {
+      display: block;
+    }
+
    }
