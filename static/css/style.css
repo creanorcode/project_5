@@ -1171,21 +1171,23 @@ textarea {
   padding: 0.4rem 0.8rem;
 }
 
-/* === Responsive === */
-@media screen and (max-width: 768px) {
+/* ================================
+    MOBILE & IPAD VIEW (0-1024px)
+   ================================ */
+@media screen and (max-width: 1024px) {
+  /* === Header Layout === */
   .header-container {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  /* === Logo img styling === */
   .site-header .logo img {
     height: 60px;
     max-width: 180px;
   }
 
-  /* === Mobile-menu - Hamburgermenu === */
-  .menu-toggle{
+  /* === Hamburgerknapp === */
+  .menu-toggle {
     display: block;
     font-size: 1.8rem;
     background: none;
@@ -1195,7 +1197,7 @@ textarea {
     margin-left: auto;
   }
 
-  /* === Mobilemenu: main-nav - .show is active === */
+  /* === Navigation === */
   .main-nav {
     display: none;
     flex-direction: column;
@@ -1213,30 +1215,24 @@ textarea {
     overflow-y: auto;
   }
 
-  /* === Main-nav links === */
-  .main-nav a,
-  .main-nav .dropdown {
-    padding: 12px 1.5rem;
-    display: block;
-    color: #023047;
-  }
-
   .main-nav li {
     border-bottom: 1px solid #ddd;
     padding: 10px;
   }
 
-  .main-nav a {
+  .main-nav a,
+  .main-nav .dropdown {
+    padding: 12px 1.5rem;
+    display: block;
+    color: #023047;
     width: 100%;
     text-align: center;
   }
 
-  .main-nav.active {
-    display: flex;
-  }
-
+  /* === Dropdownmeny (klickaktiverad) === */
   .dropdown {
     width: 100%;
+    position: relative;
   }
 
   .dropbtn {
@@ -1250,29 +1246,15 @@ textarea {
     text-align: center;
   }
 
-  .dropbtn:hover {
-    background-color: #b5d1e2;
-    color: #001f2d;
-  }
-
-  /* === Dropdown mobileresponsive === */
-  .dropdown-content {
-    display: none;
-    flex-direction: column !important;
+  .dropdown.show .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
     width: 100%;
     background-color: #fff;
     padding: 0;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-
-  .dropdown.show .dropdown-content {
-    display: flex;
-  }
-
-  .dropdown-content li {
-    width: 100%;
-    border-bottom: 1px solid #eee;
-    text-align: left;
+    box-shadow: none;
+    border-radius: 0;
   }
 
   .dropdown-content a,
@@ -1285,11 +1267,7 @@ textarea {
     overflow-wrap: break-word;
   }
 
-  .dropdown-content a:hover,
-  .dropdown-content .dropdown-btn:hover {
-    background-color: #d9f1f7;
-  }
-
+  /* === Övriga komponenter === */
   header h1 {
     font-size: 1.4rem;
     margin: 0;
@@ -1303,7 +1281,7 @@ textarea {
     padding: 0 10px;
   }
 
-  /* === Hero Section - Mobile === */
+  /* === Hero sektion === */
   .hero {
     padding: 4rem 1rem;
   }
@@ -1331,7 +1309,7 @@ textarea {
     font-size: 1rem;
   }
 
-  /* === My Conversations - mobile styling - === */
+  /* === Meddelandevyer === */
   .conversation-box {
     padding: 0.8rem;
     font-size: 0.95rem;
@@ -1361,64 +1339,11 @@ textarea {
   }
 }
 
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-  .main-nav {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 1rem;
-    background-color: #fff;
-    border-top: 1px solid #ccc;
-    padding: 1rem 0;
-    z-index: 1000;
-  }
-
-  .main-nav.show {
-    display: flex;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-
-  .menu-toggle {
-    display: block;
-    font-size: 1.8rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-top: 0.5rem;
-    margin-left: auto;
-  }
-}
-
-.dropdown.show .dropdown-content {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: 100%;
-  background-color: #fff;
-  padding: 0;
-  box-shadow: none;
-  border-radius: 0;
-}
-
-.dropdown-content a,
-.dropdown-content .dropdown-btn {
-  display: block;
-  width: 100%;
-  padding: 0.8rem 1rem;
-  text-align: left;
-}
-
-@media screen and (min-width: 1025px) {
-  .main-nav {
-    display: flex;
-  }
-
-  .menu-toggle {
-    display: none;
-  }
-
-  .dropbtn:hover .dropdown-content {
-    display: block;
-  }
-}
+/* ==================================
+   DESKTOP HOVER-MENU (mouse pointer)
+   ================================== */
+   @media (hover: hover) and (pointer: fine) {
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+   }
