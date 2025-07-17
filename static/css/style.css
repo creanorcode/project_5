@@ -309,10 +309,6 @@ input[type='submit']:focus {
   color: #023047;
 }
 
-.dropdown.show .dropdown-content {
-  display: block;
-}
-
 /* Show dropdown on hover */
 .filter-links a {
   margin-right: 0.5rem;
@@ -1152,9 +1148,9 @@ textarea {
 }
 
 /* ================================
-    MOBILE & IPAD VIEW (0-1024px)
+    MOBILE & IPAD VIEW (0-991px)
    ================================ */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 991px) {
   /* === Header Layout === */
   .header-container {
     flex-direction: column;
@@ -1240,6 +1236,7 @@ textarea {
 
   .dropdown.show .dropdown-content {
     display: flex;
+    flex-direction: column;
   }
 
   .dropdown-content a,
