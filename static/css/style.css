@@ -1394,17 +1394,23 @@ textarea {
     overflow-y: auto;
   }
 
+  .dropdown {
+    width: 100%;
+    position: relative;
+  }
+
   .dropdown-content {
     position: relative;
     right: auto;
     left: auto;
-    min-height: 100%;
     width: 100%;
+    min-width: unset;
+    display: none;
+    flex-direction: column !important;
     box-shadow: none;
     border-radius: 0;
     padding: 0;
-    display: none;
-    flex-direction: column;
+    background-color: #fff;
   }
 
   .dropdown.show .dropdown-content {
@@ -1412,8 +1418,9 @@ textarea {
   }
 
   .dropdown-content li {
+    width: 100%;
     text-align: left;
-    padding: 0;
+    border-bottom: 1px solid #eee;
   }
 
   .dropdown-content a,
