@@ -1137,9 +1137,9 @@ textarea {
 }
 
 /* ================================
-    MOBILE & IPAD VIEW (0-768px)
+    MOBILE & IPAD VIEW (0-991px)
    ================================ */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 991px) {
   /* === Header Layout === */
   .header-container {
     flex-direction: column;
@@ -1171,6 +1171,7 @@ textarea {
     background-color: #fff;
     border-top: 1px solid #ccc;
     padding: 1rem 0;
+    text-align: center;
     z-index: 1000;
   }
 
@@ -1192,6 +1193,7 @@ textarea {
     color: #023047;
     width: 100%;
     text-align: center;
+    margin: 0 auto;
   }
 
   /* === Dropdownmeny (klickaktiverad) === */
@@ -1216,9 +1218,11 @@ textarea {
     display: none;
     flex-direction: column;
     width: 100%;
-    background-color: #fff;
+    background-color: #f3f4f6;
     padding: 0;
+    margin-top: 0.5rem;
     box-shadow: none;
+    border-top: 1px solid #ccc;
     border-radius: 0;
     position: static;
   }
@@ -1230,13 +1234,15 @@ textarea {
   .dropdown-content a,
   .dropdown-content .dropdown-btn {
     display: block;
-    padding: 0.8rem 1rem;
-    color: black;
+    padding-left: 2rem;
+    background-color: transparent;
+    color: #023047;
     text-decoration: none;
     background: white;
     border: none;
     width: 100%;
     text-align: left;
+    font-size: 0.95rem;
     font: inherit;
   }
 
