@@ -15,8 +15,16 @@ document.addEventListener("DOMContentLoaded", function () {
         btn.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();  // 🛑 Hindrar dropdown från att stängas direkt
+
+            // Closes all other first
+            document.querySelectorAll(".dropdown").forEach(drop => {
+                if (drop !== this.closest(".dropdown")) {
+                    drop.classList.remove("show");
+                }
+            });
+
+            // Toggle the current one
             const dropdown = this.closest(".dropdown");
-            document.querySelectorAll(".dropdown").forEach(drop => drop.classList.remove("show"));
             dropdown.classList.toggle("show");
         });
     });

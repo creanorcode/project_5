@@ -284,6 +284,15 @@ input[type='submit']:focus {
   outline-offset: 2px;
 }
 
+/* === Hides all dropdowns from the start === */
+.dropdown-content {
+  display: none;
+}
+
+.dropdown.show .dropdown-content {
+  display: block;
+}
+
 /* Dropdown container */
 .dropdown {
   position: relative;
