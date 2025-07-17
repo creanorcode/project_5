@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             e.stopPropagation();  // 🛑 Hindrar dropdown från att stängas direkt
             const dropdown = this.closest(".dropdown");
+            document.querySelectorAll(".dropdown").forEach(drop => drop.classList.remove("show"));
             dropdown.classList.toggle("show");
         });
     });

@@ -1215,7 +1215,7 @@ textarea {
   }
 
   .dropdown.show .dropdown-content {
-    display: flex;
+    display: block;
   }
 
   .dropdown-content a,
