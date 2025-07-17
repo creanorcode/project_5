@@ -1400,17 +1400,15 @@ textarea {
   }
 
   .dropdown-content {
-    position: relative;
-    right: auto;
-    left: auto;
-    width: 100%;
-    min-width: unset;
     display: none;
-    flex-direction: column !important;
+    position: static;
+    width: 100%;
+    background-color: #fff;
+    padding: 0;
+    margin-top: 0.5rem;
     box-shadow: none;
     border-radius: 0;
-    padding: 0;
-    background-color: #fff;
+    flex-direction: column !important;
   }
 
   .dropdown.show .dropdown-content {
@@ -1419,15 +1417,15 @@ textarea {
 
   .dropdown-content li {
     width: 100%;
-    text-align: left;
     border-bottom: 1px solid #eee;
+    text-align: left;
   }
 
   .dropdown-content a,
   .dropdown-content .dropdown-btn {
-    display: block;
     width: 100%;
     padding: 0.8rem 1rem;
+    display: block;
   }
 }
 
