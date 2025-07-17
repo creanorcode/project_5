@@ -289,26 +289,6 @@ input[type='submit']:focus {
   position: relative;
 }
 
-/* Dropdown content */
-.dropdown-content a,
-.dropdown-content .dropdown-btn {
-  display: block;
-  padding: 10px;
-  color: black;
-  text-decoration: none;
-  background: white;
-  border: none;
-  width: 100%;
-  text-align: left;
-  font: inherit;
-}
-
-.dropdown-content a:hover,
-.dropdown-content .dropdown-btn:hover {
-  background-color: #e0eff5;
-  color: #023047;
-}
-
 /* Show dropdown on hover */
 .filter-links a {
   margin-right: 0.5rem;
@@ -1148,9 +1128,9 @@ textarea {
 }
 
 /* ================================
-    MOBILE & IPAD VIEW (0-991px)
+    MOBILE & IPAD VIEW (0-768px)
    ================================ */
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 768px) {
   /* === Header Layout === */
   .header-container {
     flex-direction: column;
@@ -1231,7 +1211,7 @@ textarea {
     padding: 0;
     box-shadow: none;
     border-radius: 0;
-    position: relative;
+    position: static;
   }
 
   .dropdown.show .dropdown-content {
@@ -1241,11 +1221,20 @@ textarea {
   .dropdown-content a,
   .dropdown-content .dropdown-btn {
     display: block;
-    width: 100%;
     padding: 0.8rem 1rem;
+    color: black;
+    text-decoration: none;
+    background: white;
+    border: none;
+    width: 100%;
     text-align: left;
-    white-space: normal;
-    overflow-wrap: break-word;
+    font: inherit;
+  }
+
+  .dropdown-content a:hover,
+  .dropdown-content .dropdown-btn:hover {
+    background-color: #e0eff5;
+    color: #023047;
   }
 
   /* === Övriga komponenter === */
@@ -1346,6 +1335,24 @@ textarea {
 
     .dropdown-content li a {
       display: block;
+    }
+
+    /* Dropdown content */
+    .dropdown-content a,
+    .dropdown-content .dropdown-btn {
+      display: block;
+      padding: 10px;
+      color: black;
+      text-decoration: none;
+      background: white;
+      border: none;
+      font: inherit;
+    }
+
+    .dropdown-content a:hover,
+    .dropdown-content .dropdown-btn:hover {
+      background-color: #e0eff5;
+      color: #023047;
     }
 
    }
