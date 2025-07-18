@@ -447,6 +447,35 @@ Artea solves this by providing:
 
 ---
 
+## Deployment & Access
+
+The Artea platform is currently deployed and publicly accessible at the following address:
+
+**Live site:** [https://artea-studio-571c2301b41f.herokuapp.com](https://artea-studio-571c2301b41f.herokuapp.com)
+**Live site:** [https://www.artea.studio](https://www.artea.studio)
+**Live site:** [https://artea.studio](https://artea.studio)
+
+You can explore the site as a guest, or register as a user to:
+- Browse the portfolio
+- Submit a design request
+- View your own orders
+- Send messages and view your conversation history
+
+**Admin access (for demonstration purposes):**
+- Admin panel: [https://artea-studio-571c2301b41f.herokuapp.com/admin/](https://artea-studio-571c2301b41f.herokuapp.com/admin/)
+- Username: `SuperAdmin`
+- Password: `superadmin7654` *(or insert your actual demo credentials)*
+
+**User access (for demonstration purposes):**
+- User login: [https://artea-studio-571c2301b41f.herokuapp.com/accounts/login/](https://artea-studio-571c2301b41f.herokuapp.com/accounts/login/)
+- Username: `Test`
+- Password: `testkund7654` *(or insert your actual demo credentials)*
+
+This site was deployed using **Heroku**, with static files managed via **WhiteNoise**, and media files hosted in development only.
+
+
+---
+
 ## SEO & Extra Files
 
 - **'robots.txt'** allows indexing of the entire site
