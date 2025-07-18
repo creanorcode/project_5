@@ -2,6 +2,22 @@
 
 [![Artea-Mockup.png](https://i.postimg.cc/k5x9hK64/Artea-Mockup.png)](https://postimg.cc/t1CLs1zQ)
 
+---
+## Artea – Digital Design Marketplace
+
+**Artea** is a modern and user-friendly web application for ordering, managing, and delivering custom graphic design products. Built with Django, HTML/CSS, JavaScript and Stripe integration, the platform connects clients with designers and streamlines the creative workflow from design request to secure download.
+
+Key features include:
+- A dynamic storefront with filterable design products
+- Custom design order form with file upload
+- Stripe payments for both physical products and completed design deliveries
+- Admin panel for managing orders, uploads, and payment status
+- User dashboard with messaging, downloads, and order history
+
+The platform is fully responsive and optimized for both desktop and mobile users.
+
+---
+
 ## Overview
 **Artea Studio** is a modern fullstack e-commerce platform for ordering custom graphic design. It offers a smooth way for customers to order, pay for, and receive custom graphic design services online.
 
@@ -10,6 +26,21 @@
 - Place custom orders via a form
 - Pay securely through Stripe
 - Access final design files via a logged-in dashboard
+
+---
+
+## Key Features
+ - User registration and secure login system
+ - Fully responsive layout (desktop, tablet, mobile)
+ - Interactive navigation menu with dropdowns
+ - Browse and purchase digital products
+ - Dynamic shopping cart with Stripe checkout integration
+ - Submit design requests via custom form
+ - Admin panel for managing orders and completed designs
+ - Clients can pay and download completed designs
+ - Built-in messaging system between users and admin
+ - Styled alerts using Django messages framework
+ - Clean visual layout with modern UI design
 
 ---
 
@@ -67,6 +98,17 @@
 - Dark mode toggle
 - Mobile-first redesign of admin dashboard
 - Integration with Instagram or Behance gallery
+
+
+### Limitations & Areas for Improvement
+  - Some Python files still contain long lines and lack full flake8 compliance
+  - The mobile menu dropdown had display inconsistencies across devices during development
+  - The Facebook dummy login feature has not yet been implemented
+  - The README could benefit from additional screenshots and testing documentation
+  - Admin functionality is minimal and could be expanded
+  - Payment success flow for custom design orders needs polish to avoid 500 errors
+  - User experience (UX) flow can be further improved with animations and transitions
+  - Error handling is basic and can be enhanced across the platform
 
 ---
 
@@ -321,6 +363,38 @@ The Artea Studio web application offers a complete custom design platform with:
 
 Screenshots and walkthrough reflect the final version of the deployed project.
 
+---
+
+## About Artea – Vision & Market Position
+
+**Artea** offers a clean and elegant solution for digital design services. It's designed for individuals, entrepreneurs and small businesses who need fast, affordable, and customized visual content—without hiring a full-time designer.
+
+### Problem
+Most digital design solutions today are either:
+- Too complex (enterprise tools with steep learning curves)
+- Too expensive (agencies or subscription-based platforms)
+- Too limited (template-based tools with no customization)
+
+### Solution
+Artea solves this by providing:
+- A direct channel to request custom designs
+- A simple, one-time payment flow per project
+- Personal download access after delivery
+- Optional messaging between customer and designer
+- Admin control to manage design uploads and payment status
+
+### Target Users
+- Entrepreneurs and small business owners
+- Creatives in need of album covers, flyers, branding assets
+- Social media managers and influencers
+
+### Future Potential
+- Add freelancer onboarding and bidding
+- Add customer reviews and portfolios
+- Offer bundled design packages or subscriptions
+
+**Artea** is more than a demo — it's a scalable foundation for a design-focused e-commerce service.
+
 
 ---
 
@@ -518,9 +592,71 @@ python manage.py runserver
 ---
 
 
+# Final Note
+
+This project represents a major personal and technical milestone. While many key features are fully functional – including product browsing, custom design ordering, checkout with Stripe, user authentication, and admin tools – I recognize that the project is **not yet complete in every respect**.
+
+Due to time constraints and unexpected technical challenges during the final 24 hours before submission, some elements are missing or partially implemented:
+
+ - The README lacks full walkthrough sections and testing documentation with screenshots.
+
+ - The code still contains flake8 warnings (e.g., long lines, formatting issues).
+
+ - Some responsive styling and layout consistency (especially on tablets) could be improved.
+
+ - A Facebook marketing mockup was not completed.
+
+ - More detailed marketing and user strategy descriptions are planned but not included yet.
+
+Despite this, I am proud of the core features implemented and the learning curve I have navigated. This submission reflects my genuine effort and commitment to building a real, working web product – and I look forward to refining it further beyond the deadline.
+
+Thank you for reviewing my work.
 
 
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
+## Completed and Functional Features
+
+- **User registration and login system**
+    - With error handling and secure password validation
+    - Session-based login/logout
+
+- **Responsive navigation menu**
+    - Desktop: hover-based dropdown
+    - Tablet and mobile: click-activated menu with dropdown behavior
+
+- **Home page with dynamic call-to-action and product presentation**
+
+- **Product catalog and individual product detail pages**
+
+- **Shopping cart functionality**
+    - Add/remove items
+    - Quantity update
+    - Total price calculation
+
+- **Checkout with Stripe integration**
+    - Stripe Checkout for product purchases
+    - Secure payment flow with redirect to success/cancel pages
+
+- **Design order form**
+    - Users can submit requests for custom design with file upload
+
+- **Completed designs**
+    - Admin can mark as completed
+    - Clients can pay for completed designs
+    - Download unlocked after successful payment
+
+- **Order history for users ("My Orders")**
+
+- **Admin dashboard for design management**
+    - List, filter by payment status, mark as paid
+
+- **Messaging system between admin and users**
+    - “My Messages” and “My Conversations” views available
+
+- **Clean layout and styling with custom CSS**
+    - Separate mobile, tablet, and desktop styling
+    - Button styling, typography, layout containers, form elements
+
+- **Django messages integration for user feedback**
+    - Styled feedback for login/logout, form submission, errors, etc.
+
+---
