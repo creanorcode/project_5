@@ -176,13 +176,21 @@ Once logged in, users gain access to personal account features via the "My Accou
 My Account Menu
 [![screenshot-myaccount-menu.png](https://i.postimg.cc/HsgMZDS4/screenshot-myaccount-menu.png)](https://postimg.cc/z3x3vMYV)
 
-My Design page
+My Design Page (unpaid design, not downloadble)
+[![screenshot-mydesigns-notpaid.png](https://i.postimg.cc/fRKngTpN/screenshot-mydesigns-notpaid.png)](https://postimg.cc/LJnbJRmC)
 
-Order History page
+My Design page (paid and downloadble)
+[![screenshot-mydesigns.png](https://i.postimg.cc/HLHRwDkh/screenshot-mydesigns.png)](https://postimg.cc/fV28sPXc)
+
+My Orders (Order History)
+[![screenshot-myorders.png](https://i.postimg.cc/bw8fT26g/screenshot-myorders.png)](https://postimg.cc/rKhHyz2R)
+
+My Orders (Order Item)
+[![screenshot-orderitems.png](https://i.postimg.cc/Dy1KLccm/screenshot-orderitems.png)](https://postimg.cc/xcj7SMhS)
 
 ---
 
-### 🛠️ Admin Panel (Staff/Superuser)
+### Admin Panel (Staff/Superuser on backend)
 
 Staff users can access the admin panel to manage site content:
 
@@ -191,12 +199,19 @@ Staff users can access the admin panel to manage site content:
 - Access user conversations
 - Moderate completed designs
 
-📸  
-![Admin view](path/to/admin-panel.png)
+
+[![screenshot-admin-backend.png](https://i.postimg.cc/44LYjXCp/screenshot-admin-backend.png)](https://postimg.cc/rz4yrXwp)
+
+
+### Admin panel on frontend
+
+Staff are able to manage designorders, mark them as paid and download them.
+
+[![screenshot-adminpanel-frontend.png](https://i.postimg.cc/L5Y2cKfV/screenshot-adminpanel-frontend.png)](https://postimg.cc/dZYbCf57)
 
 ---
 
-### 🌐 Navigation and Responsiveness
+### Navigation and Responsiveness
 
 The site navigation is fully responsive:
 
@@ -207,13 +222,35 @@ The site navigation is fully responsive:
   - Tablets (including iPad)
   - Desktops and large screens
 
-📸  
-![Mobile nav](path/to/mobile-nav.png)  
-![Tablet view](path/to/ipad-view.png)
+
+Screenshot on iPhone 14 Pro Max
+[![screenshot-main-nav-i-Phone-14-pro-max.png](https://i.postimg.cc/W1LTy1nW/screenshot-main-nav-i-Phone-14-pro-max.png)](https://postimg.cc/Tp9zLGBg)
+
+Screenshot on iPad pro
+[![screenshot-main-Nav-ipad-pro.png](https://i.postimg.cc/hvt1cn1N/screenshot-main-Nav-ipad-pro.png)](https://postimg.cc/bD4t9KMR)
+
+Landscape mode
+[![screenshot-man-Nav-ipad-pro-landscape.png](https://i.postimg.cc/zv2SfQdv/screenshot-man-Nav-ipad-pro-landscape.png)](https://postimg.cc/BPD1Ymff)
 
 ---
 
-## 🔄 Example User Flow
+### Login- and logout page
+
+Login page
+[![screenshot-login-Page.png](https://i.postimg.cc/Bbb7NHk8/screenshot-login-Page.png)](https://postimg.cc/QKLqd9Xs)
+
+Logoutpage with links to login again and home
+[![screenshot-logoutpage.png](https://i.postimg.cc/pVc6rc5K/screenshot-logoutpage.png)](https://postimg.cc/DmsgYggz)
+
+---
+
+### Register page
+
+[![screenshot-registerpage.png](https://i.postimg.cc/G2qSkq7w/screenshot-registerpage.png)](https://postimg.cc/R6JRmQxX)
+
+---
+
+## Example User Flow
 
 1. User lands on homepage  
 2. Clicks on "Products" to explore items  
@@ -225,7 +262,7 @@ The site navigation is fully responsive:
 
 ---
 
-## ✅ Summary
+## Summary
 
 The Artea Studio web application offers a complete custom design platform with:
 
@@ -239,7 +276,6 @@ Screenshots and walkthrough reflect the final version of the deployed project.
 
 
 ---
-
 
 
 ## Design and UX
