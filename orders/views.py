@@ -163,6 +163,9 @@ def checkout(request):
         success_url=request.build_absolute_uri('/orders/complete/success/'),
         cancel_url=request.build_absolute_uri('/cart/'),
         customer_email=request.user.email,
+        metadata={
+            'user_id': str(request.user.id)
+        }
     )
 
     return redirect(checkout_session.url, code=303)
