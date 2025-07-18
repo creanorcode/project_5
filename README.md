@@ -173,21 +173,68 @@ Once logged in, users gain access to personal account features via the "My Accou
 - Secure **logout button**
 - Admin shortcut for staff
 
-My Account Menu
+**My Account Menu**
 [![screenshot-myaccount-menu.png](https://i.postimg.cc/HsgMZDS4/screenshot-myaccount-menu.png)](https://postimg.cc/z3x3vMYV)
 
-My Design Page (unpaid design, not downloadble)
+
+#### My Designs
+
+***My Design Page (unpaid design, not downloadble)**
 [![screenshot-mydesigns-notpaid.png](https://i.postimg.cc/fRKngTpN/screenshot-mydesigns-notpaid.png)](https://postimg.cc/LJnbJRmC)
 
-My Design page (paid and downloadble)
+**My Design page (paid and downloadble)**
 [![screenshot-mydesigns.png](https://i.postimg.cc/HLHRwDkh/screenshot-mydesigns.png)](https://postimg.cc/fV28sPXc)
 
-My Orders (Order History)
+
+#### My Orders
+
+**My Orders (Order History)**
 [![screenshot-myorders.png](https://i.postimg.cc/bw8fT26g/screenshot-myorders.png)](https://postimg.cc/rKhHyz2R)
 
-My Orders (Order Item)
+**My Orders (Order Item)**
 [![screenshot-orderitems.png](https://i.postimg.cc/Dy1KLccm/screenshot-orderitems.png)](https://postimg.cc/xcj7SMhS)
 
+
+#### My Messages
+
+The **"My Messages"** section provides a simple and organized view of internal system messages sent to the user. These messages may include admin replies to design orders, updates regarding payment status, or service notifications.
+
+- **Location:** Accessible from the My Account dropdown in the top navigation bar.
+- **Design:**
+      - Messages are shown in message boxes with clear visual styling.
+      - Each message is styled according to its type (e.g., info, warning, success).
+- **Functionality:**
+      - Users can view all received messages in reverse chronological order.
+      - Messages may include admin replies, status updates, or system feedback after order events.
+
+[![screenshot-My-Contact-Messages.png](https://i.postimg.cc/Kz6T9sG3/screenshot-My-Contact-Messages.png)](https://postimg.cc/gXKrjs6G)
+
+[![screenshot-My-Contact-Message-Thread.png](https://i.postimg.cc/0QMm0qsq/screenshot-My-Contact-Message-Thread.png)](https://postimg.cc/zbNVq6vd)
+
+
+#### My Conversations
+
+The **"My Conversations"** section enables logged-in users to view and revisit message threads from submitted design orders or support-related inquiries.
+
+- **Location:** *My Account* > *My Conversations*
+- **Purpose:** Serves as a basic inbox/outbox for ongoing dialogues between the user and admin or designer.
+- **Features:**
+      - Displays a list of conversation threads.
+      - Each thread shows:
+            - The subject or context of the message
+            - Time and date of the message
+            - A button linking to the full conversation thread
+- **Design:**
+      - Each conversation is presented in a message card with clear headings and spacing.
+      - Button: "View Conversation" leads to a detailed thread page.
+
+- **Note:**
+    - This feature is intended to simulate a real-world communication flow between clients and the service provider.
+    - It enhances user experience by allowing reference to prior discussions or clarifications without using external email or messaging tools.
+
+[![screenshot-My-Conversations.png](https://i.postimg.cc/SRcMH7RT/screenshot-My-Conversations.png)](https://postimg.cc/zHXvghnK)
+
+[![screenshot-My-Conversations-Thread.png](https://i.postimg.cc/Y2FY4kR6/screenshot-My-Conversations-Thread.png)](https://postimg.cc/CdFzt3W5)
 ---
 
 ### Admin Panel (Staff/Superuser on backend)
