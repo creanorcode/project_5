@@ -9,23 +9,32 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # BASE_DIR points to the root of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+# DEBUG = False
 
-ALLOWED_HOSTS = [
-    'artea-studio-571c2301b41f.herokuapp.com',
-    'www.artea.studio',
-    'artea.studio',
-    'localhost',
-    '127.0.0.1:8000',
+# ALLOWED_HOSTS och CSRF_TRUSTED_ORIGINS från env + säkra defaults
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+CSRF_TRUSTED_ORIGINS = [
+    *(os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')),
+    # Lägg gärna in domäner här via env; lämna listan tom om du vill
 ]
+
+# ALLOWED_HOSTS = [
+    # 'artea-studio-571c2301b41f.herokuapp.com',
+    # 'www.artea.studio',
+    # 'artea.studio',
+    # 'localhost',
+    # '127.0.0.1:8000',
+# ]
 
 # Application definition
 INSTALLED_APPS = [
@@ -78,18 +87,34 @@ TEMPLATES = [
 WSGI_APPLICATION = 'project_5.wsgi.application'
 
 # Use SQLite for local development
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.getenv('DATABASE_URL'):
+    DATABASES = {
+        'default': dj_database_url.parse(
+            os.environ['DATABASE_URL'],
+            conn_max_age=600,
+            ssl_require=True
+        )
     }
-}
+else:
+    DATABASES = {
+        'default':{
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+# DATABASES = {
+    # 'default': {
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+# }
 
 # For live production
-import dj_database_url
+# import dj_database_url
 
-if os.getenv('DATABASE_URL'):
-    DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
+# if os.getenv('DATABASE_URL'):
+    # DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -114,15 +139,27 @@ USE_I18N = True
 USE_TZ = True
 
 # E-mail backend configuration for developement (print to console)
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = os.getenv(
+    'EMAIL_BACKEND',
+    'django.core.mail.backends.console.EmailBackend' if DEBUG else 'django.core.mail.backends.smtp.EmailBackend',
+)
+
+EMAIL_HOST = os.getenv('EMAIL_HOST', '')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'Artea Studio <noreply@artea.studio>')
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 # EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 # DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", 'no-reply@artea.studio')
-DEFAULT_FROM_EMAIL = 'Artea Studio <noreply@artea.studio'
-CONTACT_RECIPIENT_EMAIL = 'admin@artea.studio'
+# DEFAULT_FROM_EMAIL = 'Artea Studio <noreply@artea.studio'
+# CONTACT_RECIPIENT_EMAIL = 'admin@artea.studio'
 
 # Static + Media
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -176,6 +213,14 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
+
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000  # 1 år
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
 LOGOUT_REDIRECT_URL = '/accounts/logout_success/'
 
