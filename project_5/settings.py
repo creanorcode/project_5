@@ -23,10 +23,32 @@ DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
 # ALLOWED_HOSTS och CSRF_TRUSTED_ORIGINS från env + säkra defaults
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
-CSRF_TRUSTED_ORIGINS = [
-    *(os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')),
+# CSRF_TRUSTED_ORIGINS = [
+    # *(os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')),
     # Lägg gärna in domäner här via env; lämna listan tom om du vill
-]
+# ]
+
+def _ensure_origin(host: str) -> str:
+    host = host.strip()
+    if not host:
+        return ""
+    if host.startswith("http://") or host.startswith("https://"):
+        return host
+    # localhost/127.0.0.1 får http (dev)
+    if host.startswith("localhost") or host.startswith("127.0.0.1"):
+        return f"http://{host}"
+    # övriga får https
+    return f"https://{host}"
+
+_env_origins_raw = os.getenv("CSRF_TRUSTED_ORIGINS", "")
+_env_origins = [_ensure_origin(x) for x in _env_origins_raw.split(",") if x.strip()]
+
+# komplettera med ALLOWED_HOSTS
+_from_hosts = [_ensure_origin(h) for h in ALLOWED_HOSTS if h.strip()]
+
+# Slå ihop och filtrera bort tomma/dupplikat
+CSRF_TRUSTED_ORIGINS = sorted({o for o in (_env_origins + _from_hosts) if o})
+
 
 # ALLOWED_HOSTS = [
     # 'artea-studio-571c2301b41f.herokuapp.com',
