@@ -1,0 +1,54 @@
+[
+  {
+    "model": "products.category",
+    "pk": 1,
+    "fields": {
+      "name": "Digital Prints",
+      "slug": "digital-prints"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 2,
+    "fields": {
+      "name": "Creative Templates",
+      "slug": "creative-templates"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "title": "Abstract Sunrise Poster",
+      "slug": "abstract-sunrise-poster",
+      "price": "129.00",
+      "category": 1,
+      "description": "A minimal abstract art print in warm sunrise tones – designed by Artea Studio.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "title": "Mindful Planner A4 Template",
+      "slug": "mindful-planner-a4-template",
+      "price": "79.00",
+      "category": 2,
+      "description": "Printable A4 daily planner that helps you slow down, focus, and create balance.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+      "title": "Creative Journal Template",
+      "slug": "creative-journal-template",
+      "price": "99.00",
+      "category": 2,
+      "description": "Digital journal for reflection and inspiration — a perfect tool for mindful creators.",
+      "is_active": true
+    }
+  }
+]
