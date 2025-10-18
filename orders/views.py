@@ -1,17 +1,19 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-import stripe.error
-from .models import Order, OrderItem, CompletedDesign
-from cart.models import CartItem
-from .forms import DesignOrderForm
 import stripe
+import stripe.error
 from django.conf import settings
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, JsonResponse
-from django.views.generic import TemplateView
-from django.views.decorators.http import require_POST
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.views.generic import TemplateView
+
+from cart.models import CartItem
+
+from .forms import DesignOrderForm
+from .models import CompletedDesign, Order, OrderItem
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -219,8 +221,10 @@ def handle_checkout_session(session):
     Also empties the user´s shopping cart.
     """
     from django.contrib.auth import get_user_model
+
     from cart.models import CartItem
-    from .models import Order, OrderItem
+
+    from .models import Order
 
     # We use metadata to send the user_id from checkout.
     user_id = session.get('metadata', {}).get('user_id')

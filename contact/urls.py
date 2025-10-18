@@ -1,7 +1,7 @@
 from django.urls import path
-from . import views
-from .views import new_message_view, contact_thread_view, thread_list_view, thread_detail_view
 
+from . import views
+from .views import contact_thread_view, new_message_view, thread_detail_view, thread_list_view
 
 app_name = 'contact'
 

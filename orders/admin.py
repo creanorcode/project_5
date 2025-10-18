@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import DesignType, DesignOrder, CompletedDesign, Order, OrderItem
+
+from .models import CompletedDesign, DesignOrder, DesignType, Order, OrderItem
 
 """
 Admin configuration for the orders app,

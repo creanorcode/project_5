@@ -1,5 +1,5 @@
-from django.core.files.storage import default_storage
 from django.conf import settings
+from django.core.files.storage import default_storage
 
 print("DEBUG =", settings.DEBUG)
 print("DEFAULT_FILE_STORAGE =", settings.DEFAULT_FILE_STORAGE)

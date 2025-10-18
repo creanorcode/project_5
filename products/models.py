@@ -1,7 +1,8 @@
+from django.core.files.storage import default_storage
 from django.db import models
+
 from project_5.custom_storages import MediaStorage
 
-from django.core.files.storage import default_storage
 print("DEBUG: products.models Product.image will use", default_storage)
 
 

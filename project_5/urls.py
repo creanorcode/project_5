@@ -1,10 +1,11 @@
-from django.contrib import admin
-from django.urls import path, include
-from django.views.generic import TemplateView
 from django.conf import settings
-from django.conf.urls.static import static
 from django.conf.urls import handler404
-from accounts.views import robots_txt, sitemap_xml, newsletter_view
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path
+from django.views.generic import TemplateView
+
+from accounts.views import newsletter_view, robots_txt, sitemap_xml
 
 urlpatterns = [
     path('admin/', admin.site.urls),

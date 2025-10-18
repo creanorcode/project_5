@@ -1,10 +1,9 @@
 from django.urls import path
+
 from . import views
-from django.views.generic import TemplateView
 from .views import (
-    my_completed_designs,
-    PaymentSuccessView,
     PaymentCancelledView,
+    PaymentSuccessView,
 )
 
 app_name = 'orders'
