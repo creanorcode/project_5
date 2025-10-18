@@ -10,9 +10,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
+from dotenv import load_dotenv
 
 # BASE_DIR points to the root of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -28,6 +30,12 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
     # Lägg gärna in domäner här via env; lämna listan tom om du vill
 # ]
 
+
+def _strip_port(host: str) -> str:
+    # tar bort ev. :port
+    return host.split(":")[0]
+
+
 def _ensure_origin(host: str) -> str:
     host = host.strip()
     if not host:
@@ -40,12 +48,17 @@ def _ensure_origin(host: str) -> str:
     # övriga får https
     return f"https://{host}"
 
+_raw_hosts = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1")
+ALLOWED_HOSTS = sorted({
+    _strip_port(h.strip())
+    for h in _raw_hosts.split(",")
+    if h.strip()
+})
+
 _env_origins_raw = os.getenv("CSRF_TRUSTED_ORIGINS", "")
 _env_origins = [_ensure_origin(x) for x in _env_origins_raw.split(",") if x.strip()]
-
 # komplettera med ALLOWED_HOSTS
 _from_hosts = [_ensure_origin(h) for h in ALLOWED_HOSTS if h.strip()]
-
 # Slå ihop och filtrera bort tomma/dupplikat
 CSRF_TRUSTED_ORIGINS = sorted({o for o in (_env_origins + _from_hosts) if o})
 
