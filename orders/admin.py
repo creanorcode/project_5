@@ -6,6 +6,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils import timezone
 from django.apps import apps
+from django.urls import reverse
 from .models import CompletedDesign, DesignOrder, DesignType, Order, OrderItem
 
 """
@@ -18,6 +19,22 @@ so they can be managed through the Django admin interface.
 Order = apps.get_model("orders", "Order")
 OrderItem = apps.get_model("orders", "OrderItem")
 Product = apps.get_model("products", "Product")  # for thumbnails
+
+
+# ---------- helpers ----------
+def _safe_localtime(dt):
+    try:
+        return timezone.localtime(dt)
+    except Exception:
+        return dt
+
+def _file_link(file_field):
+    if not file_field:
+        return "—"
+    try:
+        return format_html('<a href="{}" target="_blank" rel="noopener">Open</a>', file_field.url)
+    except Exception:
+        return "—"
 
 
 @admin.register(DesignType)
@@ -181,49 +198,72 @@ except LookupError:
     DesignOrder = None
 
 if DesignOrder is not None:
+    try:
+        CompletedDesign = apps.get_model("orders", "CompletedDesign")
+    except LookupError:
+        CompletedDesign = None
+
     @admin.register(DesignOrder)
     class DesignOrderAdmin(admin.ModelAdmin):
         """
         Enhanced admin for DesignOrder:
-        - Shows customer, design type, status, created date
-        - Search by user/email/reference fields
-        - Filters by status, design type, created
-        - Summary box on detail page
+        - Dynamic filters/order/fields to avoid SystemCheckError across envs
+        - 'Quick view' link to related CompletedDesign (if any)
         """
-        list_display = (
-            "id",
-            "design_customer",
-            "design_type_display",
-            "design_status",
-            "design_created",
-        )
+        list_display = ("id", "design_customer", "design_type_display",
+                        "quick_completed_link", "design_created")
         list_display_links = ("id", "design_customer")
-        search_fields = (
-            "id",
-            "user__username",
-            "user__email",
-            "email",
-            "reference",
-            "title",
-        )
-        list_filter = ("status", "created_at", "design_type")
-        ordering = ("-created_at",)
+        search_fields = ("id", "user__username", "user__email", "email",
+                         "title", "reference")
 
-        readonly_fields = ("design_summary",)
-        # Expose common fields if they exist; Django will ignore unknown entries gracefully on save
-        fields = (
-            "design_summary",
-            "user",
-            "email",
-            "design_type",
-            "title",
-            "description",
-            "status",
-            "created_at",
-            "updated_at",
-            "upload",
-            "attachments",
-        )
+        # Build list_filter dynamically based on real fields
+        def get_list_filter(self, request):
+            filters = []
+            for name in ("status", "created_at", "design_type"):
+                try:
+                    DesignOrder._meta.get_field(name)
+                    filters.append(name)
+                except Exception:
+                    pass
+            return tuple(filters)
+
+        # Order by created_at if it exists, else by id
+        def get_ordering(self, request):
+            try:
+                DesignOrder._meta.get_field("created_at")
+                return ("-created_at",)
+            except Exception:
+                return ("-id",)
+
+        # Detail view: include only fields that actually exist + our readonly extras
+        readonly_fields = ("design_summary", "quick_completed_link")
+
+        def get_fields(self, request, obj=None):
+            candidates = [
+                "design_summary",
+                "user",
+                "email",
+                "design_type",
+                "title",
+                "description",
+                "status",
+                "created_at",
+                "updated_at",
+                "upload",
+                "attachments",
+                "quick_completed_link",
+            ]
+            fields = []
+            for name in candidates:
+                if name in ("design_summary", "quick_completed_link"):
+                    fields.append(name)
+                else:
+                    try:
+                        DesignOrder._meta.get_field(name)
+                        fields.append(name)
+                    except Exception:
+                        pass
+            return tuple(fields)
 
         @admin.display(description="Customer")
         def design_customer(self, obj):
@@ -235,19 +275,46 @@ if DesignOrder is not None:
         @admin.display(description="Type")
         def design_type_display(self, obj):
             dt = getattr(obj, "design_type", None)
-            if dt:
-                return getattr(dt, "name", None) or str(dt)
-            return "—"
-
-        @admin.display(description="Status")
-        def design_status(self, obj):
-            return getattr(obj, "status", "—")
+            return getattr(dt, "name", None) or (str(dt) if dt else "—")
 
         @admin.display(description="Created")
         def design_created(self, obj):
             dt = getattr(obj, "created_at", None) or getattr(obj, "created", None)
             lt = _safe_localtime(dt)
             return lt.strftime("%Y-%m-%d %H:%M") if lt else "—"
+
+        @admin.display(description="Quick view")
+        def quick_completed_link(self, obj):
+            """
+            Link to a related CompletedDesign (if any).
+            Tries common relations: completeddesign_set, design_order FK, or legacy 'order' FK.
+            """
+            if CompletedDesign is None:
+                return "—"
+
+            cd = None
+            mgr = getattr(obj, "completeddesign_set", None)
+            if mgr:
+                cd = mgr.first()
+
+            if cd is None:
+                try:
+                    cd = CompletedDesign.objects.filter(design_order=obj).first()
+                except Exception:
+                    cd = None
+
+            if cd is None:
+                try:
+                    cd = CompletedDesign.objects.filter(order=obj).first()
+                except Exception:
+                    cd = None
+
+            if not cd:
+                return "—"
+
+            url = reverse(f"admin:{cd._meta.app_label}_{cd._meta.model_name}_change", args=[cd.pk])
+            label = getattr(cd, "id", "Open")
+            return format_html('<a href="{}">CompletedDesign #{}</a>', url, label)
 
         @admin.display(description="Summary")
         def design_summary(self, obj):
@@ -256,13 +323,11 @@ if DesignOrder is not None:
                 <div style="padding:12px;border:1px solid #e5e7eb;border-radius:10px;background:#f9fafb">
                   <div><b>Customer:</b> {customer}</div>
                   <div><b>Type:</b> {dtype}</div>
-                  <div><b>Status:</b> {status}</div>
                   <div><b>Created:</b> {created}</div>
                 </div>
                 """,
                 customer=self.design_customer(obj),
                 dtype=self.design_type_display(obj),
-                status=self.design_status(obj),
                 created=self.design_created(obj),
             )
 
@@ -274,15 +339,16 @@ except LookupError:
     CompletedDesign = None
 
 if CompletedDesign is not None:
+
     @admin.register(CompletedDesign)
     class CompletedDesignAdmin(admin.ModelAdmin):
         """
         Enhanced admin for CompletedDesign:
-        - Shows design order link, file preview/download, created/updated dates
-        - Search by related design order/user/email/title
-        - Filters by created date
+        - Dynamic filters/order/fields to match actual model schema
+        - File link, related design order label, created/updated displays
         """
-        list_display = ("id", "related_design_order", "file_link", "created_display", "updated_display")
+        list_display = ("id", "related_design_order", "file_link",
+                        "created_display", "updated_display")
         list_display_links = ("id", "related_design_order")
         search_fields = (
             "id",
@@ -291,36 +357,77 @@ if CompletedDesign is not None:
             "design_order__user__username",
             "design_order__user__email",
         )
-        list_filter = ("created_at",)
-        ordering = ("-created_at",)
 
+        # Dynamic list_filter
+        def get_list_filter(self, request):
+            filters = []
+            for name in ("created_at", "uploaded_at", "paid"):
+                try:
+                    CompletedDesign._meta.get_field(name)
+                    filters.append(name)
+                except Exception:
+                    pass
+            return tuple(filters)
+
+        # Dynamic ordering
+        def get_ordering(self, request):
+            for name in ("created_at", "uploaded_at", "id"):
+                try:
+                    CompletedDesign._meta.get_field(name)
+                    return (f"-{name}",)
+                except Exception:
+                    continue
+            return ("-id",)
+
+        # Detail view: only include fields that exist + our readonly extras
         readonly_fields = ("design_order_preview", "file_link_readonly")
-        fields = (
-            "design_order",           # FK
-            "file",                   # delivered file/image
-            "file_link_readonly",     # quick link
-            "notes",                  # optional text
-            "created_at",
-            "updated_at",
-            "design_order_preview",   # summary of linked design order
-        )
+
+        def get_fields(self, request, obj=None):
+            candidates = [
+                "design_order",  # FK (or 'order' in legacy)
+                "order",         # legacy fallback
+                "file",          # or 'image'
+                "image",
+                "file_link_readonly",
+                "notes",
+                "created_at",
+                "updated_at",
+                "uploaded_at",
+                "paid",
+                "design_order_preview",
+            ]
+            fields = []
+            for name in candidates:
+                if name in ("design_order_preview", "file_link_readonly"):
+                    fields.append(name)
+                else:
+                    try:
+                        CompletedDesign._meta.get_field(name)
+                        fields.append(name)
+                    except Exception:
+                        pass
+            return tuple(fields)
 
         @admin.display(description="Design Order")
         def related_design_order(self, obj):
-            d = getattr(obj, "design_order", None)
+            d = getattr(obj, "design_order", None) or getattr(obj, "order", None)
             if d:
-                title = getattr(d, "title", None) or f"DesignOrder #{getattr(d, 'id', '—')}"
+                title = getattr(d, "title", None) or f"#{getattr(d, 'id', '—')}"
                 return title
             return "—"
 
         @admin.display(description="File")
         def file_link(self, obj):
             f = getattr(obj, "file", None) or getattr(obj, "image", None)
-            return _link_or_dash(f)
+            return _file_link(f)
 
         @admin.display(description="Created")
         def created_display(self, obj):
-            dt = getattr(obj, "created_at", None) or getattr(obj, "created", None)
+            dt = (
+                getattr(obj, "created_at", None)
+                or getattr(obj, "uploaded_at", None)
+                or getattr(obj, "created", None)
+            )
             lt = _safe_localtime(dt)
             return lt.strftime("%Y-%m-%d %H:%M") if lt else "—"
 
@@ -332,14 +439,14 @@ if CompletedDesign is not None:
 
         @admin.display(description="Design Order Summary")
         def design_order_preview(self, obj):
-            d = getattr(obj, "design_order", None)
+            d = getattr(obj, "design_order", None) or getattr(obj, "order", None)
             if not d:
                 return "—"
             user = getattr(d, "user", None)
             customer = (getattr(user, "username", None) or getattr(user, "email", None)) if user else getattr(d, "email", "—")
             dtype = getattr(getattr(d, "design_type", None), "name", None) or "—"
-            status = getattr(d, "status", "—")
-            created = getattr(d, "created_at", None)
+            status = getattr(d, "status", None) or "—"
+            created = getattr(d, "created_at", None) or getattr(d, "created", None)
             created = _safe_localtime(created).strftime("%Y-%m-%d %H:%M") if created else "—"
             return format_html(
                 """
@@ -359,4 +466,4 @@ if CompletedDesign is not None:
         @admin.display(description="File (link)")
         def file_link_readonly(self, obj):
             f = getattr(obj, "file", None) or getattr(obj, "image", None)
-            return _link_or_dash(f)
+            return _file_link(f)
