@@ -89,12 +89,60 @@ def payment_success(request):
     design.paid = True
     design.save()
 
+    # --- Confirmation email (Design order) ---
+    recipient = getattr(design.order, "email", None) or getattr(request.user, "email", None)
+    if recipient:
+        subject = "Your Artea Studio design – payment confirmed"
+        body = (
+            "Thank you for your payment.\n\n"
+            "Your completed design is now available for download on your account page.\n"
+            "If you did not make this purchase, please contact support."
+        )
+        try:
+            send_mail(
+                subject=subject,
+                message=body,
+                from_email=None,            # uses DEFAULT_FROM_EMAIL
+                recipient_list=[recipient],
+                fail_silently=True,         # safe in dev
+            )
+        except Exception:
+            pass
+    # --- end email ---
+
     messages.success(request, "Thank you for your payment! Your design is now available for download.")
     return redirect('orders:my_completed_designs')
 
 
 class PaymentSuccessView(TemplateView):
     template_name = 'orders/payment_success.html'
+
+    def get(self, request, *args, **kwargs):
+        # Optional: clear cart session here if that´s your pattern
+        # request.session["cart"] = {}
+
+        # --- Confirmation email (Shop checkout) ---
+        recipient = getattr(getattr(request, "user", None), "email", None)
+        if recipient:
+            subject = "Your Artea Studio order – confirmation"
+            body = (
+                "Thank you for your purchase from Artea Studio.\n\n"
+                "This is a confirmation that your payment was successful (test environment).\n"
+                "If you did not make this purchase, please contact support."
+            )
+            try:
+                send_mail(
+                    subject=subject,
+                    message=body,
+                    from_email=None,
+                    recipient_list=[recipient],
+                    fail_silently=True,
+                )
+            except Exception:
+                pass
+        # --- end email ---
+
+        return super().get(request, *args, **kwargs)
 
 
 class PaymentCancelledView(TemplateView):

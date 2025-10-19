@@ -11,11 +11,14 @@ import os
 from pathlib import Path
 
 import dj_database_url
-from dotenv import load_dotenv
 
 # BASE_DIR points to the root of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / ".env")
+try:
+    from dotenv import load_dotenv
+    load_dotenv(dotenv_path=BASE_DIR / ".env")
+except Exception:
+    pass
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -222,8 +225,14 @@ MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/"
 DEFAULT_FILE_STORAGE = 'project_5.custom_storages.MediaStorage'
 
 # Stripe API-keys
-STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
-STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = (
+    os.getenv("STRIPE_SECRET_KEY")
+    or os.getenv("STRIPE_SECRET")
+)
+STRIPE_PUBLISHABLE_KEY = (
+    os.getenv("STRIPE_PUBLISHABLE_KEY")
+    or os.getenv("STRIPE_PUBLIC_KEY")
+)
 
 # Stripe webhook secrets
 STRIPE_WEBHOOK_SECRET_HEROKU = os.getenv('STRIPE_WEBHOOK_SECRET_HEROKU')
