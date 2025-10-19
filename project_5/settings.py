@@ -83,6 +83,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'storages',
 
     # Local apps
@@ -92,6 +93,7 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'contact',
+    'core'
 ]
 
 MIDDLEWARE = [

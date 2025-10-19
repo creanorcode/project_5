@@ -4,8 +4,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
-
+from django.contrib.sitemaps.views import sitemap
 from accounts.views import newsletter_view, robots_txt, sitemap_xml
+
+from core.views import robots_txt  # add this import
+from core.sitemaps import sitemaps
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +27,8 @@ urlpatterns = [
     path('robots.txt', robots_txt, name='robots_txt'),
     path('sitemap.xml', sitemap_xml, name='sitemap_xml'),
     path('newsletter/', newsletter_view, name='newsletter'),
+    path('robots.txt', robots_txt, name='robots_txt'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
 ]
 
 handler404 = 'accounts.views.custom_404'
