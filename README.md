@@ -321,6 +321,7 @@ Success/Cancel templates: `templates/orders/payment_success.html` and `payment_c
 ---
 
 ## Testing
+For the complete testing process and validation evidence, see the [TESTING.md](./TESTING.md) file.
 
 ### Manual Feature Testing
 
