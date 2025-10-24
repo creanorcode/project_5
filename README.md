@@ -84,6 +84,8 @@ A calm, creative visual language reflecting the artistic identity of *Artea Stud
 ### Wireframes & Mockups
 Se `/docs/wireframes` for key screens and flows.
 
+![[screenshot-hero.png](docs/screenshots/screenshot-hero.png)](docs/screenshots/screenshot-hero.png)
+![[screenshot-footer.png](docs/screenshots/screenshot-footer.png)](docs/screenshots/screenshot-footer.png)
 ---
 
 ## Features
