@@ -28,7 +28,7 @@ DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 # DEBUG = False
 
 # ALLOWED_HOSTS och CSRF_TRUSTED_ORIGINS från env + säkra defaults
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 # CSRF_TRUSTED_ORIGINS = [
     # *(os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')),
     # Lägg gärna in domäner här via env; lämna listan tom om du vill

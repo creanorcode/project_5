@@ -67,6 +67,9 @@ This document summarizes manual and validator testing for **Artea Studio** (PP5)
 | Cancel           | Start checkout → cancel       | Redirect to cancel page         |        |          |
 | Success (design) | Pay design → 4242             | `paid=True`; download allowed   |        |          |
 
+#### Stripe Checkout Evidence
+![Stripe Success Page](docs/screenshots/stripe-success.png)
+
 ---
 
 ## 6. Validators & Quality
@@ -116,6 +119,9 @@ ruff check . --fix
 | rel="noopener" on external links | Present                        |        |                                |
 | Open Graph tags                  | Present on base                |        |                                |
 
+#### SEO Validation Screenshots
+![Sitemap.xml in browser](docs/screenshots/)
+![Robots.txt in browser](docs/screenshots/)
 ---
 
 ## 9. Bugs & Fixes Log

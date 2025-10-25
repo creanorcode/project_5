@@ -81,11 +81,13 @@ A calm, creative visual language reflecting the artistic identity of *Artea Stud
 - **Forms:** manually rendered with role-aware behavior
 - **Feedback:** Django messages for success/errors
 
+#### UX Evidence Screenshots
+![Artea Hero Section](docs/screenshots/ux-home-hero.png)
+![Artea Footer Section](docs/screenshots/ux-home-footer.png)
+
 ### Wireframes & Mockups
 Se `/docs/wireframes` for key screens and flows.
 
-![[screenshot-hero.png](docs/screenshots/screenshot-hero.png)](docs/screenshots/screenshot-hero.png)
-![[screenshot-footer.png](docs/screenshots/screenshot-footer.png)](docs/screenshots/screenshot-footer.png)
 ---
 
 ## Features
@@ -300,7 +302,8 @@ Each model supports CRUD operations and integrates with Django Admin.
 | US-05 | As a user, I want to download completed designs | CompletedDesign with paid gate |
 | US-06 | As admin, I want to manage orders/designs | Enhanced Django Admin views |
 
-*(Optional) Include a screenshot of GitHub Projects board in `docs/screenshots/`.*
+#### Agile Workflow Evidence
+![GitHub Project Board](docs/screenshots/agile-github-board.png)
 
 ---
 
