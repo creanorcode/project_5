@@ -9,6 +9,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
+from django.core.mail import send_mail
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from cart.models import CartItem
 
@@ -35,7 +37,7 @@ def stripe_checkout(request, design_id):
             'quantity': 1,
         }],
         mode='payment',
-        success_url=request.build_absolute_uri('/orders/payment-success/'),
+        success_url=request.build_absolute_uri('/orders/payment-success/'), OBS KOLLA OCH TA BORT IFALL DEN INTE BEHÖVS
         cancel_url=request.build_absolute_uri('/orders/payment-cancelled/'),
         metadata={
             'design_id': design.id
@@ -90,31 +92,45 @@ def payment_success(request):
     design.save()
 
     # --- Confirmation email (Design order) ---
-    recipient = getattr(design.order, "email", None) or getattr(request.user, "email", None)
-    if recipient:
-        subject = "Your Artea Studio design – payment confirmed"
-        body = (
-            "Thank you for your payment.\n\n"
-            "Your completed design is now available for download on your account page.\n"
-            "If you did not make this purchase, please contact support."
-        )
-        try:
-            send_mail(
-                subject=subject,
-                message=body,
-                from_email=None,            # uses DEFAULT_FROM_EMAIL
-                recipient_list=[recipient],
-                fail_silently=True,         # safe in dev
-            )
-        except Exception:
-            pass
+    #recipient = getattr(design.order, "email", None) or getattr(request.user, "email", None)
+    #if recipient:
+        #subject = "Your Artea Studio design – payment confirmed"
+        #body = (
+            #"Thank you for your payment.\n\n"
+            #"Your completed design is now available for download on your account page.\n"
+            #"If you did not make this purchase, please contact support."
+        #)
+        #try:
+            #send_mail(
+                #subject=subject,
+                #message=body,
+                #from_email=None,            # uses DEFAULT_FROM_EMAIL
+                #recipient_list=[recipient],
+                #fail_silently=True,         # safe in dev
+            #)
+        #except Exception:
+            #pass
     # --- end email ---
 
-    messages.success(request, "Thank you for your payment! Your design is now available for download.")
+    #messages.success(request, "Thank you for your payment! Your design is now available for download.")
+
+    # Send confirmation email
+    subject = "Thank you for your purchase at Artea Studio!"
+    message = (
+        f"Dear {request.user.username},\n\n"
+        f"Your payment has been successfully processed and your design "
+        f"is now available for download in your account.\n\n"
+        f"Visit: https://www.artea.studio/orders/completed-designs/\n\n"
+        f"Warm regards,\nArtea Studio Team"
+    )
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient_list = [request.user.email]
+    send_mail(subject, message, from_email, recipient_list, fail_silently=True)
+
     return redirect('orders:my_completed_designs')
 
 
-class PaymentSuccessView(TemplateView):
+class PaymentSuccessView(LoginRequiredMixin, TemplateView):
     template_name = 'orders/payment_success.html'
 
     def get(self, request, *args, **kwargs):
@@ -124,22 +140,38 @@ class PaymentSuccessView(TemplateView):
         # --- Confirmation email (Shop checkout) ---
         recipient = getattr(getattr(request, "user", None), "email", None)
         if recipient:
-            subject = "Your Artea Studio order – confirmation"
-            body = (
-                "Thank you for your purchase from Artea Studio.\n\n"
-                "This is a confirmation that your payment was successful (test environment).\n"
-                "If you did not make this purchase, please contact support."
-            )
             try:
                 send_mail(
-                    subject=subject,
-                    message=body,
-                    from_email=None,
+                    subject="Thank you for your purchase at Artea Studio!",
+                    message=(
+                        f"Dear {request.user.username},\n\n"
+                        f"Your payment has been successfully processed.\n"
+                        f"You can view your orders/downloads in your account.\n\n"
+                        f"Warm regards,\nArtea Studio Team"
+                    ),
+                    from_email=None,   # uses DEFAULT_FROM_EMAIL
                     recipient_list=[recipient],
-                    fail_silently=True,
+                    fail_silently=False,  # sätt False under test
                 )
-            except Exception:
-                pass
+            except Exception as e:
+                print("EMAIL ERROR:", e)  # syns i terminalen/Heroku log
+
+            #subject = "Your Artea Studio order – confirmation"
+            #body = (
+                #"Thank you for your purchase from Artea Studio.\n\n"
+                #"This is a confirmation that your payment was successful (test environment).\n"
+                #"If you did not make this purchase, please contact support."
+            #)
+            #try:
+                #send_mail(
+                    #subject=subject,
+                    #message=body,
+                    #from_email=None,
+                    #recipient_list=[recipient],
+                    #fail_silently=True,
+                #)
+            #except Exception:
+                #pass
         # --- end email ---
 
         return super().get(request, *args, **kwargs)
