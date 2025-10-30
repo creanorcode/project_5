@@ -28,6 +28,7 @@ def _safe_localtime(dt):
     except Exception:
         return dt
 
+
 def _file_link(file_field):
     if not file_field:
         return "—"

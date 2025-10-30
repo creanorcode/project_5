@@ -37,7 +37,7 @@ def stripe_checkout(request, design_id):
             'quantity': 1,
         }],
         mode='payment',
-        success_url=request.build_absolute_uri('/orders/payment-success/'), OBS KOLLA OCH TA BORT IFALL DEN INTE BEHÖVS
+        success_url=request.build_absolute_uri('/orders/payment-success/'),
         cancel_url=request.build_absolute_uri('/orders/payment-cancelled/'),
         metadata={
             'design_id': design.id
@@ -115,17 +115,19 @@ def payment_success(request):
     #messages.success(request, "Thank you for your payment! Your design is now available for download.")
 
     # Send confirmation email
-    subject = "Thank you for your purchase at Artea Studio!"
-    message = (
-        f"Dear {request.user.username},\n\n"
-        f"Your payment has been successfully processed and your design "
-        f"is now available for download in your account.\n\n"
-        f"Visit: https://www.artea.studio/orders/completed-designs/\n\n"
-        f"Warm regards,\nArtea Studio Team"
+    send_mail(
+        subject="Your Artea Studio design - payment confirmed",
+        message=(
+            f"Dear {request.user.username},\n\n"
+            f"Your completed design is now available for download in your account.\n"
+            f"Visit: https://www.artea.studio/orders/completed-designs/\n\n"
+            f"If you did not make this purchase, please contact support."
+            f"Warm regards,\nArtea Studio Team"
+        ),
+        from_email=None,
+        recipient_list=[request.user.email],
+        fail_silently=False,  # False in dev => it lokks wrong in the console
     )
-    from_email = settings.DEFAULT_FROM_EMAIL
-    recipient_list = [request.user.email]
-    send_mail(subject, message, from_email, recipient_list, fail_silently=True)
 
     return redirect('orders:my_completed_designs')
 
@@ -134,8 +136,16 @@ class PaymentSuccessView(LoginRequiredMixin, TemplateView):
     template_name = 'orders/payment_success.html'
 
     def get(self, request, *args, **kwargs):
-        # Optional: clear cart session here if that´s your pattern
-        # request.session["cart"] = {}
+        # --- DEV fallback: skapa order + töm kundvagnen även utan webhook ---
+        if settings.DEBUG:
+            session_id = request.GET.get("session_id")
+            if session_id:
+                try:
+                    session = stripe.checkout.Session.retrieve(session_id)
+                    # Använd samma logik som webhooken i produktion:
+                    handle_checkout_session(session)
+                except Exception as e:
+                    print("DEV SUCCESS FALLBACK ERROR:", e)
 
         # --- Confirmation email (Shop checkout) ---
         recipient = getattr(getattr(request, "user", None), "email", None)
@@ -150,7 +160,7 @@ class PaymentSuccessView(LoginRequiredMixin, TemplateView):
                         f"Warm regards,\nArtea Studio Team"
                     ),
                     from_email=None,   # uses DEFAULT_FROM_EMAIL
-                    recipient_list=[recipient],
+                    recipient_list=[request.user.email],
                     fail_silently=False,  # sätt False under test
                 )
             except Exception as e:
@@ -242,7 +252,9 @@ def checkout(request):
         payment_method_types=['card'],
         line_items=line_items,
         mode='payment',
-        success_url=request.build_absolute_uri('/orders/complete/success/'),
+        success_url=request.build_absolute_uri(
+            '/orders/complete/success/?session_id={CHECKOUT_SESSION_ID}'
+        ),
         cancel_url=request.build_absolute_uri('/cart/'),
         customer_email=request.user.email,
         metadata={
