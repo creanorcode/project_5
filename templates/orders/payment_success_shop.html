@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Payment Successful | Artea{% endblock %}
+
+{% block content %}
+<section class="container-narrow success-section">
+  <h2>🎉 Thank you for your payment!</h2>
+  <p>Your order has been received.</p>
+  <p>You can review it under <strong><a href="{% url 'orders:order_history' %}">My Orders</a></strong>.</p>
+
+  <div class="mt-4">
+    <a href="{% url 'orders:order_history' %}" class="btn btn-primary">Go to My Orders</a>
+    <a href="{% url 'products:product_list' %}" class="btn btn-secondary ml-2">Continue shopping</a>
+  </div>
+</section>
+{% endblock %}

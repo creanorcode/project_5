@@ -122,8 +122,8 @@ class OrderAdmin(admin.ModelAdmin):
     ordering = ("-created_at",)
 
     # Detail view
-    readonly_fields = ("summary_box",)
-    fields = ("summary_box", "status", "user", "total_price", "created_at")
+    readonly_fields = ("summary_box", "created_at")
+    fields = ("summary_box", "status", "user", "total_price",)
 
     @admin.display(description="Customer")
     def customer_display(self, obj):

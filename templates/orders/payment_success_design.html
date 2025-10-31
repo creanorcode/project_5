@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Design Payment Successful | Artea{% endblock %}
+
+{% block content %}
+<section class="container-narrow success-section">
+    <h2>✅ Payment confirmed for your design{{ design.id|default:"" }}!</h2>
+    <p>Your design is now available under <strong><a href="{% url 'orders:my_completed_designs' %}">My Designs</a></strong>.</p>
+    <p>You can download it anytime from your account.</p>
+
+    <div class="mt-4">
+        <a href="{% url 'orders:my_completed_designs' %}" class="btn btn-primary">Go to My Designs</a>
+    </div>
+</section>
+{% endblock %}

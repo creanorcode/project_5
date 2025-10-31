@@ -11,6 +11,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
 
 from cart.models import CartItem
 
@@ -50,8 +51,13 @@ def stripe_checkout(request, design_id):
 @login_required
 def pay_for_design(request, design_id):
     design = get_object_or_404(CompletedDesign, id=design_id)
-
     amount = int(design.order.design_type.price * 100)
+
+    success_url = (
+        request.build_absolute_uri(
+            reverse('orders:design_payment_success')
+        ) + f'?design_id={design_id}&session_id={{CHECKOUT_SESSION_ID}}'
+    )
 
     session = stripe.checkout.Session.create(
         payment_method_types=['card'],
@@ -66,15 +72,29 @@ def pay_for_design(request, design_id):
             'quantity': 1,
         }],
         mode='payment',
-        success_url=request.build_absolute_uri('/orders/payment-success/') + f'?design_id={design_id}',
+        success_url=success_url,
         cancel_url=request.build_absolute_uri('/orders/completed_designs/'),
         metadata={'design_id': str(design.id)},
     )
+
+    print("DESIGN success_url sent to Stripe:", success_url)
+    print("DESIGN success_url stored in Stripe:", session.get('success_url'))
+    print("Stripe Dashboard log:", f"https://dashboard.stripe.com/test/sessions/{session['id']}")
+
     return redirect(session.url, code=303)
 
 
 @login_required
 def payment_success(request):
+    # DEV: stöd både ?session_id (fr Stripe) och befintlig ?design_id
+    if settings.DEBUG and request.GET.get("session_id"):
+        try:
+            session = stripe.checkout.Session.retrieve(request.GET["session_id"])
+            # designflödet använder metadata.design_id
+            handle_checkout_session(session)  # säkrar ev. kundvagns-synk, harmless här
+        except Exception as e:
+            print("DEV DESIGN SUCCESS FALLBACK ERROR:". e)
+
     design_id = request.GET.get('design_id')
     if not design_id:
         messages.error(request, "Missing design ID.")
@@ -115,37 +135,56 @@ def payment_success(request):
     #messages.success(request, "Thank you for your payment! Your design is now available for download.")
 
     # Send confirmation email
-    send_mail(
-        subject="Your Artea Studio design - payment confirmed",
-        message=(
-            f"Dear {request.user.username},\n\n"
-            f"Your completed design is now available for download in your account.\n"
-            f"Visit: https://www.artea.studio/orders/completed-designs/\n\n"
-            f"If you did not make this purchase, please contact support."
-            f"Warm regards,\nArtea Studio Team"
-        ),
-        from_email=None,
-        recipient_list=[request.user.email],
-        fail_silently=False,  # False in dev => it lokks wrong in the console
-    )
+    try:
+        recipient = request.user.email or design.order.email
+        if recipient:
+            send_mail(
+                subject="Your Artea Studio design - payment confirmed",
+                message=(
+                    f"Dear {request.user.username},\n\n"
+                    f"Your completed design is now available for download in your account.\n"
+                    f"Visit: https://www.artea.studio/orders/completed-designs/\n\n"
+                    f"If you did not make this purchase, please contact support."
+                    f"Warm regards,\nArtea Studio Team"
+                ),
+                from_email=None,
+                recipient_list=[recipient],
+                fail_silently=True,  # False in dev => it lokks wrong in the console
+            )
+    except Exception as e:
+        print("EMAIL ERROR (design):", e)
 
-    return redirect('orders:my_completed_designs')
+    # Visa DESIGN-tacksida med länk till My Designs
+    return render(request, 'orders:payment_success_design.html', {
+        'design': design,
+    })
 
 
-class PaymentSuccessView(LoginRequiredMixin, TemplateView):
-    template_name = 'orders/payment_success.html'
+class ShopPaymentSuccessView(LoginRequiredMixin, TemplateView):
+    template_name = 'orders/payment_success_shop.html'
 
     def get(self, request, *args, **kwargs):
+        print("[PaymentSuccessView] ENTER get() DEBUG=", settings.DEBUG, "user=", request.user)
         # --- DEV fallback: skapa order + töm kundvagnen även utan webhook ---
         if settings.DEBUG:
-            session_id = request.GET.get("session_id")
-            if session_id:
-                try:
-                    session = stripe.checkout.Session.retrieve(session_id)
-                    # Använd samma logik som webhooken i produktion:
-                    handle_checkout_session(session)
-                except Exception as e:
-                    print("DEV SUCCESS FALLBACK ERROR:", e)
+            from cart.models import CartItem
+            from .models import Order, OrderItem
+
+            items = list(CartItem.objects.filter(user=request.user))
+            if items:
+                order = Order.objects.create(
+                    user=request.user,
+                    total_price=sum(i.product.price * i.quantity for i in items),
+                    status='paid'
+                )
+                for i in items:
+                    OrderItem.objects.create(
+                        order=order,
+                        product=i.product,
+                        quantity=i.quantity,
+                        price=i.product.price
+                    )
+                CartItem.objects.filter(user=request.user).delete()
 
         # --- Confirmation email (Shop checkout) ---
         recipient = getattr(getattr(request, "user", None), "email", None)
@@ -160,7 +199,7 @@ class PaymentSuccessView(LoginRequiredMixin, TemplateView):
                         f"Warm regards,\nArtea Studio Team"
                     ),
                     from_email=None,   # uses DEFAULT_FROM_EMAIL
-                    recipient_list=[request.user.email],
+                    recipient_list=[recipient],
                     fail_silently=False,  # sätt False under test
                 )
             except Exception as e:
@@ -248,19 +287,28 @@ def checkout(request):
             'quantity': item.quantity,
         })
 
+    success_url = (
+        request.build_absolute_uri(
+            reverse('orders:shop_success')
+        ) + '?session_id={CHECKOUT_SESSION_ID}'
+    )
+
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=line_items,
         mode='payment',
-        success_url=request.build_absolute_uri(
-            '/orders/complete/success/?session_id={CHECKOUT_SESSION_ID}'
-        ),
+        success_url=success_url,
         cancel_url=request.build_absolute_uri('/cart/'),
         customer_email=request.user.email,
         metadata={
             'user_id': str(request.user.id)
         }
     )
+
+    # DEBUF-Logg i terminalen
+    print("CHECKOUT success_url sent to Stripe:", success_url)
+    print("CHECKOUT success_url stored in Stripe:", checkout_session.get('success_url'))
+    print("Stripe Dashboard log:", f"https://dashboard.stripe.com/test/sessions/{checkout_session['id']}")
 
     return redirect(checkout_session.url, code=303)
 
