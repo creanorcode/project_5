@@ -587,66 +587,75 @@ This site was deployed using **Heroku**, with static files managed via **WhiteNo
 
 ---
 
-## Deployment ???????????????????
+## Project resubmission note
 
-### Local Deployment
-```
-bash
-```
+This resubmission is part of the Code Institute Full Stack Frameworks (Django) module – Portfolio Project 5.
+The project has undergone significant refactoring and improvement since the first submission.
+Several key systems — especially the checkout process, email confirmations, and payment success handling — have been rewritten, tested, and partially verified.
+While some debugging remains, the project now demonstrates clear functionality, structure, and progress towards full completion.
 
-To get started you make a local copy of this project. You can clone it in your IDE Terminal, type the following command to clone my repository:
+## Project status and next steps for resubmission
+**Submission date:** 31 October 2025
+**Author:** Thomas Eriksson
+**Project name:** Artea Studio – Design & Shop Platform
+**Context:** Resubmission after initial submission for Portfolio Project 5 (Full Stack Frameworks – Django)
 
-```
-git clone https://github.com/creanorcode/project_5.git
-cd project_5
-```
+### Summary of progress since first submission
+Since the first submission, extensive work has been done to refactor, test, and stabilise the entire project.
+The main focus areas have been checkout flows, email confirmation, and front-end usability.
 
-After cloning the repository you will have to:
+**Key improvements:**
+- Email confirmations:
+  - Implemented working email confirmations for both shop purchases and custom design payments.
+  - Verified console backend for development environment and proper email rendering.
+- Checkout flow (Stripe):
+  - Added complete and tested Stripe Checkout integration.
+  - Created two distinct success flows:
+    - Shop purchases → ShopPaymentSuccessView with My Orders link.
+    - Design payments → payment_success function view with My Designs link.
+  - Confirmed that the cart is cleared correctly in development (DEBUG = True).
+- Improved URL structure:
+  - Clear namespace separation between orders:shop_success and orders:design_payment_success.
+  - Adjusted templates and links accordingly.
+- Email messages:
+  - Context-specific confirmation emails now generated for both flows.
+  - Console backend tested and verified during local purchases.
+- Front-end templates:
+  - New pages payment_success_shop.html and payment_success_design.html for clarity.
+  - Updated layout, messages, and navigation for a consistent Artea Studio brand.
+- Testing and debugging:
+  - Verified that orders appear under My Orders after successful payments.
+  - Confirmed that customer email is stored and used correctly.
+  - Integrated error-handling for Stripe sessions and invalid access cases.
 
-1. create and activate virtual environment:
+### Known issues and next steps
+Some parts of the project are still in progress and will be finalised before the next (and final) submission.
 
-```
-python -m venv env
-source env/bin/activate  # On Windows: venv\Script\activate
-```
+**Outstanding tasks:**
 
-2. Install dependencies:
+- Admin design-order view:
+  - Currently returns a 500 error when opening a submitted design order.
+  - To be debugged (likely related to template context or missing object reference).
+- Webhook validation (production):
+  - Stripe webhook endpoints need re-testing in the live environment (Heroku) to confirm full order creation and cart clearing.
+- Automated tests (tests.py):
+  - Needs expansion for checkout, email, and model relations.
+  - Test Plan (TESTING.md) is in place but some cases still unverified.
+- Documentation updates:
+  - Update screenshots and deployment guide to reflect the new dual-checkout logic.
+  - Add notes about environment variables for both local and production .env files.
+- Minor UI refinements:
+  - Adjust responsive layout for success pages and account dashboards.
 
-```
-pip install -r requirements.txt
-```
+**Reflection**
 
-3. Add a ```.env```file:
+The current version of Artea Studio represents a substantial rebuild since the first submission.
+Although not fully complete, the codebase now demonstrates:
+- Functional Stripe integration,
+- Proper user and order management,
+- Clear separation of shop vs design workflows, and
+- Robust progress toward a fully production-ready e-commerce and design-order platform.
 
-```
-cp .env.example .env
----
-# Django settings
-SECRET_KEY=your-so-very-secret-key
-DEBUG=True
-ALLOWED_HOSTS=your-name.herokuapp.com, localhost,127.0.0.1:8000
-DJANGO_SETTINGS_MODULE=project_5.settings
-DATABASES=
-
-# Stripe test keys
-STRIPE_PUBLIC_KEY=stripe-public-key
-STRIPE_SECRET_KEY=stripe-secret-key
-STRIPE_WEBHOOK_SECRET_DOMAIN=for-your-custom-domain
-STRIPE_WEBHOOK_SECRET_HEROKU=for-your-heroku-app
-
-# AWS S3 
-AWS_ACCESS_KEY_ID=access-key
-AWS_S3_REGION_NAME=region-name
-AWS_SECRET_ACCESS_KEY=secret-key
-AWS_STORAGE_BUCKET_NAME=bucket-name
-```
-
-4. Run migrations and start server:
-
-```
-python manage.py migrate
-python manage.py runserver
-
-```
+**Next focus:** Fixing the admin 500-error and verifying the production webhook to ensure end-to-end payment flow integrity.
 
 ---
