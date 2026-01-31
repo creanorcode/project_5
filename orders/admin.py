@@ -237,7 +237,7 @@ if DesignOrder is not None:
                 return ("-id",)
 
         # Detail view: include only fields that actually exist + our readonly extras
-        readonly_fields = ("design_summary", "quick_completed_link")
+        readonly_fields = ("design_summary", "quick_completed_link", "created_at")
 
         def get_fields(self, request, obj=None):
             candidates = [
@@ -247,9 +247,8 @@ if DesignOrder is not None:
                 "design_type",
                 "title",
                 "description",
+                "updated_at"
                 "status",
-                "created_at",
-                "updated_at",
                 "upload",
                 "attachments",
                 "quick_completed_link",
