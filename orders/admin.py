@@ -123,7 +123,7 @@ class OrderAdmin(admin.ModelAdmin):
 
     # Detail view
     readonly_fields = ("summary_box", "created_at")
-    fields = ("summary_box", "status", "user", "total_price",)
+    fields = ("summary_box", "status", "user", "total_price", "created_at")
 
     @admin.display(description="Customer")
     def customer_display(self, obj):
@@ -207,20 +207,21 @@ if DesignOrder is not None:
     @admin.register(DesignOrder)
     class DesignOrderAdmin(admin.ModelAdmin):
         """
-        Enhanced admin for DesignOrder:
-        - Dynamic filters/order/fields to avoid SystemCheckError across envs
-        - 'Quick view' link to related CompletedDesign (if any)
+        Admin for DesignOrder (matches actual model fields).
+        Includes a Quick view link to related CompletedDesign if it exits.
         """
-        list_display = ("id", "design_customer", "design_type_display",
-                        "quick_completed_link", "design_created")
-        list_display_links = ("id", "design_customer")
-        search_fields = ("id", "user__username", "user__email", "email",
-                         "title", "reference")
+        list_display = ("id", "customer_name", "email", "design_type_display",
+                        "quick_completed_link", "created_display")
+        list_display_links = ("id", "customer_name")
+        search_fields = ("id", "name", "email")
+
+        # These are non-editable / computed display fields
+        readonly_fields = ("design_summary", "quick_completed_link", "created_at")
 
         # Build list_filter dynamically based on real fields
         def get_list_filter(self, request):
             filters = []
-            for name in ("status", "created_at", "design_type"):
+            for name in ("created_at", "design_type"):
                 try:
                     DesignOrder._meta.get_field(name)
                     filters.append(name)
@@ -236,21 +237,16 @@ if DesignOrder is not None:
             except Exception:
                 return ("-id",)
 
-        # Detail view: include only fields that actually exist + our readonly extras
-        readonly_fields = ("design_summary", "quick_completed_link", "created_at")
-
         def get_fields(self, request, obj=None):
+            # Only fields that actually exist in your DesignOrder model
             candidates = [
                 "design_summary",
-                "user",
+                "name",
                 "email",
                 "design_type",
-                "title",
                 "description",
-                "updated_at"
-                "status",
-                "upload",
                 "attachments",
+                "created_at",
                 "quick_completed_link",
             ]
             fields = []
@@ -265,12 +261,9 @@ if DesignOrder is not None:
                         pass
             return tuple(fields)
 
-        @admin.display(description="Customer")
-        def design_customer(self, obj):
-            u = getattr(obj, "user", None)
-            if u:
-                return getattr(u, "username", None) or getattr(u, "email", None) or str(u)
-            return getattr(obj, "email", "—") or "—"
+        @admin.display(description="Name")
+        def customer_name(self, obj):
+            return getattr(obj, "name", "—") or "—"
 
         @admin.display(description="Type")
         def design_type_display(self, obj):
@@ -278,57 +271,43 @@ if DesignOrder is not None:
             return getattr(dt, "name", None) or (str(dt) if dt else "—")
 
         @admin.display(description="Created")
-        def design_created(self, obj):
-            dt = getattr(obj, "created_at", None) or getattr(obj, "created", None)
+        def created_display(self, obj):
+            dt = getattr(obj, "created_at", None)
             lt = _safe_localtime(dt)
             return lt.strftime("%Y-%m-%d %H:%M") if lt else "—"
 
         @admin.display(description="Quick view")
         def quick_completed_link(self, obj):
-            """
-            Link to a related CompletedDesign (if any).
-            Tries common relations: completeddesign_set, design_order FK, or legacy 'order' FK.
-            """
             if CompletedDesign is None:
                 return "—"
 
-            cd = None
-            mgr = getattr(obj, "completeddesign_set", None)
-            if mgr:
-                cd = mgr.first()
-
-            if cd is None:
-                try:
-                    cd = CompletedDesign.objects.filter(design_order=obj).first()
-                except Exception:
-                    cd = None
-
-            if cd is None:
-                try:
-                    cd = CompletedDesign.objects.filter(order=obj).first()
-                except Exception:
-                    cd = None
+            # Your CompletedDesign uses: order = OneToOneField(DesignOrder)
+            try:
+                cd = CompletedDesign.objects.filter(order=obj).first()
+            except Exception:
+                cd = None
 
             if not cd:
-                return "—"
+                return "-"
 
             url = reverse(f"admin:{cd._meta.app_label}_{cd._meta.model_name}_change", args=[cd.pk])
-            label = getattr(cd, "id", "Open")
-            return format_html('<a href="{}">CompletedDesign #{}</a>', url, label)
+            return format_html('<a href="{}">CompletedDesign #{}</a>', url, cd.pk)
 
         @admin.display(description="Summary")
         def design_summary(self, obj):
             return format_html(
                 """
                 <div style="padding:12px;border:1px solid #e5e7eb;border-radius:10px;background:#f9fafb">
-                  <div><b>Customer:</b> {customer}</div>
+                  <div><b>Name:</b> {name}</div>
+                  <div><b>Email:</b> {email}</div>
                   <div><b>Type:</b> {dtype}</div>
                   <div><b>Created:</b> {created}</div>
                 </div>
                 """,
-                customer=self.design_customer(obj),
+                name=self.customer_name(obj),
+                email=getattr(obj, "email", "-") or "-",
                 dtype=self.design_type_display(obj),
-                created=self.design_created(obj),
+                created=self.created_display(obj),
             )
 
 
