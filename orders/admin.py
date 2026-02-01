@@ -380,7 +380,7 @@ if CompletedDesign is not None:
             return ("-id",)
 
         # Detail view: only include fields that exist + our readonly extras
-        readonly_fields = ("design_order_preview", "file_link_readonly")
+        readonly_fields = ("design_order_preview", "file_link_readonly", "uploaded_display")
 
         def get_fields(self, request, obj=None):
             candidates = [
@@ -392,13 +392,13 @@ if CompletedDesign is not None:
                 "notes",
                 "created_at",
                 "updated_at",
-                "uploaded_at",
+                "uploaded_display",
                 "paid",
                 "design_order_preview",
             ]
             fields = []
             for name in candidates:
-                if name in ("design_order_preview", "file_link_readonly"):
+                if name in ("design_order_preview", "file_link_readonly", "uploaded_display"):
                     fields.append(name)
                 else:
                     try:
@@ -430,6 +430,12 @@ if CompletedDesign is not None:
             )
             lt = _safe_localtime(dt)
             return lt.strftime("%Y-%m-%d %H:%M") if lt else "—"
+
+        @admin.display(description="Uploaded")
+        def uploaded_display(self, obj):
+            dt = getattr(obj, "uploaded_at", None)
+            lt = _safe_localtime(dt)
+            return lt.strftime("%Y-%m-%d %H:%M") if lt else "-"
 
         @admin.display(description="Updated")
         def updated_display(self, obj):
