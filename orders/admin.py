@@ -350,13 +350,34 @@ if CompletedDesign is not None:
         list_display = ("id", "related_design_order", "file_link",
                         "created_display", "updated_display")
         list_display_links = ("id", "related_design_order")
-        search_fields = (
-            "id",
-            "design_order__id",
-            "design_order__title",
-            "design_order__user__username",
-            "design_order__user__email",
-        )
+
+        def get_search_fields(self, request):
+            fields = ["id"]
+
+            # Prefer the real relation name if present
+            if any(f.name == "order" for f in CompletedDesign._meta.fields):
+                fields += [
+                    "order__id",
+                    "order__name",
+                    "order__email",
+                ]
+
+            if any(f.name == "design_order" for f in CompletedDesign._meta.fields):
+                fields += [
+                    "design_order__id",
+                    "design_order__title",
+                    "design_order__user__username",
+                    "design_order__user__email",
+                ]
+            return tuple(fields)
+
+        # search_fields = ( # TA BORT DETTA INNAN RESUBMISSION OBS!!!!!!
+            # "id",
+            # "design_order__id",
+            # "design_order__title",
+            # "design_order__user__username",
+            # "design_order__user__email",
+        # )
 
         # Dynamic list_filter
         def get_list_filter(self, request):
@@ -381,6 +402,12 @@ if CompletedDesign is not None:
 
         # Detail view: only include fields that exist + our readonly extras
         readonly_fields = ("design_order_preview", "file_link_readonly", "uploaded_display")
+
+        def get_readonly_fields(self, request, obj=None):
+            ro = list(super().get_readonly_fields(request, obj))
+            if obj and "order" in [f.name for f in CompletedDesign._meta.fields]:
+                ro.append("order")
+            return tuple(ro)
 
         def get_fields(self, request, obj=None):
             candidates = [
