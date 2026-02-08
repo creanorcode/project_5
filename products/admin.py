@@ -6,7 +6,7 @@ from .models import Product
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     # Lista: mini-bild + nyckelfält
-    list_display = ("thumb", "title", "price", "created_at")
+    list_display = ("thumb", "title", "price", "created_display")
     list_display_links = ("thumb", "title")
 
     # Sök & filter
@@ -15,10 +15,18 @@ class ProductAdmin(admin.ModelAdmin):
     ordering = ("-created_at",)
 
     # Detaljsida: visa en större förhandsvisning
-    readonly_fields = ("image_preview",)
-    fields = ("title", "description", "price", "image", "image_preview", "created_at")
+    readonly_fields = ("image_preview", "created_display")
+    fields = ("title", "description", "price", "image", "image_preview", "created_display")
     # Om created_at är auto_now_add i modellen, gör den readonly:
     # readonly_fields = ("created_at", "image_preview")
+
+    @admin.display(description="Created", ordering="created_at")
+    def created_display(self, obj):
+        dt = getattr(obj, "created_at", None)
+        if not dt:
+            return "-"
+        # Ingen import av timezone behövs om du vill hålla det enkelt:
+        return dt.strftime("%Y-%m-%d %H:%M")
 
     @admin.display(description="Bild", ordering="image")
     def thumb(self, obj):
