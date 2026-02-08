@@ -35,7 +35,7 @@ Message:
                 subject_admin,
                 message_admin,
                 settings.DEFAULT_FROM_EMAIL,
-                [settings.CONTACT_RECIPIENT_EMAIL],
+                [getattr(settings, "CONTACT_RECIPIENT_EMAIL", settings.DEFAULT_FROM_EMAIL)],
                 fail_silently=False,
             )
 
