@@ -4,6 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.timezone import now
+import logging
+
+logger = logging.getLogger(__name__)
 
 from .forms import (
     ContactMessageForm,
@@ -30,15 +33,7 @@ Name: {contact.name}
 Email: {contact.email}
 Message:
 {contact.message}
-"""
-            send_mail(
-                subject_admin,
-                message_admin,
-                settings.DEFAULT_FROM_EMAIL,
-                [getattr(settings, "CONTACT_RECIPIENT_EMAIL", settings.DEFAULT_FROM_EMAIL)],
-                fail_silently=False,
-            )
-
+""".strip()
             # Send confirmation to user
             subject_user = "Thanks for contacting Artea Studio"
             message_user = f"""
@@ -51,16 +46,46 @@ Your message:
 
 Best regards,
 Artea Studio
-"""
-            send_mail(
-                subject_user,
-                message_user,
-                settings.DEFAULT_FROM_EMAIL,
-                [contact.email],
-                fail_silently=False,
-            )
+""".strip()
+            # --- recipient / sender --- 
+            from_email = getattr(settings, "DEFAULT_FROM_EMAIL", None)
+            admin_recipient = getattr(settings, "CONTACT_RECIPIENT_EMAIL", from_email)
 
-            messages.success(request, 'Thank you for your message!')
+            # --- try sending emails; never crash the user flow ---
+            email_ok = True
+            try:
+                # to admin
+                if from_email and admin_recipient:
+                    send_mail(
+                        subject_admin,
+                        message_admin,
+                        from_email,
+                        [admin_recipient],
+                        fail_silently=False,
+                    )
+
+                # confirmation to user
+                if from_email and contact.email:
+                    send_mail(
+                        subject_user,
+                        message_user,
+                        from_email,
+                        [contact.email],
+                        fail_silently=False,
+                    )
+
+            except Exception as e:
+                email_ok = False
+                logger.exception("Contact form email sending failed: %s", e)
+            
+            # Always show success (message is svaed in DB)
+            if email_ok:
+                messages.success(request, 'Thank you for your message! We´ll get back to you soon.')
+            else:
+                messages.success(
+                    request,
+                    "Thank you for your message! We have received it, but email delivery is temporarily unavailable."
+                )
             return redirect('contact:contact')
     else:
         form = ContactMessageForm()
