@@ -76,7 +76,7 @@ class OrderItemInline(admin.TabularInline):
     """Inline view for order items, including product thumbnail and line totals."""
     model = OrderItem
     extra = 0
-    fields = ("product_thumb", "product", "quantity", "unit_price", "line_total")
+    fields = ("product_thumb", "product", "quantity", "price", "line_total")
     readonly_fields = ("product_thumb", "line_total")
 
     @admin.display(description="Image")
@@ -94,10 +94,10 @@ class OrderItemInline(admin.TabularInline):
                 return "—"
         return "—"
 
-    @admin.display(description="Unit Price")
-    def unit_price(self, obj):
-        val = getattr(obj, "price", None)
-        return f"{val:.2f}" if val is not None else "—"
+    # @admin.display(description="Unit Price") OBS ÄNDRA INNAN RESUBMISSION!!!!!!
+    # def unit_price(self, obj):
+        # val = getattr(obj, "price", None)
+        # return f"{val:.2f}" if val is not None else "—"
 
     @admin.display(description="Line Total")
     def line_total(self, obj):
