@@ -1,19 +1,51 @@
 # TESTING
 
-This document summarizes manual and validator testing for **Artea Studio** (PP5).
+This document records manual and validation testing for **Artea Studio** (Portfolio Project 5).
+
+## Test Summary
+All core user journeys were manually tested on both **local** and **deployed (Heroku)** environments:
+- Account registration/login/logout
+- Product browsing + cart + Stripe checkout
+- Custom design order submission + file upload
+- Completed design payment + download unlocking
+- Contact form (DB save + email confirmation)
+- Admin/staff workflows (orders, products, contact messages)
+- SEO endpoints (`robots.txt`, `sitemap.xml`) and custom 404 page
+- Navigation link integrity (no broken links)
+
+---
 
 ## 1. How to Run Locally
-- Repo: `<link to repo>`
-- `.env` created from `.env.example`
-- Commands:
-  ```
-  bash
 
-  python manage.py migrate
-  python manage.py runserver
-  ```
+### Repository
+- Github: https://github.com/creanorcode/project_5.git
 
-- Test Stripe card: 4242 4242 4242 4242 (any future expiry, any CVC)
+### Setup
+  1. Clone:
+    ``` bash
+    git clone https://github.com/creanorcode/project_5.git
+    cd project_5
+    ```
+
+  2. Create venv + install:
+    ``` bash
+
+    python -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+    ```
+
+  3. Create .env from .env.example and add required values (see DEPLOYMENT.md)
+
+  4. Migrate + run:
+    ``` bash
+    python manage.py migrate
+    python manage.py runserver
+    ```
+
+### Stripe Testing
+Use Stripe test card:
+- 4242 4242 4242 4242 (any future expiry, any CVC)
 
 ---
 
@@ -22,133 +54,161 @@ This document summarizes manual and validator testing for **Artea Studio** (PP5)
 | Environment      | URL / Notes                                                          |
 | ---------------- | -------------------------------------------------------------------- |
 | Local            | [http://127.0.0.1:8000](http://127.0.0.1:8000)                       |
-| Staging/Prod     | [https://www.artea.studio](https://www.artea.studio)                 |
-| Browser versions | Chrome (latest), Firefox (latest), Safari (latest), iOS Safari (14+) |
+| Deployed         | [https://www.artea.studio](https://www.artea.studio)                 |
+| Browsers         | Chrome (latest), Firefox (latest), Safari (latest), iOS Safari (14+) |
+| Devices          | Desktop + iPad + iPhone (responsive checks)                          |
 
 ---
 
-## 3. Manual Feature Tests
+## 3. Manual Feature Tests (Core)
 
-> Fill out Expected vs Actual. Add screenshots in `docs/screenshots/`and reference them.
+> Evidence screenshots are stored in `docs/screenshots/`.
+> For each test: record expected vs actual outcome
 
-| Feature         | Steps                    | Expected                              | Actual | Evidence                                     |
-| --------------- | ------------------------ | ------------------------------------- | ------ | -------------------------------------------- |
-| Register        | Fill form → Submit       | Account created, redirect             |        | `docs/screenshots/register.png`              |
-| Login/Logout    | Login → Logout           | Login succeeds; logout clears session |        |                                              |
-| Product list    | Open /products/          | Grid renders, cards link to detail    |        |                                              |
-| Product detail  | Open product page        | Title, image, price visible           |        |                                              |
-| Cart            | Add item, update qty     | Totals update correctly               |        |                                              |
-| Checkout (shop) | Pay with 4242 card       | `/payment/success/` + email           |        | `docs/screenshots/stripe-success-shop.png`   |
-| Design order    | Submit form + file       | Confirmation UI, stored in DB         |        |                                              |
-| Design payment  | Pay for completed design | Marked paid; download visible         |        | `docs/screenshots/stripe-success-design.png` |
-| My Designs      | View list                | Paid show download, unpaid locked     |        |                                              |
-| Contact form    | Submit message           | Success message shown                 |        |                                              |
-| 404 page        | Visit missing URL        | Custom 404 shown                      |        |                                              |
+### 3.1 Authentication
 
----
+| Feature        | Steps                | Expected Result    | Actual Result      | Evidence     |
+|----------------|----------------------|--------------------|--------------------|--------------|
+| Register       | Open Register → submit valid form | Account created, redirect + success message | PASS | `register-success.png`   |
+| Login          | Open Login → submit valid form | User logged in, navbar updates | PASS | `login-success.png` |
+| Logout         | Click Logout | Session ends, navbar shows Login/Register | PASS | `logout-success.png`           |
+| Auth restrictions | Visit protected pages while logged out | Redirect to login | PASS | `auth-protected-redirect.png` |
 
-## 4. Responsive / Cross-Browser Checks
+### 3.2 Products, Cart & Checkout
 
-| Scenario                        | Mobile | Tablet | Desktop | Notes |
-| ------------------------------- | ------ | ------ | ------- | ----- |
-| Navbar & dropdowns              |        |        |         |       |
-| Hero & CTAs                     |        |        |         |       |
-| Product grid                    |        |        |         |       |
-| Forms (register/order/checkout) |        |        |         |       |
-| My Account pages                |        |        |         |       |
+| Feature        | Steps           | Expected Result    | Actual Result | Evidence     |
+| -------------- | --------------- | ------------------ | ------------- |--------------|
+| Product list   | Open Products   | Product grids load | PASS          | `products-list.png` |
+| Product detail | Open a product  | Title, image, price visible | PASS | `product-detail.png` |
+| Add to cart    | Add product from detail | Item added, cart count/summary updates | PASS | `cart-added.png` |
+| Update quantity | Increase/decrease qty | Totals update correctly | PASS | `cart-update.png` |
+| Remove item    | Remove from cart | Cart item removed | PASS | `cart-remove.png` |
+| Stripe checkout (shop) | Cart → checkout → pay with 4242 | Success page + order created + confirmation email | PASS | `stripe-shop-success.png` |
 
----
+### 3.3 Custom Design Orders + Completed Design Payment
 
-## 5. Stripe Scenarios
+| Feature        | Steps           | Expected Result    | Actual Result      | Evidence     |
+|----------------|-----------------|--------------------|--------------------|--------------|
+| Design order submission | Fill Design Order + upload file → submit | Success message; object stored in DB | PASS | `design-order-submitting.png` |
+| Staff upload completed design | Admin/staff uploads completed file | CompletedDesign available for user (locked until paid) | PASS | `completed-design-created.png` |
+| Stripe payment (design) | Pay for completed design → 4242 | paid=True; download unlocked | PASS | `stripe-design-success.png` |
+| Download gating | Visit My Designs (unpaid) | Download hidden/locked | PASS | `mydesigns-unpaid.png` |
+| Download after payment | Visit My Designs (paid) | Download link visible | PASS | `mydesigns-paid.png` |
 
-| Scenario         | Steps                         | Expected                        | Actual | Evidence |
-| ---------------- | ----------------------------- | ------------------------------- | ------ | -------- |
-| Success (shop)   | Add product → checkout → 4242 | Redirect to success; email sent |        |          |
-| Cancel           | Start checkout → cancel       | Redirect to cancel page         |        |          |
-| Success (design) | Pay design → 4242             | `paid=True`; download allowed   |        |          |
+### 3.4 Contact Form & Messaging
 
-#### Stripe Checkout Evidence
-![Stripe Success Page](docs/screenshots/stripe-success.png)
+| Feature        | Steps           | Expected Result    | Actual Result      | Evidence     |
+|----------------|-----------------|--------------------|--------------------|--------------|
+| Contact form submit | Submit name/email/message | Success message shown | PASS | `contact-success.png` |
+| Contact saved  | Check Django admin → ContactMessage | Message stored in DB | PASS | `contact-admin-saved.png` |
+| Email confirmation to user | Submit contact form | User receives confirmation email | PASS | `email-user-confirmation.png` |
+| Email notification to admin | Submit contact form | Admin receives notification email | PASS | `email-admin-notification.png` |
 
----
+### 3.5 Admin/Backend Smoke Tests
 
-## 6. Validators & Quality
-
-### HTML/CSS
-- W3C HTML Validator: `<result summary/link>`
-- W3C CSS Validator: `<result summary/link>`
-
-### Javascript (if applicable)
-- ESLint / console errors: `<summary>`
-
-### Python
-- Ruff:
-```
-bash
-
-ruff check . --fix
-```
-
-### Lighthouse (Home, Products, Checkout)
-| Page     | Perf | Acc | Best Prac | SEO | Evidence |
-| -------- | ---: | --: | --------: | --: | -------- |
-| Home     |      |     |           |     |          |
-| Products |      |     |           |     |          |
-| Checkout |      |     |           |     |          |
+| Feature        | Steps           | Expected Result    | Actual Result      | Evidence     |
+|----------------|-----------------|--------------------|--------------------|--------------|
+| Admin login    | Login to /admin/ | Admin dashboard loads | PASS | `admin-login.png` |
+| Products change view | Open a Product in admin | No server error; form renders | PASS | `admin-product-change.png` |
+| Order change view | Open an Order in admin | No server error; inline item render | PASS | `admin-order-change.png` |
+| ContactMessage change view | Open contact message | Admin reply field visible | PASS | `admin-contact-change.png` | 
 
 ---
 
-## 7. Accessibility Quick Checks
+## 4. Navigation & Broken Link Testing (LO1.15)
+All visible navigation links were tested to ensure there was no broken links.
 
-| Check                       | Result | Notes |
-| --------------------------- | ------ | ----- |
-| Landmarks (`<main>`, nav)   |        |       |
-| Alt text for images         |        |       |
-| Color contrast              |        |       |
-| Focus states & keyboard nav |        |       |
-| Form labels & errors        |        |       |
+### 4.1 Anonymous user navigation
 
----
+| Link         | URL                    | Expected   | Actual | Evidence              |
+| ------------ | ---------------------- | ---------- | ------ | --------------------- |
+| Home         | /                      | Loads page | PASS   | `nav-home.png`        |
+| Portfolio    | /portfolio/            | Loads page | PASS   | `nav-portfolio.png`   |
+| Products     | /products /            | Loads page | PASS   | `nav-products.png`    |
+| Design Order | / orders/design-order/ | Loads page | PASS   | `nav-designorder.png` |
+| Contact      | /contact/              | Loads page | PASS   | `nav-contact.png`     |
+| Cart         | /cart/                 | Loads page | PASS   | `nav-cart.png`        |
+| Newsletter   | /newsletter/           | Loads page | PASS   | `nav-newsletter.png`  |
 
-## 8. SEO Evidence
-| Endpoint/Meta                    | Expected                       | Actual | Evidence                       |
-| -------------------------------- | ------------------------------ | ------ | ------------------------------ |
-| `/robots.txt`                    | Allows indexing + sitemap link |        | `docs/screenshots/robots.png`  |
-| `/sitemap.xml`                   | Valid XML with URLs            |        | `docs/screenshots/sitemap.png` |
-| Meta description                 | Present on key pages           |        |                                |
-| rel="noopener" on external links | Present                        |        |                                |
-| Open Graph tags                  | Present on base                |        |                                |
+### 4.2 Authenticated user navigation (My Account)
 
-#### SEO Validation Screenshots
-![Sitemap.xml in browser](docs/screenshots/)
-![Robots.txt in browser](docs/screenshots/)
----
-
-## 9. Bugs & Fixes Log
-| ID     | Description | Steps to Reproduce | Fix | Status        |
-| ------ | ----------- | ------------------ | --- | ------------- |
-| BUG-01 |             |                    |     | Resolved/Open |
-| BUG-02 |             |                    |     |               |
+| Link             | Expected                    | Actual | Evidence                  |
+| ---------------- | --------------------------- | ------ | ------------------------- |
+| My Orders        | Loads order history         | PASS   | `nav-myorders.png`        |
+| My Designs       | Loads design list           | PASS   | `nav-mydesigns.png`       |
+| My Messages      | Loads contact messages list | PASS   | `nav-mymessages.png`      |
+| My Conversations | Loads thread list           | PASS   | `nav-myconversations.png` |
+| Logout           | Logs out                    | PASS   | `nav-logout.png`          |
 
 ---
 
-## 10. Regression Checklist (Post-fix)
- - Register/login still work
- - Cart totals correct
- - Stripe success/cancel behave as expected
- - Design payment unlocks download
- - Admin pages render correctly
- - robots/sitemap respond correctly
+## 5. Responsive / Cross-Device Checks
+
+| Scenario                        | Mobile | Tablet | Desktop | Notes/Evidence            |
+| ------------------------------- | ------ | ------ | ------- | ------------------------- |
+| Navbar + dropdowns              | PASS   | PASS   | PASS    | `responsive-navbar.png`   |
+| Product grid                    | PASS   | PASS   | PASS    | `responsive-products.png` |
+| Forms (register/contact/design) | PASS   | PASS   | PASS    | `responsive-forms.png`    |
+| Checkout flow                   | PASS   | PASS   | PASS    | `responsive-checkout.png` |
 
 ---
 
-## 11. Screenshots Index
-List screenshots placed in docs/screenshots/:
-- `stripe-success-shop.png`
-- `stripe-success-design.png`
-- `robots.png`
-- `sitemap.png`
-- `validator-html.png`
-- `validator-css.png`
-- `ruff-report.png`
-- `lighthouse-home.png`, `lighthouse-products.png`, `lighthouse-checkout.png
+## 6. Validators & Code Quality (LO2.3)
+
+### 6.1 HTML Validation
+- W3C HTML Validator: PASS !!!!(no critical errors)
+- Evidence: `validator-html.png`
+
+### 6.3 CSS Validation
+- W3C CSS Validator: PASS (no critical errors)
+- Evidence: `validator-css.png`
+
+### 6.3 Python Linting (Ruff)
+
+- Command:
+  ``` bash
+
+  ruff check
+  ```
+  Result: PASS (no E/F-level issues)
+  Evidence: `ruff-report.png`
+
+### 6.4 Lighthouse
+
+| Page     | Performance | Accessibility | Best Practices | SEO | Evidence                  |
+| -------- | ----------- | ------------- | -------------- | --- | ------------------------- |
+| Home     |             |               |                |     | `lighthouse-home.png`     |
+| Products |             |               |                |     | `lighthouse-products.png` |
+| Checkout |             |               |                |     | `lighthouse-checkout.png` |
+
+---
+
+## 7. SEO Evidence
+
+| Endpoint/Meta                | Expected                              | Actual | Evidence               |
+| ---------------------------- | ------------------------------------- | ------ | ---------------------- |
+| /robots.txt                  | Accessible + includes sitemap         | PASS   | `robots.png`           |
+| /sitemap.xml                 | Valid XML with URLs                   | PASS   | `sitemap.png`          |
+| Meta description             | Present on key pages                  | PASS   | `meta-description.png` |
+| External link rel attributes | noopener noreferrer for new-tab links | PASS   | `external-links.png`   |
+
+---
+
+## 8. Bugs & Fixes Log
+
+| ID     | Issue                              | Fix                                                                | Status   |
+| ------ | ---------------------------------- | ------------------------------------------------------------------ | -------- |
+| BUG-01 | Admin 500 errors in Order/Products | Updated admin fields to match model + excluded non-aditable fields | Resolved |
+| BUG-02 | Contact form 500 due to missing settings/SMTP | Added CONTACT_RECIPIENT_EMAIL + configured SMTP provider (Resend) | Resolved |
+
+---
+
+## 9. Regression Checklist (Post-fix)
+
+- Register/login/logout still work: **PASS**
+- Cart totals correct: **PASS**
+- Stripe success/cancel behave as expected: **PASS**
+- Design payment unlocks download: **PASS**
+- Contact form saves + sends email: **PASS**
+- Admin change views render correctly: **PASS**
+- `robots.txt` and `sitemap.xml` respond correctly: **PASS**
