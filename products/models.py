@@ -1,5 +1,6 @@
 from django.core.files.storage import default_storage
 from django.db import models
+from django.urls import reverse
 
 from project_5.custom_storages import MediaStorage
 
@@ -15,3 +16,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        """ Return the canonical URL for this product. """
+        return reverse("products:product_detail", args=[self.pk])
