@@ -290,20 +290,308 @@ Each model supports CRUD operations and integrates with Django Admin.
 
 ## Agile Development & User Stories
 
-- Agile-inspired workflow using GitHub Projects: `To Do -> In Progress -> Done`.
-- User stories follow the format “As a user, I want to … so that I can …”
+### Agile Development & Project Management
 
-| ID | User Story | Implementation |
-|----|-------------|----------------|
-| US-01 | As a visitor, I want to understand the brand quickly | Home hero with cleart CTAs |
-| US-02 | As a user, I want to register/login to manager my orders | Accounts app, auth views |
-| US-03 | As a user, I want to submit a custom design request | DesignOrder form & storage|
-| US-04 | As a user, I want to pay securely | Stripe Checkout |
-| US-05 | As a user, I want to download completed designs | CompletedDesign with paid gate |
-| US-06 | As admin, I want to manage orders/designs | Enhanced Django Admin views |
+#### Agile Methodology
 
-#### Agile Workflow Evidence
-![GitHub Project Board](docs/screenshots/agile-github-board.png)
+**Artea Studio was developed using an Agile-inspired workflow based on:**
+  - Iterative development cycles
+  - Prioritised feature delivery
+  - GitHub Issues for task tracking
+  - A Kanban board structure (`To Do → In Progress → Done`)
+  - Clear acceptance criteria per feature
+
+> Although the project was developed as a solo project, Agile principles were followed to simulate a commercial development workflow.
+
+---
+
+#### Project Board Structure
+The GitHub Project Board was organised into:
+
+| Column      | Purpose                                 |
+| ----------- | --------------------------------------- |
+| To Do       | Planned features and identified bugs    |
+| In Progress | Currently being implemented or debugged |
+| Done        | Completed and verified features         |
+
+Each task was linked to a GitHub Issue containing:
+- A clear description
+- Priority level (Must Have/Should Have/Could Have)
+- Acceptance Criteria
+- Completion validation
+
+> Project board evidence screenshot:
+> docs/screenshots/agile-github-board.png
+
+---
+
+#### MoSCoW Prioritisation
+Features were prioritised using MoSCoW:
+
+##### Must Have (Core functionality)
+  - Stripe payment integration
+  - Product CRUD functionality
+  - Custom Design Order flow
+  - User authentication & role-based access
+  - Email confirmation system
+  - Admin management interface
+  - Sitemap and SEO essentials
+  - Secure deployment configuration
+
+##### Should Have (UX and quality improvements)
+  - Messaging system
+  - Download gate for paid designs
+  - Responsive design refinements
+  - rel="noopener noreferrer" security attributes
+  - Extended testing documentation
+
+##### Could Have (Enhancements)
+  - Facebook business page mockup
+  - Newsletter marketing mock flow
+  - Order export functionality
+  - Extended admin analytics
+
+---
+
+#### Example GitHub Issues & Acceptance Criteria
+Below are representative examples of tracked development tasks.
+
+---
+
+##### Issue #01 – Fix Admin 500 Error on Design Orders
+
+**Priority**: Must Have
+
+**Acceptance Criteria**:
+- Admin can open a DesignOrder instance without server error
+- All related fields render correctly
+- No 500 errors in production logs
+
+**Status**: Completed
+
+---
+
+##### Issue #02 – Implement Stripe Checkout Success Flow
+
+**Priority**: Must Have
+
+**Acceptance Criteria**:
+- Successful shop purchase redirects to success page
+- Successful design payment unlocks completed design
+- Order marked as paid=True
+- Confirmation email sent
+
+**Status**: Completed
+
+---
+
+##### Issue #03 – Implement Contact Form Email Notifications
+
+**Priority**: Must Have
+
+**Acceptance Criteria**:
+- Message stored in database
+- Admin receives email notification
+- User receives confirmation email
+- No server errors triggered
+
+**Status**: Completed
+
+---
+
+##### Issue #04 – Implement Django Sitemap Integration
+
+**Priority**: Must Have
+
+**Acceptance Criteria**:
+- `/sitemap.xml` returns valid XML
+- Product pages included
+- No duplicate URL patterns
+- No AttributeError in logs
+
+**Status**: Completed
+
+---
+
+##### Issue #05 – Expand TESTING.md Documentation
+
+**Priority**: Must Have
+
+**Acceptance Criteria**:
+- Manual feature testing table completed
+- Lighthouse reports included
+- Validator evidence documented
+- Stripe scenarios fully tested
+
+**Status**: Completed
+
+---
+
+##### Issue #06 – Add rel Attributes to External Links
+
+**Priority**: Should Have
+
+**Acceptance Criteria**:
+- All `target="_blank"` links include `rel="noopener noreferrer"`
+- No SEO or security warnings present
+
+**Status**: Completed
+
+---
+
+##### Issue #07 – Create Facebook Business Mockup
+
+**Priority**: Could Have
+
+**Acceptance Criteria**:
+- Mockup screenshot added to README
+- Marketing strategy described
+
+**Status**: Completed
+
+---
+
+#### Sprint Phases
+The development followed three primary iterative phases:
+
+##### Sprint 1 – Core E-Commerce
+- Product model & CRUD
+- Cart logic
+- Stripe integration
+- Basic authentication
+
+##### Sprint 2 – Custom Design Workflow
+- DesignOrder model
+- CompletedDesign model
+- Payment gating system
+- Admin improvements
+
+##### Sprint 3 – Stability & Optimisation
+- Debugging 500 errors
+- Email system configuration (SMTP via Resend)
+- SEO improvements
+- Testing & documentation expansion
+- Deployment refinement
+
+---
+
+#### Iterative Debug & Refactor Process
+The project underwent substantial refactoring between initial submission and resubmission.
+
+**Key improvements tracked through issues**:
+- Admin backend stability fixes
+- Email backend migration to production SMTP provider
+- URL cleanup & duplicate route removal
+- Sitemap get_absolute_url() implementation
+- Removal of broken links affecting UX
+
+**Each fix was**:
+1. Logged as an issue
+2. Implemented in a feature branch
+3. Tested locally
+4. Verified in deployed environment
+5. Moved to Done column
+
+---
+
+#### Definition of Done
+
+**A task was only moved to Done when**:
+- Functionality worked locally
+- Functionality worked in deployed Heroku environment
+- No 500 errors present
+- Related documentation updated
+- No regressions detected in Stripe or authentication flows
+
+---
+
+### Agile Reflection
+
+**Although developed as a solo project, Agile workflow principles were actively applied**:
+- Work broken into manageable issues
+- Clear prioritisation strategy
+- Iterative debugging
+- Continuous testing after each change
+- Refactoring before feature expansion
+
+**This approach ensured that**:
+- Critical payment flows remained stable
+- Backend errors were systematically resolved
+- Documentation was aligned with implemented functionality
+
+The GitHub board provides visible evidence of structured project management and prioritised delivery.
+
+---
+
+### Issue Lifecycle & Version Control Integration
+Each issue in this project followed a structured lifecycle:
+1. Issue created in GitHub with:
+    - Description
+    - MoSCoW priority
+    - Acceptance criteria
+2. Linked to a feature or bug-fix branch
+3. Implemented with incremental commits
+4. Tested locally
+5. Verified in deployed Heroku environment
+6. Moved to Done column only after production validation
+
+**This ensured that**:
+- No feature was marked complete without deployment verification
+- Payment flows were tested both locally and live
+- Admin errors were resolved and confirmed via logs
+- Contact form and email system were verified end-to-end
+
+---
+
+### GitHub Issues Overview (Resubmission Cycle)
+During the resubmission phase, 7 structured issues were created and tracked to resolve assessor feedback.
+
+| Issue                           | Type          | Priority    | Status |
+| ------------------------------- | ------------- | ----------- | ------ |
+| Admin 500 error fix             | Bug           | Must Have   | ✅ Done |
+| Stripe checkout stability       | Feature/Fix   | Must Have   | ✅ Done |
+| Contact email implementation    | Feature       | Must Have   | ✅ Done |
+| Django sitemap integration      | Technical     | Must Have   | ✅ Done |
+| Testing documentation expansion | Documentation | Must Have   | ✅ Done |
+| External link rel attributes    | UX/Security   | Should Have | ✅ Done |
+| Facebook business mockup        | Marketing     | Could Have  | ✅ Done |
+
+All issues were completed prior to final resubmission.
+
+No open issues remain in the resubmission milestone, as all identified assessor feedback items were resolved and verified.
+
+---
+
+### Production Validation Strategy
+For each issue marked as Done:
+- Local server tested (`DEBUG=True`)
+- Production tested (`DEBUG=False`)
+- Stripe payment tested using test card
+- Emails verified via SMTP provider (Resend)
+- Database changes confirmed in Django Admin
+- No new regressions introduced
+
+This structured validation approach ensured commercial-grade stability.
+
+---
+
+### Milestone Structure
+The project board was organised into one resubmission milestone:
+
+**Milestone**: PP5 Resubmission Stability & Documentation
+
+**Contained**:
+- Critical bug fixes
+- SEO fixes
+- Email configuration
+- Admin stability fixes
+- Documentation expansion
+
+This demonstrates retroactive but structured Agile project management aligned with assessor feedback.
+
+> All issues were completed prior to final resubmission.
+> No open issues remain in the resubmission milestone, as all identified items were
+> implemented and verified in production.
 
 ---
 
