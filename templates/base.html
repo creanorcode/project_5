@@ -97,6 +97,7 @@
                 <div class="footer-admin-link">
                     <a href="{% url 'contact:contact' %}">Contact</a>
                     |  <a href="{% url 'newsletter' %}">Newsletter</a>
+                    |  <a href="https://github.com/creanorcode/project_5.git" target="_blank" rel="noopener noreferrer">GitHub</a>
                     {% if request.user.is_authenticated and request.user.is_staff %}
                       |  <a href="{% url 'orders:admin_design_list' %}">Admin Panel</a>
                     {% endif %}
