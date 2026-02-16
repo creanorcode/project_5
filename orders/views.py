@@ -86,78 +86,63 @@ def pay_for_design(request, design_id):
 
 @login_required
 def payment_success(request):
-    # DEV: stöd både ?session_id (fr Stripe) och befintlig ?design_id
-    if settings.DEBUG and request.GET.get("session_id"):
-        try:
-            session = stripe.checkout.Session.retrieve(request.GET["session_id"])
-            # designflödet använder metadata.design_id
-            handle_checkout_session(session)  # säkrar ev. kundvagns-synk, harmless här
-        except Exception as e:
-            print("DEV DESIGN SUCCESS FALLBACK ERROR:". e)
+    """
+    Stripe success redirect for CompletedDesign payments.
+    Supports either ?design_id=... or ?session_id... (preferred).
+    """
 
-    design_id = request.GET.get('design_id')
+    design_id = request.GET.get("design_id")
+    session_id = request.GET.get("session_id")
+
+    # If design_id is missing, try to resolve via Stripe session metadata.
+    if not design_id and session_id:
+        try:
+            session = stripe.checkout.Session.retrieve(session_id)
+            design_id = (session.metadata or {}).get("design_id")
+        except Exception as e:
+            # Keep user-friendly message, log details server-side
+            print("DESIGN SUCCESS: could not retrieve Stripe session:", e)
+
     if not design_id:
         messages.error(request, "Missing design ID.")
-        return redirect('orders:my_completed_designs')
+        return redirect("orders:completed_designs")
 
     design = get_object_or_404(CompletedDesign, id=design_id)
 
-    # Only allow download if the user owns the design.
+    # Only allow access if the user owns the design (email match)
     if design.order.email != request.user.email:
         messages.error(request, "Access denied.")
-        return redirect('orders:my_completed_designs')
+        return redirect("orders:completed_designs")
 
-    # Marking an paid (add the field below first!)
-    design.paid = True
-    design.save()
-
-    # --- Confirmation email (Design order) ---
-    #recipient = getattr(design.order, "email", None) or getattr(request.user, "email", None)
-    #if recipient:
-        #subject = "Your Artea Studio design – payment confirmed"
-        #body = (
-            #"Thank you for your payment.\n\n"
-            #"Your completed design is now available for download on your account page.\n"
-            #"If you did not make this purchase, please contact support."
-        #)
-        #try:
-            #send_mail(
-                #subject=subject,
-                #message=body,
-                #from_email=None,            # uses DEFAULT_FROM_EMAIL
-                #recipient_list=[recipient],
-                #fail_silently=True,         # safe in dev
-            #)
-        #except Exception:
-            #pass
-    # --- end email ---
-
-    #messages.success(request, "Thank you for your payment! Your design is now available for download.")
+    # Mark as paid
+    if not design.paid:
+        design.paid = True
+        design.save(update_fields=["paid"])
 
     # Send confirmation email
     try:
-        recipient = request.user.email or design.order.email
+        recipient = getattr(design.order, "email", None) or getattr(request.user, "email, None")
         if recipient:
             send_mail(
                 subject="Your Artea Studio design - payment confirmed",
                 message=(
-                    f"Dear {request.user.username},\n\n"
-                    f"Your completed design is now available for download in your account.\n"
-                    f"Visit: https://www.artea.studio/orders/completed-designs/\n\n"
-                    f"If you did not make this purchase, please contact support."
-                    f"Warm regards,\nArtea Studio Team"
+                    f"Hello {design.order.name},\n\n"
+                    "Your completed design is now available for download in your account.\n"
+                    "My Designs: https://www.artea.studio/orders/completed-designs/\n\n"
+                    "If you did not make this purchase, please contact support.\n\n"
+                    "Warm regards,\n"
+                    "Artea Studio Team"
                 ),
-                from_email=None,
+                from_email=None, # uses DEFAULT_FROM_EMAIL
                 recipient_list=[recipient],
-                fail_silently=True,  # False in dev => it lokks wrong in the console
+                fail_silently=True,  # keep True to avoid breaking UX if SMTP hiccups
             )
     except Exception as e:
         print("EMAIL ERROR (design):", e)
 
-    # Visa DESIGN-tacksida med länk till My Designs
-    return render(request, 'orders:payment_success_design.html', {
-        'design': design,
-    })
+    messages.success(request, "Thank you for your payment! Your design is now available for download.")
+
+    return redirect("orders:completed_designs")
 
 
 class ShopPaymentSuccessView(LoginRequiredMixin, TemplateView):
