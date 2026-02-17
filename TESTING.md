@@ -8,6 +8,8 @@ This document records manual, validation and regression testing for Artea Studio
 
 All core user journeys were tested after major bug fixes to ensure no regressions were introduced.
 
+> Any personal emails shown in evidence have been redacted.
+
 ---
 
 ## 1. Test Strategy
@@ -92,10 +94,12 @@ After previous submission failures due to 500 errors, all admin change views wer
 
 | Feature                      | Expected Result | Actual Result | Evidence                |
 | ---------------------------- | --------------- | ------------- | ----------------------- |
-| Open Product change view     | No server error | *(fill in)*   | `admin-product.png`     |
-| Open Order change view       | No server error | *(fill in)*   | `admin-order.png`       |
-| Open DesignOrder change view | No server error | *(fill in)*   | `admin-designorder.png` |
-| Open ContactMessage          | No server error | *(fill in)*   | `admin-contact.png`     |
+| Open Product change view     | No server error | *PASS*   | [View Screenshot](docs/screenshots/admin-product.png) |
+| Open Order change view       | No server error | *PASS*   | [View Screenshot](docs/screenshots/admin-order.png) |
+| Open DesignOrder change view | No server error | *PASS*   | [View Screenshot](docs/screenshots/admin-designorder.png) |
+| Open ContactMessage          | No server error | *PASS*   | [View Screenshot](docs/screenshots/admin-contact.png) |
+
+> No 500 errors were encountered in production after fixes.
 
 ---
 
@@ -105,12 +109,12 @@ All navigation links were manually tested.
 
 | Link         | Expected   | Actual      | Evidence            |
 | ------------ | ---------- | ----------- | ------------------- |
-| Home         | Loads page | *(fill in)* | `nav-home.png`      |
-| Portfolio    | Loads page | *(fill in)* | `nav-portfolio.png` |
-| Products     | Loads page | *(fill in)* | `nav-products.png`  |
-| Design Order | Loads page | *(fill in)* | `nav-design.png`    |
-| Contact      | Loads page | *(fill in)* | `nav-contact.png`   |
-| Cart         | Loads page | *(fill in)* | `nav-cart.png`      |
+| Home         | Loads page | *PASS* | [View Screenshot](docs/screenshots/nav-home.png) |
+| Portfolio    | Loads page | *PASS* | [View Screenshot](docs/screenshots/nav-portfolio.png) |
+| Products     | Loads page | *PASS* | [View Screenshot](docs/screenshots/nav-products.png) |
+| Design Order | Loads page | *PASS* | [View Screenshot](docs/screenshots/nav-design.png) |
+| Contact      | Loads page | *PASS* | [View Screenshot](docs/screenshots/nav-contact.png) |
+| Cart         | Loads page | *PASS* | [View Screenshot](docs/screenshots/nav-cart.png) |
 
 No broken links remain in deployed version.
 
@@ -125,10 +129,10 @@ Tested on:
 
 | Scenario        | Mobile   | Tablet   | Desktop  | Notes |
 | --------------- | -------- | -------- | -------- | ----- |
-| Navbar dropdown | *(fill)* | *(fill)* | *(fill)* |       |
-| Product grid    | *(fill)* | *(fill)* | *(fill)* |       |
-| Forms           | *(fill)* | *(fill)* | *(fill)* |       |
-| Checkout flow   | *(fill)* | *(fill)* | *(fill)* |       |
+| Navbar dropdown | *PASS* | *PASS* | *PASS* |   -    |
+| Product grid    | *PASS* | *PASS* | *PASS* |   -    |
+| Forms           | *PASS* | *PASS* | *PASS* |   -    |
+| Checkout flow   | *PASS* | *PASS* | *PASS* |   -    |
 
 ---
 
