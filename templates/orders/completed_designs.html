@@ -17,7 +17,7 @@
                     {% if design.paid %}
                         <a href="{{ design.file.url }}" class="btn btn-primary">Download Design</a>
                     {% else %}
-                        <form action="{% url 'orders:stripe_checkout' design.id %}" method="post">
+                        <form action="{% url 'orders:pay_for_design' design.id %}" method="post">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-warning">Pay €{{ design.order.design_type.price }}</button>
                         </form>

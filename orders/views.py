@@ -73,7 +73,7 @@ def pay_for_design(request, design_id):
         }],
         mode='payment',
         success_url=success_url,
-        cancel_url=request.build_absolute_uri('/orders/completed_designs/'),
+        cancel_url=request.build_absolute_uri(reverse("orders:completed_designs")),
         metadata={'design_id': str(design.id)},
     )
 
@@ -121,7 +121,7 @@ def payment_success(request):
 
     # Send confirmation email
     try:
-        recipient = getattr(design.order, "email", None) or getattr(request.user, "email, None")
+        recipient = getattr(design.order, "email", None) or getattr(request.user, "email", None)
         if recipient:
             send_mail(
                 subject="Your Artea Studio design - payment confirmed",

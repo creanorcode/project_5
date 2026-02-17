@@ -74,7 +74,7 @@ No feature was marked as complete without verification in both local and deploye
 | Design payment         | Pay via Stripe                  | `paid=True`; download unlocked      | *(fill in)*   | `stripe-design-success.png`  |
 | Download gating        | View unpaid design              | Download hidden                     | *(fill in)*   | `design-locked.png`          |
 | Download after payment | View paid design                | Download visible                    | *(fill in)*   | `design-unlocked.png`        |
-
+| Design payment -> redirect + download unlocked | Go to unpaid design -> Pay with 4242 -> redirected after success | User redirected to My Designs and the design shows as paid/unlocked with download link visible | PASS | stripe-design-success-unlocked.png |
 ---
 
 ### 2.5 Contact Form & Messaging
