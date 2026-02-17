@@ -69,23 +69,21 @@ No feature was marked as complete without verification in both local and deploye
 
 | Feature                | Steps                           | Expected Result                     | Actual Result | Evidence                     |
 | ---------------------- | ------------------------------- | ----------------------------------- | ------------- | ---------------------------- |
-| Submit design order    | Fill form + upload file         | Success message; object saved in DB | *(fill in)*   | `design-order-submit.png`    |
-| Staff upload           | Upload CompletedDesign in admin | File linked to DesignOrder          | *(fill in)*   | `completed-design-admin.png` |
-| Design payment         | Pay via Stripe                  | `paid=True`; download unlocked      | *(fill in)*   | `stripe-design-success.png`  |
-| Download gating        | View unpaid design              | Download hidden                     | *(fill in)*   | `design-locked.png`          |
-| Download after payment | View paid design                | Download visible                    | *(fill in)*   | `design-unlocked.png`        |
-| Design payment -> redirect + download unlocked | Go to unpaid design -> Pay with 4242 -> redirected after success | User redirected to My Designs and the design shows as paid/unlocked with download link visible | PASS | stripe-design-success-unlocked.png |
+| Submit design order    | Fill form + upload file         | Success message; object saved in DB | *PASS*   | [View Screenshot](docs/screenshots/design-order-submit.png) |
+| Staff upload           | Upload CompletedDesign in admin | File linked to DesignOrder          | *PASS*   | [View Screenshot](docs/screenshots/completed-design-admin.png) |
+| Download gating        | View unpaid design              | Download hidden                     | *PASS*   | [View Screenshot](docs/screenshots/design-locked.png) |
+| Design payment -> redirect + download unlocked | Go to unpaid design -> Pay with 4242 -> redirected after success | User redirected to My Designs and the design shows as paid/unlocked with download link visible | *PASS* | [View Screenshot](docs/screenshots/stripe-design-success-unlocked.png) |
 ---
 
 ### 2.5 Contact Form & Messaging
 
 | Feature             | Steps          | Expected Result             | Actual Result | Evidence                |
 | ------------------- | -------------- | --------------------------- | ------------- | ----------------------- |
-| Submit contact form | Fill + submit  | Success message shown       | *(fill in)*   | `contact-success.png`   |
-| DB save             | Check admin    | ContactMessage stored       | *(fill in)*   | `contact-admin.png`     |
-| Email to user       | Submit form    | Confirmation email received | *(fill in)*   | `email-user.png`        |
-| Email to admin      | Submit form    | Notification email received | *(fill in)*   | `email-admin.png`       |
-| Admin reply         | Reply in admin | User receives reply email   | *(fill in)*   | `email-admin-reply.png` |
+| Submit contact form | Fill + submit  | Success message shown       | *PASS*   | [View Screenshot](docs/screenshots/contact-success.png) |
+| DB save             | Check admin    | ContactMessage stored       | *PASS*   | [View Screenshot](docs/screenshots/contact-admin.png) |
+| Email to user       | Submit form    | Confirmation email received | *PASS*   | [View Screenshot](docs/screenshots/email-user.png) |
+| Email to admin      | Submit form    | Notification email received | *PASS*   | [View Screenshot](docs/screenshots/email-admin.png) |
+| Admin reply         | Reply in admin | User receives reply email   | *PASS*   | [View Screenshot](docs/screenshots/email-admin-reply.png) |
 
 ---
 
