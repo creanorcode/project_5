@@ -64,5 +64,11 @@ class CheckoutForm(forms.Form):
     instructions = forms.CharField(
         required=False,
         label="Design instructions (optional)",
-        widget=forms.Textarea(attrs={"placeholder": "If you have any design preferences, enter them here."})
+        widget=forms.Textarea(
+            attrs={
+                "placeholder": (
+                    "If you have any design preferences, enter them here."
+                )
+            }
+        ),
     )

@@ -71,10 +71,6 @@ class OrderItemInline(admin.TabularInline):
                 return "—"
         return "—"
 
-    # @admin.display(description="Unit Price") OBS ÄNDRA INNAN RESUBMISSION!!!!!!
-    # def unit_price(self, obj):
-        # val = getattr(obj, "price", None)
-        # return f"{val:.2f}" if val is not None else "—"
 
     @admin.display(description="Line Total")
     def line_total(self, obj):
@@ -92,7 +88,14 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderItemInline]
 
     # List view
-    list_display = ("id", "customer_display", "status", "total_display", "items_count", "created_display")
+    list_display = (
+        "id",
+        "customer_display",
+        "status",
+        "total_display",
+        "items_count",
+        "created_display"
+    )
     list_display_links = ("id", "customer_display")
     search_fields = ("id", "user__username", "user__email")
     list_filter = ("status", "created_at")

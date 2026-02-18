@@ -19,7 +19,12 @@ class DesignOrder(models.Model):
     email = models.EmailField()
     description = models.TextField()
     design_type = models.ForeignKey(DesignType, on_delete=models.SET_NULL, null=True, blank=True)
-    attachment = models.FileField(upload_to='design_uploads/', storage=MediaStorage(), blank=True, null=True)
+    attachment = models.FileField(
+        upload_to='design_uploads/',
+        storage=MediaStorage(),
+        blank=True,
+        null=True,
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

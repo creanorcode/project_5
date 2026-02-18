@@ -140,7 +140,10 @@ def payment_success(request):
     except Exception as e:
         print("EMAIL ERROR (design):", e)
 
-    messages.success(request, "Thank you for your payment! Your design is now available for download.")
+    messages.success(
+        request,
+        "Thank you for your payment! Your design is now available for download.",
+    )
 
     return redirect("orders:completed_designs")
 
