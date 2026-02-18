@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.timezone import now
+
 from .forms import (
     ContactMessageForm,
     FirstMessageForm,
@@ -39,7 +40,7 @@ Message:
             message_user = f"""
 Hi {contact.name},
 
-Thanks for reaching out to us! We have received you message and will get back to you as soon as possible.
+Thanks for reaching out to us! We have received your message and will get back to you as soon as possible.
 
 Your message:
 {contact.message}
@@ -84,7 +85,10 @@ Artea Studio
             else:
                 messages.success(
                     request,
-                    "Thank you for your message! We have received it, but email delivery is temporarily unavailable."
+                    (
+                    "Thank you for your message! We have received it, but email delivery "
+                    "is temporarily unavailable."
+                    ),
                 )
             return redirect('contact:contact')
     else:

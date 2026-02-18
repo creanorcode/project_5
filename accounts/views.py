@@ -13,10 +13,16 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, f"Account created successfully. Welcome, {user.username}!")
+            messages.success(
+                request,
+                f"Account created successfully. Welcome, {user.username}!"
+            )
             return redirect('home')
         else:
-            messages.error(request, "There was a problem with your registration. Please check the form below.")
+            messages.error(
+                request,
+                "There was a problem with your registration. Please check the form below."
+            )
     else:
         form = UserRegisterForm()
 

@@ -54,7 +54,7 @@ class ContactMessageAdmin(admin.ModelAdmin):
                 old_reply = ContactMessage.objects.get(pk=obj.pk).admin_reply
             except ContactMessage.DoesNotExist:
                 old_reply = None
-    
+
         super().save_model(request, obj, form, change)
 
         new_reply = obj.admin_reply or ""
@@ -71,7 +71,7 @@ class ContactMessageAdmin(admin.ModelAdmin):
 
             subject = "Reply from Artea Studio"
             body = f"""Hi {obj.name},
-    
+
     We have replied to your message.
 
     Your original message:
@@ -91,10 +91,18 @@ class ContactMessageAdmin(admin.ModelAdmin):
                     [obj.email],
                     fail_silently=False
                 )
-                self.message_user(request, f"Reply email sent to {obj.email}.", level=messages.SUCCESS)
+                self.message_user(
+                    request,
+                    f"Reply email sent to {obj.email}.",
+                    level=messages.SUCCESS
+                )
             except Exception as e:
                 # Mail fails -> keep reply saved, but inform admin
-                self.message_user(request, f"Reply saved but email failed: {e}", level=messages.ERROR)
+                self.message_user(
+                    request,
+                    f"Reply saved but email failed: {e}",
+                    level=messages.ERROR
+                )
 
     @admin.action(description='Create conversation thread from this message')
     def create_thread_from_message(self, request, queryset):
