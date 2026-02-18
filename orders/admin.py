@@ -435,11 +435,24 @@ if CompletedDesign is not None:
             if not d:
                 return "—"
             user = getattr(d, "user", None)
-            customer = (getattr(user, "username", None) or getattr(user, "email", None)) if user else getattr(d, "email", "—")
+
+            if user:
+                customer = (
+                    getattr(user, "username", None)
+                    or getattr(user, "email", None)
+                )
+            else:
+                customer = getattr(d, "email", "—")
+
             dtype = getattr(getattr(d, "design_type", None), "name", None) or "—"
             status = getattr(d, "status", None) or "—"
+
             created = getattr(d, "created_at", None) or getattr(d, "created", None)
-            created = _safe_localtime(created).strftime("%Y-%m-%d %H:%M") if created else "—"
+            if created:
+                created = _safe_localtime(created).strftime("%Y-%m-%d %H:%M")
+            else:
+                created = "—"
+
             return format_html(
                 """
                 <div style="padding:12px;border:1px solid #e5e7eb;border-radius:10px;background:#f9fafb">
