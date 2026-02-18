@@ -4,14 +4,14 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
-from django.core.mail import send_mail
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
 
 from cart.models import CartItem
 
@@ -153,6 +153,7 @@ class ShopPaymentSuccessView(LoginRequiredMixin, TemplateView):
         # --- DEV fallback: skapa order + töm kundvagnen även utan webhook ---
         if settings.DEBUG:
             from cart.models import CartItem
+
             from .models import Order, OrderItem
 
             items = list(CartItem.objects.filter(user=request.user))

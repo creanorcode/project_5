@@ -1,10 +1,10 @@
+from django.conf import settings
 from django.contrib import admin, messages
 from django.contrib.auth import get_user_model
-from django.urls import reverse
-from django.utils.html import format_html
-from django.utils import timezone
 from django.core.mail import send_mail
-from django.conf import settings
+from django.urls import reverse
+from django.utils import timezone
+from django.utils.html import format_html
 
 from .models import ContactMessage, Message, MessageThread, ThreadMessage
 

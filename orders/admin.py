@@ -2,11 +2,12 @@
 # ===============================
 # Enhanced admin for Orders app
 # ===============================
-from django.contrib import admin
-from django.utils.html import format_html
-from django.utils import timezone
 from django.apps import apps
+from django.contrib import admin
 from django.urls import reverse
+from django.utils import timezone
+from django.utils.html import format_html
+
 from .models import CompletedDesign, DesignOrder, DesignType, Order, OrderItem
 
 """
@@ -16,8 +17,6 @@ so they can be managed through the Django admin interface.
 """
 
 # --- Core models we know ---
-Order = apps.get_model("orders", "Order")
-OrderItem = apps.get_model("orders", "OrderItem")
 Product = apps.get_model("products", "Product")  # for thumbnails
 
 
@@ -42,28 +41,6 @@ def _file_link(file_field):
 class DesignTypeAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
-
-
-# @admin.register(DesignOrder)
-# class DesignOrderAdmin(admin.ModelAdmin):
-    # list_display = ('name', 'email', 'created_at')
-    # search_fields = ('name', 'email')
-    # ordering = ['created_at']
-
-
-# @admin.register(CompletedDesign)
-# class CompletedDesignAdmin(admin.ModelAdmin):
-    # list_display = ('order', 'uploaded_at', 'paid')
-    # list_filter = ('paid',)
-    # search_fields = ('order_email',)
-
-
-# @admin.register(Order)
-# class OrderAdmin(admin.ModelAdmin):
-    # list_display = ('id', 'user', 'created_at', 'status')
-    # list_filter = ('status', 'created_at')
-    # search_fields = ('user__username', 'id')
-    # ordering = ('-created_at',)
 
 
 @admin.register(OrderItem)

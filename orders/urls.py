@@ -1,12 +1,7 @@
 from django.urls import path
 
 from . import views
-from .views import (
-    PaymentCancelledView,
-    ShopPaymentSuccessView,
-    checkout,
-    pay_for_design
-)
+from .views import PaymentCancelledView, checkout, pay_for_design
 
 app_name = 'orders'
 

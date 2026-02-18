@@ -1,10 +1,11 @@
-from django.core.management.base import BaseCommand
+from io import BytesIO
+
 from django.apps import apps
 from django.core.files.base import ContentFile
+from django.core.management.base import BaseCommand
 
 # Pillow
 from PIL import Image, ImageDraw, ImageFont
-from io import BytesIO
 
 
 def create_placeholder_png(

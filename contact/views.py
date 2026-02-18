@@ -1,10 +1,11 @@
+import logging
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.timezone import now
-import logging
 
 logger = logging.getLogger(__name__)
 

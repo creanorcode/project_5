@@ -143,20 +143,20 @@ Tested on:
 Validator: https://validator.w3.org/
 
 Result:
-(insert summary)
+Document checking completed. No errors or warnings to show.
 
 Evidence:
-`validator-html.png`
+[View Screenshot](docs/screenshots/validator-html.png)
 
 ### CSS Validation
 
 Validator: https://jigsaw.w3.org/css-validator/
 
 Result:
-(insert summary)
+Congratulations! No errors found.
 
 Evidence:
-`validator-css.png`
+[View Screenshot](docs/screenshots/validator-css.png)
 
 ---
 
