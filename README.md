@@ -696,14 +696,66 @@ python manage.py collectstatic --noinput
 ---
 
 ## Code Quality & Validation
-- Code linted & formatted with **Ruff**:
-  '''
-  bash
 
-  ruff check . --fix
-  '''
-- PEP8 conventions followed (line-length exceptions documented if needed).
-- Production security: `DEBUG=False`, SSL redirect, HSTS, secure cookies.
+### Ruff Linting & Configuration
+
+The project uses **Ruff** for Python linting and code quality enforcement.
+
+A `pyproject.tml` configuration file is included in the project root with the following setup:
+``` 
+toml
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+```
+
+#### Why 120 character line length?
+The line length is intentionally set to 120 characters to:
+- Improve readability in complex Django views and admin configurations
+- Avoid excessive line wrapping in HTML formatting blocks
+- Maintain professional industry-standard formatting
+- Reduce unnecessary E501 violations without compromising structure
+
+---
+
+### Ruff Validation
+
+*Command use*:
+``` bash
+
+ruff check .
+```
+
+**Result**:
+- No critical E (style) or F (logic) errors remain
+- Import blocks organized and cleaned
+- Unused imports removed
+- Redundant definitions eliminated
+
+All linting issues were resolved before final resubmission.
+
+---
+
+### PEP8 Compliance Strategy
+- Logical separation of imports (standard / third-party / local)
+- Removal of unused imports (F401)
+- Elimination of duplicate definitions (F811)
+- Controlled line length via Ruff config
+- Production-safe exception handling in email + Stripe flows
+
+---
+
+### Production Safety Considerations
+- `DEBUG=False` in production
+- Secure cookies enabled
+- CSRF protection enforced
+- Stripe keys stored as environment variables
+- Email credentials stored as environment variables
+- No hardcoded secrets in repository
 
 ---
 
