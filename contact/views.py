@@ -6,9 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.timezone import now
-
-logger = logging.getLogger(__name__)
-
 from .forms import (
     ContactMessageForm,
     FirstMessageForm,
@@ -17,6 +14,8 @@ from .forms import (
     UserReplyForm,
 )
 from .models import ContactMessage, Message, MessageThread, ThreadMessage
+
+logger = logging.getLogger(__name__)
 
 
 def contact_view(request):

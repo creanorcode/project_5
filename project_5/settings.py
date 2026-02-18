@@ -25,14 +25,6 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
-# DEBUG = False
-
-# ALLOWED_HOSTS och CSRF_TRUSTED_ORIGINS från env + säkra defaults
-# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
-# CSRF_TRUSTED_ORIGINS = [
-    # *(os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')),
-    # Lägg gärna in domäner här via env; lämna listan tom om du vill
-# ]
 
 
 def _strip_port(host: str) -> str:
@@ -66,14 +58,6 @@ _from_hosts = [_ensure_origin(h) for h in ALLOWED_HOSTS if h.strip()]
 # Slå ihop och filtrera bort tomma/dupplikat
 CSRF_TRUSTED_ORIGINS = sorted({o for o in (_env_origins + _from_hosts) if o})
 
-
-# ALLOWED_HOSTS = [
-    # 'artea-studio-571c2301b41f.herokuapp.com',
-    # 'www.artea.studio',
-    # 'artea.studio',
-    # 'localhost',
-    # '127.0.0.1:8000',
-# ]
 
 # Application definition
 INSTALLED_APPS = [
@@ -144,18 +128,6 @@ else:
         }
     }
 
-# DATABASES = {
-    # 'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-# }
-
-# For live production
-# import dj_database_url
-
-# if os.getenv('DATABASE_URL'):
-    # DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -201,16 +173,6 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 # Contact form recipient
 CONTACT_RECIPIENT_EMAIL = os.environ.get("CONTACT_RECIPIENT_EMAIL", DEFAULT_FROM_EMAIL)
 
-
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-# EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-# DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", 'no-reply@artea.studio')
-# DEFAULT_FROM_EMAIL = 'Artea Studio <noreply@artea.studio'
-# CONTACT_RECIPIENT_EMAIL = 'admin@artea.studio'
 
 # Static + Media
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -280,8 +242,3 @@ if not DEBUG:
     SECURE_HSTS_PRELOAD = True
 
 LOGOUT_REDIRECT_URL = '/accounts/logout_success/'
-
-try:
-    from project_5 import custom_storages
-except ImportError as e:
-    print("CUSTOM_STORAGES IMPORT FAILED:", e)
