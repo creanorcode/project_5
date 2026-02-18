@@ -164,13 +164,13 @@ Evidence:
 
 Command:
 ``` bash
-ruff check
+ruff check .
 ```
 Result:
 (insert summary - e.g., no E/F level errors)
 
 Evidence:
-`ruff-report.png`
+[View Screenshot](docs/screenshots/ruff-report.png)
 
 ---
 
@@ -178,9 +178,9 @@ Evidence:
 
 | Page     | Performance | Accessibility | Best Practices | SEO      | Evidence                  |
 | -------- | ----------- | ------------- | -------------- | -------- | ------------------------- |
-| Home     | *(fill)*    | *(fill)*      | *(fill)*       | *(fill)* | `lighthouse-home.png`     |
-| Products | *(fill)*    | *(fill)*      | *(fill)*       | *(fill)* | `lighthouse-products.png` |
-| Checkout | *(fill)*    | *(fill)*      | *(fill)*       | *(fill)* | `lighthouse-checkout.png` |
+| Home     | *75*    | *95*      | *100*       | *92* | [View Screenshot](docs/screenshots/lighthouse-home.png) |
+| Products | *49*    | *95*      | *100*       | *92* | [View Screenshot](docs/screenshots/lighthouse-products.png) |
+| Cart | *98*    | *95*      | *100*       | *92* | [View Screenshot](docs/screenshots/lighthouse-cart.png) |
 
 ---
 
@@ -188,10 +188,10 @@ Evidence:
 
 | Feature          | Expected                     | Actual   | Evidence             |
 | ---------------- | ---------------------------- | -------- | -------------------- |
-| /robots.txt      | Accessible, includes sitemap | *(fill)* | `robots.png`         |
-| /sitemap.xml     | Valid XML                    | *(fill)* | `sitemap.png`        |
-| Meta description | Present                      | *(fill)* | `meta.png`           |
-| rel attributes   | noopener noreferrer present  | *(fill)* | `external-links.png` |
+| /robots.txt      | Accessible, includes sitemap | *PASS* | [View Screenshot](docs/screenshots/robots.png) |
+| /sitemap.xml     | Valid XML                    | *Pass* | [View Screenshot](docs/screenshots/sitemap.png) |
+| Meta description | Present                      | *(f* | [View Screenshot](docs/screenshots/seo-meta-description-home.png) |
+| rel attributes   | noopener noreferrer present  | *(fill)* | [View Screenshot](docs/screenshots/seo-rel-noopener.png) |
 
 ---
 
