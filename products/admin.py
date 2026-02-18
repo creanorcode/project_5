@@ -34,7 +34,10 @@ class ProductAdmin(admin.ModelAdmin):
         """Liten thumbnail i listvyn."""
         if getattr(obj, "image", None):
             try:
-                return format_html('<img src="{}" style="height:48px; width:auto; border-radius:6px;" />', obj.image.url)
+                return format_html(
+                    '<img src="{}" style="height:48px; width:auto; border-radius:6px;" />',
+                    obj.image.url
+                )
             except Exception:
                 return "—"
         return "—"
@@ -45,7 +48,10 @@ class ProductAdmin(admin.ModelAdmin):
         if getattr(obj, "image", None):
             try:
                 return format_html(
-                    '<img src="{}" style="max-width: 480px; height:auto; border-radius:12px; box-shadow:0 1px 4px rgba(0,0,0,.1);" />',
+                    (
+                        '<img src="{}" style="max-width: 480px; height:auto; border-radius:12px; '
+                        'box-shadow:0 1px 4px rgba(0,0,0,.1);" />'
+                    ),
                     obj.image.url,
                 )
             except Exception:
