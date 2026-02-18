@@ -85,8 +85,21 @@ A calm, creative visual language reflecting the artistic identity of *Artea Stud
 ![Artea Hero Section](docs/screenshots/ux-home-hero.png)
 ![Artea Footer Section](docs/screenshots/ux-home-footer.png)
 
-### Wireframes & Mockups
-Se `/docs/wireframes` for key screens and flows.
+### Wireframes
+
+Low-fidelity wireframes were created during the planning phase to define layout structure, navigation hierarchy, and user flow before implementation.
+
+The wireframes focused on:
+- Header and navigation structure
+- Hero and CTA positioning
+- Product grid layout
+- Product detail layout
+- Cart & checkout flow
+- Authenticated dashboard structure
+
+The wireframe image included in the repository reflects the early structural planning of the application before full styling and backend integration.
+
+![wireframes.png](docs/screenshots/wireframes.png)
 
 ---
 
@@ -318,8 +331,9 @@ Each task was linked to a GitHub Issue containing:
 - Acceptance Criteria
 - Completion validation
 
-> Project board evidence screenshot:
-> docs/screenshots/agile-github-board.png
+> Project board evidence screenshot: ![agile-github-board.png](/docs/screenshots/agile-github-board.png)
+
+> Project board link: https://github.com/users/creanorcode/projects/3/views/1 
 
 ---
 
@@ -655,6 +669,12 @@ Validation via local endpoints and screenshots included
 - **Marketing:** Newsletter signup (mock), Facebook page mockup (screenshot), SEO metadata.
 
 - **Value Proposition:** Personal, mindful design with efficient digital delivery.
+
+### Marketing Mock Strategy
+
+A Facebook Business Page mockup was planned as part of the marketing strategy to demonstrate how Artea Studio could be presented on social media.
+
+Due to time constraints, this mockup was not finalised, but the marketing approach and branding direction are documented in this section.
 
 ---
 
